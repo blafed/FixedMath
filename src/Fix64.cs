@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace FixMath.NET
+namespace FixedMath
 {
 
     /// <summary>
@@ -987,7 +987,7 @@ namespace FixMath.NET
             using (var writer = new StreamWriter("Fix64SinLut.cs"))
             {
                 writer.Write(
-@"namespace FixMath.NET 
+@"namespace FixedMath 
 {
     partial struct Fix64 
     {
@@ -1019,7 +1019,7 @@ namespace FixMath.NET
             using (var writer = new StreamWriter("Fix64TanLut.cs"))
             {
                 writer.Write(
-@"namespace FixMath.NET 
+@"namespace FixedMath 
 {
     partial struct Fix64 
     {

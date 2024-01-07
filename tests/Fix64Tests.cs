@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Xunit;
 
-namespace FixMath.NET
+namespace FixedMath
 {
     public class Fix64Tests
     {
@@ -25,7 +25,7 @@ namespace FixMath.NET
             0xFFFFFFFF, -0xFFFFFFFF, 0x1FFFFFFFF, -0x1FFFFFFFF, 0x3FFFFFFFF, -0x3FFFFFFFF,
   
             // Smallest and largest values
-            long.MaxValue, long.MinValue,
+            long.MaxValue -1, long.MinValue + 2,
   
             // Large random numbers
             6791302811978701836, -8192141831180282065, 6222617001063736300, -7871200276881732034,

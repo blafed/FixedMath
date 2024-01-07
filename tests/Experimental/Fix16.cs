@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Globalization;
 
-namespace FixMath.NET {
+namespace FixedMath
+{
 
     /// <summary>
     /// This is more or less a straight port of libfixmath (https://code.google.com/p/libfixmath/)
     /// It sort of works but I didn't spend much time on it.
     /// </summary>
-    public partial struct Fix16 : IEquatable<Fix16>, IComparable<Fix16> {
+    public partial struct Fix16 : IEquatable<Fix16>, IComparable<Fix16>
+    {
 
         readonly int m_rawValue;
         static readonly Fix16[][] Fix16AtanCacheIndex;
         static readonly Fix16[] Fix16AtanCacheValue = new Fix16[4096];
 
-        static Fix16() {
+        static Fix16()
+        {
             Fix16AtanCacheIndex = new Fix16[2][];
             Fix16AtanCacheIndex[0] = new Fix16[4096];
             Fix16AtanCacheIndex[1] = new Fix16[4096];
@@ -34,23 +37,28 @@ namespace FixMath.NET {
         public static readonly Fix16 One = new Fix16(0x00010000);
         public static readonly Fix16 Zero = new Fix16(0);
 
-        public static explicit operator Fix16(int a) {
+        public static explicit operator Fix16(int a)
+        {
             return new Fix16(a * One.m_rawValue);
         }
 
-        public static explicit operator float(Fix16 a) {
+        public static explicit operator float(Fix16 a)
+        {
             return (float)a.m_rawValue / One.m_rawValue;
         }
 
-        public static explicit operator double(Fix16 a) {
+        public static explicit operator double(Fix16 a)
+        {
             return (double)a.m_rawValue / One.m_rawValue;
         }
 
-        public static explicit operator decimal(Fix16 a) {
+        public static explicit operator decimal(Fix16 a)
+        {
             return (decimal)a.m_rawValue / One.m_rawValue;
         }
 
-        public static explicit operator int(Fix16 a) {
+        public static explicit operator int(Fix16 a)
+        {
 #if !FIXMATH_NO_ROUNDING
             return a.m_rawValue >> 16;
 #else
@@ -61,7 +69,8 @@ namespace FixMath.NET {
 #endif
         }
 
-        public static explicit operator Fix16(float a) {
+        public static explicit operator Fix16(float a)
+        {
             var temp = a * One.m_rawValue;
 #if !FIXMATH_NO_ROUNDING
             temp += (temp >= 0) ? 0.5f : -0.5f;
@@ -69,7 +78,8 @@ namespace FixMath.NET {
             return new Fix16((int)temp);
         }
 
-        public static explicit operator Fix16(double a) {
+        public static explicit operator Fix16(double a)
+        {
             var temp = a * One.m_rawValue;
 #if !FIXMATH_NO_ROUNDING
             temp += (temp >= 0) ? 0.5f : -0.5f;
@@ -77,34 +87,41 @@ namespace FixMath.NET {
             return new Fix16((int)temp);
         }
 
-        public static Fix16 Abs(Fix16 x) {
+        public static Fix16 Abs(Fix16 x)
+        {
             // branchless implementation, see http://www.strchr.com/optimized_abs_function
             int mask = x.m_rawValue >> 31;
             return new Fix16((x.m_rawValue + mask) ^ mask);
         }
 
-        public static Fix16 Floor(Fix16 x) {
+        public static Fix16 Floor(Fix16 x)
+        {
             return new Fix16((int)((ulong)x.m_rawValue & 0xFFFF0000UL));
         }
 
-        public static Fix16 Ceil(Fix16 x) {
+        public static Fix16 Ceil(Fix16 x)
+        {
             return new Fix16((int)
                 (((ulong)x.m_rawValue & 0xFFFF0000UL) + (((ulong)x.m_rawValue & 0x0000FFFFUL) != 0UL ? (ulong)One.m_rawValue : 0UL)));
         }
 
-        public static Fix16 Min(Fix16 x, Fix16 y) {
+        public static Fix16 Min(Fix16 x, Fix16 y)
+        {
             return x.m_rawValue < y.m_rawValue ? x : y;
         }
 
-        public static Fix16 Max(Fix16 x, Fix16 y) {
+        public static Fix16 Max(Fix16 x, Fix16 y)
+        {
             return x.m_rawValue > y.m_rawValue ? x : y;
         }
 
-        public static Fix16 Clamp(Fix16 x, Fix16 min, Fix16 max) {
+        public static Fix16 Clamp(Fix16 x, Fix16 min, Fix16 max)
+        {
             return Min(Max(x, min), max);
         }
 
-        public static Fix16 operator +(Fix16 x, Fix16 y) {
+        public static Fix16 operator +(Fix16 x, Fix16 y)
+        {
 #if FIXMATH_NO_OVERFLOW
             return new Fix16(x.m_rawValue + y.m_rawValue);
 #else
@@ -118,7 +135,8 @@ namespace FixMath.NET {
 #endif
         }
 
-        public static Fix16 operator -(Fix16 x, Fix16 y) {
+        public static Fix16 operator -(Fix16 x, Fix16 y)
+        {
 #if FIXMATH_NO_OVERFLOW
             return new Fix16(x.m_rawValue - y.m_rawValue);
 #else
@@ -132,19 +150,23 @@ namespace FixMath.NET {
 #endif
         }
 
-        public static Fix16 SAdd(Fix16 a, Fix16 b) {
+        public static Fix16 SAdd(Fix16 a, Fix16 b)
+        {
             var result = a + b;
 
-            if (result == Overflow) {
+            if (result == Overflow)
+            {
                 return (a > Zero) ? MaxValue : MinValue;
             }
             return result;
         }
 
-        public static Fix16 SSub(Fix16 a, Fix16 b) {
+        public static Fix16 SSub(Fix16 a, Fix16 b)
+        {
             var result = a - b;
 
-            if (result == Overflow) {
+            if (result == Overflow)
+            {
                 return (a > Zero) ? MaxValue : MinValue;
             }
 
@@ -152,7 +174,8 @@ namespace FixMath.NET {
         }
 
         // Since this is .NET, we can assume 64-bit arithmetic is supported
-        public static Fix16 operator *(Fix16 x, Fix16 y) {
+        public static Fix16 operator *(Fix16 x, Fix16 y)
+        {
 
             var product = (long)x.m_rawValue * y.m_rawValue;
 
@@ -161,7 +184,8 @@ namespace FixMath.NET {
             var upper = (uint)(product >> 47);
 #endif
 
-            if (product < 0) {
+            if (product < 0)
+            {
 #if !FIXMATH_NO_OVERFLOW
                 if (~upper != 0)
                     return Overflow;
@@ -172,7 +196,8 @@ namespace FixMath.NET {
                 product--;
 #endif
             }
-            else {
+            else
+            {
 #if !FIXMATH_NO_OVERFLOW
                 if (upper != 0)
                     return Overflow;
@@ -189,19 +214,22 @@ namespace FixMath.NET {
 #endif
         }
 
-        public static Fix16 SMul(Fix16 a, Fix16 b) {
+        public static Fix16 SMul(Fix16 a, Fix16 b)
+        {
             var result = a * b;
 
-            if (result == Overflow) {
-                return (a >= Zero) == (b >= Zero) ? 
-                    MaxValue : 
+            if (result == Overflow)
+            {
+                return (a >= Zero) == (b >= Zero) ?
+                    MaxValue :
                     MinValue;
             }
 
             return result;
         }
 
-        static byte Clz(uint x) {
+        static byte Clz(uint x)
+        {
             byte result = 0;
             if (x == 0) { return 32; }
             while ((x & 0xF0000000) == 0) { result += 4; x <<= 4; }
@@ -209,13 +237,15 @@ namespace FixMath.NET {
             return result;
         }
 
-        public static Fix16 operator /(Fix16 x, Fix16 y) {
+        public static Fix16 operator /(Fix16 x, Fix16 y)
+        {
             // This uses a hardware 32/32 bit division multiple times, until we have
             // computed all the bits in (a<<17)/b. Usually this takes 1-3 iterations.
             var a = x.m_rawValue;
             var b = y.m_rawValue;
 
-            if (b == 0) {
+            if (b == 0)
+            {
                 return MinValue;
             }
 
@@ -227,19 +257,22 @@ namespace FixMath.NET {
             // Kick-start the division a bit.
             // This improves speed in the worst-case scenarios where N and D are large
             // It gets a lower estimate for the result by N/(D >> 17 + 1).
-            if ((divider & 0xFFF00000) != 0) {
+            if ((divider & 0xFFF00000) != 0)
+            {
                 var shiftedDiv = ((divider >> 17) + 1);
                 quotient = remainder / shiftedDiv;
                 remainder -= (uint)(((ulong)quotient * divider) >> 17);
             }
 
             // If the divider is divisible by 2^n, take advantage of it.
-            while ((divider & 0xF) == 0 && bitPos >= 4) {
+            while ((divider & 0xF) == 0 && bitPos >= 4)
+            {
                 divider >>= 4;
                 bitPos -= 4;
             }
 
-            while (remainder != 0 && bitPos >= 0) {
+            while (remainder != 0 && bitPos >= 0)
+            {
                 // Shift remainder as much as we can without overflowing
                 int shift = Clz(remainder);
                 if (shift > bitPos) shift = bitPos;
@@ -251,7 +284,8 @@ namespace FixMath.NET {
                 quotient += div << bitPos;
 
 #if !FIXMATH_NO_OVERFLOW
-                if ((div & ~(0xFFFFFFFF >> bitPos)) != 0) {
+                if ((div & ~(0xFFFFFFFF >> bitPos)) != 0)
+                {
                     return Overflow;
                 }
 #endif
@@ -268,9 +302,11 @@ namespace FixMath.NET {
             var result = (int)(quotient >> 1);
 
             // Figure out the sign of the result
-            if (((a ^ b) & 0x80000000) != 0) {
+            if (((a ^ b) & 0x80000000) != 0)
+            {
 #if !FIXMATH_NO_OVERFLOW
-                if (result == MinValue.m_rawValue) {
+                if (result == MinValue.m_rawValue)
+                {
                     return Overflow;
                 }
 #endif
@@ -280,10 +316,12 @@ namespace FixMath.NET {
             return new Fix16(result);
         }
 
-        public static Fix16 SDiv(Fix16 inArg0, Fix16 inArg1) {
+        public static Fix16 SDiv(Fix16 inArg0, Fix16 inArg1)
+        {
             var result = inArg0 / inArg1;
 
-            if (result == Overflow) {
+            if (result == Overflow)
+            {
                 return (inArg0 >= Zero) == (inArg1 >= Zero) ? MaxValue : MinValue;
             }
 
@@ -291,7 +329,8 @@ namespace FixMath.NET {
         }
 
 
-        public static Fix16 Sqrt(Fix16 x) {
+        public static Fix16 Sqrt(Fix16 x)
+        {
             var inValue = x.m_rawValue;
             var neg = (inValue < 0);
             var num = (uint)(neg ? -inValue : inValue);
@@ -305,28 +344,35 @@ namespace FixMath.NET {
                 (uint)1 << 30 :
                 (uint)1 << 18;
 
-            while (bit > num) {
+            while (bit > num)
+            {
                 bit >>= 2;
             }
 
             // The main part is executed twice, in order to avoid
             // using 64 bit values in computations.
-            for (var n = 0; n < 2; n++) {
+            for (var n = 0; n < 2; n++)
+            {
                 // First we get the top 24 bits of the answer.
-                while (bit != 0) {
-                    if (num >= result + bit) {
+                while (bit != 0)
+                {
+                    if (num >= result + bit)
+                    {
                         num -= result + bit;
                         result = (result >> 1) + bit;
                     }
-                    else {
+                    else
+                    {
                         result = (result >> 1);
                     }
                     bit >>= 2;
                 }
 
-                if (n == 0) {
+                if (n == 0)
+                {
                     // Then process it again to get the lowest 8 bits.
-                    if (num > 65535) {
+                    if (num > 65535)
+                    {
                         // The remainder 'num' is too large to be shifted left
                         // by 16, so we have to add 1 to result manually and
                         // adjust 'num' accordingly.
@@ -337,7 +383,8 @@ namespace FixMath.NET {
                         num = (num << 16) - 0x8000;
                         result = (result << 16) + 0x8000;
                     }
-                    else {
+                    else
+                    {
                         num <<= 16;
                         result <<= 16;
                     }
@@ -349,7 +396,8 @@ namespace FixMath.NET {
 
 #if !FIXMATH_NO_ROUNDING
             // Finally, if next bit would have been 1, round the result upwards.
-            if (num > result) {
+            if (num > result)
+            {
                 result++;
             }
 #endif
@@ -362,7 +410,8 @@ namespace FixMath.NET {
         /// </summary>
         /// <param name="inAngle">Must be comprised between -Pi and Pi</param>
         /// <returns></returns>
-        public static Fix16 SinParabola(Fix16 inAngle) {
+        public static Fix16 SinParabola(Fix16 inAngle)
+        {
             // On 0->PI, sin looks like x² that is :
             // - centered on PI/2,
             // - equals 1 on PI/2,
@@ -380,13 +429,15 @@ namespace FixMath.NET {
         /// <summary>
         /// Implemented as if FIXMATH_SIN_LUT was always defined.
         /// </summary>
-        public static Fix16 Sin(Fix16 inAngle) {
+        public static Fix16 Sin(Fix16 inAngle)
+        {
             var tempAngle = inAngle % (Pi << 1);
 
             if (tempAngle < Zero)
                 tempAngle += Pi << 1;
 
-            if (tempAngle >= Pi) {
+            if (tempAngle >= Pi)
+            {
                 tempAngle -= Pi;
                 if (tempAngle >= (Pi >> 1))
                     tempAngle = Pi - tempAngle;
@@ -401,16 +452,20 @@ namespace FixMath.NET {
                        new Fix16(SinLut[tempAngle.m_rawValue]);
         }
 
-        public static Fix16 Cos(Fix16 inAngle) {
+        public static Fix16 Cos(Fix16 inAngle)
+        {
             return Sin(new Fix16(inAngle.m_rawValue + (Pi.m_rawValue >> 1)));
         }
 
-        public static Fix16 Tan(Fix16 inAngle) {
+        public static Fix16 Tan(Fix16 inAngle)
+        {
             return SDiv(Sin(inAngle), Cos(inAngle));
         }
 
-        public static Fix16 Asin(Fix16 x) {
-            if (x > One || x < -One) {
+        public static Fix16 Asin(Fix16 x)
+        {
+            if (x > One || x < -One)
+            {
                 return Zero;
             }
 
@@ -421,30 +476,35 @@ namespace FixMath.NET {
         }
 
 
-        public static Fix16 Atan2(Fix16 inY, Fix16 inX) {
+        public static Fix16 Atan2(Fix16 inY, Fix16 inX)
+        {
             // This code is based on http://en.wikipedia.org/wiki/User:Msiddalingaiah/Ideas#Fast_arc_tangent
             var hash = (uint)(inX.m_rawValue ^ inY.m_rawValue);
             hash ^= hash >> 20;
             hash &= 0x0FFF;
-            if ((Fix16AtanCacheIndex[0][hash] == inX) && (Fix16AtanCacheIndex[1][hash] == inY)) {
+            if ((Fix16AtanCacheIndex[0][hash] == inX) && (Fix16AtanCacheIndex[1][hash] == inY))
+            {
                 return Fix16AtanCacheValue[hash];
             }
 
             var absInY = Abs(inY);
             Fix16 angle;
-            if (inX >= Zero) {
+            if (inX >= Zero)
+            {
                 var r = (inX - absInY) / (inX + absInY);
                 var r3 = r * r * r;
                 angle = (new Fix16(0x00003240) * r3) - (new Fix16(0x0000FB50) * r) + PiDiv4;
             }
-            else {
+            else
+            {
                 var r = (inX + absInY) / (absInY - inX);
                 var r3 = r * r * r;
                 angle = (new Fix16(0x00003240) * r3)
                         - (new Fix16(0x0000FB50) * r)
                         + ThreePiDiv4;
             }
-            if (inY < Zero) {
+            if (inY < Zero)
+            {
                 angle = -angle;
             }
 
@@ -455,96 +515,119 @@ namespace FixMath.NET {
             return angle;
         }
 
-        public static Fix16 Atan(Fix16 x) {
+        public static Fix16 Atan(Fix16 x)
+        {
             return Atan2(x, One);
         }
 
-        public static Fix16 Acos(Fix16 x) {
+        public static Fix16 Acos(Fix16 x)
+        {
             return new Fix16((Pi.m_rawValue >> 1) - Asin(x).m_rawValue);
         }
 
-        public static Fix16 operator %(Fix16 x, Fix16 y) {
+        public static Fix16 operator %(Fix16 x, Fix16 y)
+        {
             return new Fix16(x.m_rawValue % y.m_rawValue);
         }
 
-        public static Fix16 operator >>(Fix16 x, int shift) {
+        public static Fix16 operator >>(Fix16 x, int shift)
+        {
             return new Fix16(x.m_rawValue >> shift);
         }
 
-        public static Fix16 operator <<(Fix16 x, int shift) {
+        public static Fix16 operator <<(Fix16 x, int shift)
+        {
             return new Fix16(x.m_rawValue << shift);
         }
 
-        public static Fix16 operator -(Fix16 x) {
+        public static Fix16 operator -(Fix16 x)
+        {
             return new Fix16(-x.m_rawValue);
         }
 
-        public static bool operator >(Fix16 x, Fix16 y) {
+        public static bool operator >(Fix16 x, Fix16 y)
+        {
             return x.m_rawValue > y.m_rawValue;
         }
 
-        public static bool operator <(Fix16 x, Fix16 y) {
+        public static bool operator <(Fix16 x, Fix16 y)
+        {
             return x.m_rawValue < y.m_rawValue;
         }
 
-        public static bool operator >=(Fix16 x, Fix16 y) {
+        public static bool operator >=(Fix16 x, Fix16 y)
+        {
             return x.m_rawValue >= y.m_rawValue;
         }
 
-        public static bool operator <=(Fix16 x, Fix16 y) {
+        public static bool operator <=(Fix16 x, Fix16 y)
+        {
             return x.m_rawValue <= y.m_rawValue;
         }
 
-        public static bool operator ==(Fix16 x, Fix16 y) {
+        public static bool operator ==(Fix16 x, Fix16 y)
+        {
             return x.m_rawValue == y.m_rawValue;
         }
 
-        public static bool operator !=(Fix16 x, Fix16 y) {
+        public static bool operator !=(Fix16 x, Fix16 y)
+        {
             return x.m_rawValue != y.m_rawValue;
         }
 
-        public static Fix16 operator ++(Fix16 x) {
+        public static Fix16 operator ++(Fix16 x)
+        {
             return x + One;
         }
 
-        public static Fix16 operator --(Fix16 x) {
+        public static Fix16 operator --(Fix16 x)
+        {
             return x - One;
         }
 
-        public static Fix16 FromRaw(int i) {
+        public static Fix16 FromRaw(int i)
+        {
             return new Fix16(i);
         }
 
-        Fix16(int rawValue) {
+        Fix16(int rawValue)
+        {
             m_rawValue = rawValue;
         }
 
-        Fix16(uint rawValue) {
+        Fix16(uint rawValue)
+        {
             m_rawValue = (int)rawValue;
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             // Using Decimal.ToString() instead of float or double because decimal is 
             // also implemented in software. This guarantees a consistent string representation.
             return ((decimal)this).ToString(CultureInfo.InvariantCulture);
         }
 
-        public bool Equals(Fix16 other) {
+        public bool Equals(Fix16 other)
+        {
             return m_rawValue == other.m_rawValue;
         }
 
-        public int CompareTo(Fix16 other) {
+        public int CompareTo(Fix16 other)
+        {
             return m_rawValue.CompareTo(other.m_rawValue);
         }
 
-        public override bool Equals(object obj) {
-            if (ReferenceEquals(null, obj)) {
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
                 return false;
             }
             return obj is Fix16 && Equals((Fix16)obj);
         }
 
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             return m_rawValue;
         }
     }
