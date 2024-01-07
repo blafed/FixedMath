@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\FixedMath.NET.csproj" />
+    <ProjectReference Include="..\FixedMath\FixedMath.csproj" />
   </ItemGroup>
 
 </Project>
