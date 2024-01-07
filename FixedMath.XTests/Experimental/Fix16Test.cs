@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace FixMath.NET
+namespace FixedMath
 {
     public class Fix16Test
     {
@@ -38,39 +38,45 @@ namespace FixMath.NET
           -376, 435, -311, 116, 715, -1024, -487, 59, 724, 993
         };
 
-        static Fix16 Delta(Fix16 a, Fix16 b) {
+        static Fix16 Delta(Fix16 a, Fix16 b)
+        {
             return a > b ? a - b : b - a;
         }
 
-        #if !FIXMATH_NO_ROUNDING
+#if !FIXMATH_NO_ROUNDING
         static readonly Fix16 MaxDelta = Fix16.FromRaw(1);
-        #else
+#else
         static readonly Fix16 MaxDelta = Fix16.FromRaw(0);
 #endif
 
         #region Basic Multiplication
 
         [Fact]
-        public void BasicMultiplicationPosPos() {
+        public void BasicMultiplicationPosPos()
+        {
             MultiplicationTest(5, 5, 25);
         }
 
         [Fact]
-        public void BasicMultiplicationNegPos() {
+        public void BasicMultiplicationNegPos()
+        {
             MultiplicationTest(-5, 5, -25);
         }
 
         [Fact]
-        public void BasicMultiplicationNegNeg() {
+        public void BasicMultiplicationNegNeg()
+        {
             MultiplicationTest(-5, -5, 25);
         }
 
         [Fact]
-        public void BasicMultiplicationPosNeg() {
+        public void BasicMultiplicationPosNeg()
+        {
             MultiplicationTest(5, -5, -25);
         }
 
-        static void MultiplicationTest(int v1, int v2, int expected) {
+        static void MultiplicationTest(int v1, int v2, int expected)
+        {
             var a1 = (Fix16)v1;
             var a2 = (Fix16)v2;
             var expectedF = (Fix16)expected;
@@ -78,7 +84,8 @@ namespace FixMath.NET
             Assert.Equal(expectedF, actual);
         }
 
-        static void MultiplicationTestRaw(int v1, int v2, int expected) {
+        static void MultiplicationTestRaw(int v1, int v2, int expected)
+        {
             var a1 = Fix16.FromRaw(v1);
             var a2 = Fix16.FromRaw(v2);
             var expectedF = Fix16.FromRaw(expected);
@@ -89,9 +96,10 @@ namespace FixMath.NET
 
 #if !FIXMATH_NO_ROUNDING
         [Fact]
-        public void MultiplicationRoundingCornerCases() {
+        public void MultiplicationRoundingCornerCases()
+        {
             MultiplicationTestRaw(2, 0x8000, 1);
-            MultiplicationTestRaw(-2, 0x8000,-1);
+            MultiplicationTestRaw(-2, 0x8000, -1);
             MultiplicationTestRaw(3, 0x8000, 2);
             MultiplicationTestRaw(-3, 0x8000, -2);
             MultiplicationTestRaw(2, 0x7FFF, 1);
@@ -102,14 +110,18 @@ namespace FixMath.NET
 #endif
 
         [Fact]
-        public void MultiplicationTestCases() {
+        public void MultiplicationTestCases()
+        {
             RunAllTestCases((f1, f2) => f1 * f2, (d1, d2) => d1 * d2, "*");
         }
 
-        void RunAllTestCases(Func<Fix16, Fix16, Fix16> fix16Op, Func<double, double, double> doubleOp, string opChar) {
+        void RunAllTestCases(Func<Fix16, Fix16, Fix16> fix16Op, Func<double, double, double> doubleOp, string opChar)
+        {
 
-            for (var i = 0; i < m_testcases.Length; i++) {
-                for (var j = 0; j < m_testcases.Length; j++) {
+            for (var i = 0; i < m_testcases.Length; i++)
+            {
+                for (var j = 0; j < m_testcases.Length; j++)
+                {
                     var a = Fix16.FromRaw(m_testcases[i]);
                     var b = Fix16.FromRaw(m_testcases[j]);
                     var result = fix16Op(a, b);
@@ -121,8 +133,10 @@ namespace FixMath.NET
                     var max = (double)(Fix16.MaxValue);
                     var min = (double)(Fix16.MinValue);
 
-                    if (Delta(fresult, result) > MaxDelta) {
-                        if (doubleOp(fa, fb) > max || doubleOp(fa, fb) < min) {
+                    if (Delta(fresult, result) > MaxDelta)
+                    {
+                        if (doubleOp(fa, fb) > max || doubleOp(fa, fb) < min)
+                        {
 #if !FIXMATH_NO_OVERFLOW
                             Assert.Equal(result, Fix16.Overflow);
                             //failures++;
@@ -138,23 +152,28 @@ namespace FixMath.NET
 
 
         [Fact]
-        public void BasicDivisionPosPos() {
+        public void BasicDivisionPosPos()
+        {
             DivisionTest(15, 5, 3);
         }
         [Fact]
-        public void BasicDivisionNegPos() {
+        public void BasicDivisionNegPos()
+        {
             DivisionTest(-15, 5, -3);
         }
         [Fact]
-        public void BasicDivisionPosNeg() {
+        public void BasicDivisionPosNeg()
+        {
             DivisionTest(15, -5, -3);
         }
         [Fact]
-        public void BasicDivisionNegNeg() {
+        public void BasicDivisionNegNeg()
+        {
             DivisionTest(-15, -5, 3);
         }
 
-        static void DivisionTest(int v1, int v2, int expected) {
+        static void DivisionTest(int v1, int v2, int expected)
+        {
             var a1 = (Fix16)v1;
             var a2 = (Fix16)v2;
             var expectedF = (Fix16)expected;
@@ -162,7 +181,8 @@ namespace FixMath.NET
             Assert.Equal(expectedF, actual);
         }
 
-        static void DivisionTestRaw(int v1, int v2, int expected) {
+        static void DivisionTestRaw(int v1, int v2, int expected)
+        {
             var a1 = Fix16.FromRaw(v1);
             var a2 = Fix16.FromRaw(v2);
             var expectedF = Fix16.FromRaw(expected);
@@ -170,16 +190,18 @@ namespace FixMath.NET
             Assert.Equal(expectedF, actual);
         }
 
-        static void DivisionTestRaw(int v1, Fix16 v2, int expected) {
+        static void DivisionTestRaw(int v1, Fix16 v2, int expected)
+        {
             var a1 = Fix16.FromRaw(v1);
             var expectedF = Fix16.FromRaw(expected);
             var actual = a1 / v2;
-            Assert.Equal(expectedF, actual );
+            Assert.Equal(expectedF, actual);
         }
 
 #if !FIXMATH_NO_ROUNDING
         [Fact]
-        public void DivisionRoundingCornerCases() {
+        public void DivisionRoundingCornerCases()
+        {
             DivisionTestRaw(0, 10, 0);
             DivisionTestRaw(1, (Fix16)(2), 1);
             DivisionTestRaw(-1, (Fix16)(2), -1);
@@ -197,21 +219,25 @@ namespace FixMath.NET
 #endif
 
         [Fact]
-        public void DivisionTestCases() {
+        public void DivisionTestCases()
+        {
             RunAllTestCases((f1, f2) => f1 / f2, (d1, d2) => d1 / d2, "/");
         }
 
         [Fact]
-        public void AdditionTestCases() {
+        public void AdditionTestCases()
+        {
             RunAllTestCases((f1, f2) => f1 + f2, (d1, d2) => d1 + d2, "+");
         }
 
         [Fact]
-        public void SubstractionTestCases() {
+        public void SubstractionTestCases()
+        {
             RunAllTestCases((f1, f2) => f1 - f2, (d1, d2) => d1 - d2, "-");
         }
 
-        static void SquareRootTestRaw(int x, int expected) {
+        static void SquareRootTestRaw(int x, int expected)
+        {
             var xf = Fix16.FromRaw(x);
             var expectedF = Fix16.FromRaw(expected);
             var actual = Fix16.Sqrt(xf);
@@ -220,7 +246,8 @@ namespace FixMath.NET
 
 #if !FIXMATH_NO_ROUNDING
         [Fact]
-        public void SquareRootRoundingCornerCases() {
+        public void SquareRootRoundingCornerCases()
+        {
             SquareRootTestRaw(214748302, 3751499);
             SquareRootTestRaw(214748303, 3751499);
             SquareRootTestRaw(214748359, 3751499);
@@ -229,8 +256,10 @@ namespace FixMath.NET
 #endif
 
         [Fact]
-        public void SinParabola() {
-            for (var angle = -Fix16.Pi; angle <= Fix16.Pi; angle += Fix16.Pi / (Fix16)16) {
+        public void SinParabola()
+        {
+            for (var angle = -Fix16.Pi; angle <= Fix16.Pi; angle += Fix16.Pi / (Fix16)16)
+            {
                 var actual = (double)Fix16.SinParabola(angle);
                 var expected = Math.Sin((double)angle);
                 var diff = Math.Abs(actual - expected);
@@ -239,8 +268,10 @@ namespace FixMath.NET
         }
 
         [Fact]
-        public void Sin() {
-            for (var angle = (Fix16)(-100); angle <= (Fix16)100; angle += Fix16.One / (Fix16)10) {
+        public void Sin()
+        {
+            for (var angle = (Fix16)(-100); angle <= (Fix16)100; angle += Fix16.One / (Fix16)10)
+            {
                 var actual = (double)Fix16.Sin(angle);
                 var expected = Math.Sin((double)angle);
                 var diff = Math.Abs(actual - expected);
@@ -249,8 +280,10 @@ namespace FixMath.NET
         }
 
         [Fact]
-        public void Cos() {
-            for (var angle = (Fix16)(-100); angle <= (Fix16)100; angle += Fix16.One / (Fix16)10) {
+        public void Cos()
+        {
+            for (var angle = (Fix16)(-100); angle <= (Fix16)100; angle += Fix16.One / (Fix16)10)
+            {
                 var actual = (double)Fix16.Cos(angle);
                 var expected = Math.Cos((double)angle);
                 var diff = Math.Abs(actual - expected);
@@ -259,8 +292,10 @@ namespace FixMath.NET
         }
 
         [Fact]
-        public void Tan() {
-            for (var angle = (Fix16)(-100); angle <= (Fix16)100; angle += Fix16.One / (Fix16)10) {
+        public void Tan()
+        {
+            for (var angle = (Fix16)(-100); angle <= (Fix16)100; angle += Fix16.One / (Fix16)10)
+            {
                 var actual = (double)Fix16.Tan(angle);
                 var expected = Math.Tan((double)angle);
                 var relativeDiff = Math.Abs(actual - expected) / Math.Abs(expected);
@@ -269,9 +304,12 @@ namespace FixMath.NET
         }
 
         [Fact]
-        public void Atan2() {
-            for (var angleX = (Fix16)(-50); angleX <= (Fix16)50; angleX += Fix16.One / (Fix16)9) {
-                for (var angleY = (Fix16)(-50); angleY <= (Fix16)50; angleY += Fix16.One / (Fix16)7) {
+        public void Atan2()
+        {
+            for (var angleX = (Fix16)(-50); angleX <= (Fix16)50; angleX += Fix16.One / (Fix16)9)
+            {
+                for (var angleY = (Fix16)(-50); angleY <= (Fix16)50; angleY += Fix16.One / (Fix16)7)
+                {
                     var actual = (double)Fix16.Atan2(angleX, angleY);
                     var expected = Math.Atan2((double)angleX, (double)angleY);
                     var diff = Math.Abs(actual - expected);
@@ -281,9 +319,12 @@ namespace FixMath.NET
         }
 
         [Fact]
-        public void SubstractionSign() {
-            for (int i = -1; i <= 1; ++i) {
-                for (int j = -1; j <= 1; ++j) {
+        public void SubstractionSign()
+        {
+            for (int i = -1; i <= 1; ++i)
+            {
+                for (int j = -1; j <= 1; ++j)
+                {
                     var a1 = (Fix16)i;
                     var a2 = (Fix16)j;
                     var actual = (int)(a1 - a2);
@@ -294,9 +335,12 @@ namespace FixMath.NET
         }
 
         [Fact]
-        public void AdditionSign() {
-            for (int i = -1; i <= 1; ++i) {
-                for (int j = -1; j <= 1; ++j) {
+        public void AdditionSign()
+        {
+            for (int i = -1; i <= 1; ++i)
+            {
+                for (int j = -1; j <= 1; ++j)
+                {
                     var a1 = (Fix16)i;
                     var a2 = (Fix16)j;
                     var actual = (int)(a1 + a2);
@@ -307,8 +351,10 @@ namespace FixMath.NET
         }
 
         //[Fact]
-        public void Sqrt() {
-            for (int i = (int.MaxValue / 2); i <= int.MaxValue; i += 21) {
+        public void Sqrt()
+        {
+            for (int i = (int.MaxValue / 2); i <= int.MaxValue; i += 21)
+            {
                 var f = Fix16.FromRaw(i);
                 var expected = Math.Sqrt((double)f);
                 var actual = (double)Fix16.Sqrt(f);
