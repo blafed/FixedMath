@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-
 namespace FixedMath
 {
 
+    using static Lut.Fix64Lut;
     /// <summary>
     /// Represents a Q31.32 fixed-point number.
     /// </summary>
@@ -17,6 +17,8 @@ namespace FixedMath
         public static readonly Fix64 MinValue = new Fix64(Fix64Constants.MIN_VALUE);
         public static readonly Fix64 One = new Fix64(Fix64Constants.ONE);
         public static readonly Fix64 Zero = new Fix64();
+        public static readonly Fix64 Half = (Fix64)0.5m;
+        public static readonly Fix64 Two = new Fix64(2);
         /// <summary>
         /// The value of Pi
         /// </summary>
@@ -905,7 +907,7 @@ namespace FixedMath
 
 
 
-        public static explicit operator Fix64(long value)
+        public static implicit operator Fix64(long value)
         {
             return new Fix64(value * Fix64Constants.ONE);
         }
@@ -929,7 +931,7 @@ namespace FixedMath
         {
             return (double)value.m_rawValue / Fix64Constants.ONE;
         }
-        public static explicit operator Fix64(decimal value)
+        public static implicit operator Fix64(decimal value)
         {
             return new Fix64((long)(value * Fix64Constants.ONE));
         }

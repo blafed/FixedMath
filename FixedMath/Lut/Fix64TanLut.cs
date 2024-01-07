@@ -1,6 +1,6 @@
-namespace FixedMath
+namespace FixedMath.Lut
 {
-    partial struct Fix64
+    static partial class Fix64Lut
     {
         public static readonly long[] TanLut = new[]
         {
