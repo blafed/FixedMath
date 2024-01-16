@@ -1,4 +1,8 @@
-﻿using System;
+﻿/**
+Source:
+https://github.com/sam-vdp/bepuphysics1int/blob/master/BEPUutilities/Matrix3x3.cs
+*/
+using System;
 namespace FixedMath
 {
     /// <summary>

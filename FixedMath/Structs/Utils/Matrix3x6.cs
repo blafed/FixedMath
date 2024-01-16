@@ -1,3 +1,7 @@
+/**
+Source:
+https://github.com/sam-vdp/bepuphysics1int/blob/master/BEPUutilities/Matrix3x6.cs
+*/
 using System;
 using System.Runtime.CompilerServices;
 namespace FixedMath

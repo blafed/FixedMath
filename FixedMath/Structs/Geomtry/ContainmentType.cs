@@ -1,4 +1,8 @@
-﻿namespace FixedMath.Geomtry
+﻿/**
+Source:
+https://github.com/sam-vdp/bepuphysics1int/blob/master/BEPUutilities/ContainmentType.cs
+*/
+namespace FixedMath.Geomtry
 {
     /// <summary>
     /// The current containment state of two objects.

@@ -1,4 +1,8 @@
-﻿namespace FixedMath.Geomtry
+﻿/**
+Source:
+https://github.com/sam-vdp/bepuphysics1int/blob/master/BEPUutilities/AffineTransform.cs
+*/
+namespace FixedMath.Geomtry
 {
     ///<summary>
     /// A transformation composed of a linear transformation and a translation.

@@ -1,4 +1,8 @@
 ﻿
+/**
+Source:
+https://github.com/sam-vdp/bepuphysics1int/blob/master/BEPUutilities/Vector4.cs
+*/
 using System;
 
 namespace FixedMath

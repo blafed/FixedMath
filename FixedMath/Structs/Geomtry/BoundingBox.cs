@@ -1,4 +1,7 @@
-﻿
+﻿/**
+Source:
+https://github.com/sam-vdp/bepuphysics1int/blob/master/BEPUutilities/BoundingBox.cs
+*/
 using System;
 using System.Collections.Generic;
 using System.Linq;

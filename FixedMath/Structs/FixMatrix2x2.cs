@@ -1,4 +1,8 @@
-﻿namespace FixedMath
+﻿/**
+Source:
+https://github.com/sam-vdp/bepuphysics1int/blob/master/BEPUutilities/Matrix2x2.cs
+*/
+namespace FixedMath
 {
     /// <summary>
     /// 2 row, 2 column matrix.
