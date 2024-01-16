@@ -3,7 +3,7 @@
     /// <summary>
     /// 2 row, 3 column matrix.
     /// </summary>
-    public struct Matrix2x3
+    public struct FixMatrix2x3
     {
         /// <summary>
         /// Value at row 1, column 1 of the matrix.
@@ -45,7 +45,7 @@
         /// <param name="m21">Value at row 2, column 1 of the matrix.</param>
         /// <param name="m22">Value at row 2, column 2 of the matrix.</param>
         /// <param name="m23">Value at row 2, column 3 of the matrix.</param>
-        public Matrix2x3(Fix64 m11, Fix64 m12, Fix64 m13, Fix64 m21, Fix64 m22, Fix64 m23)
+        public FixMatrix2x3(Fix64 m11, Fix64 m12, Fix64 m13, Fix64 m21, Fix64 m22, Fix64 m23)
         {
             M11 = m11;
             M12 = m12;
@@ -61,7 +61,7 @@
         /// <param name="a">First matrix to add.</param>
         /// <param name="b">Second matrix to add.</param>
         /// <param name="result">Sum of the two matrices.</param>
-        public static void Add(ref Matrix2x3 a, ref Matrix2x3 b, out Matrix2x3 result)
+        public static void Add(ref FixMatrix2x3 a, ref FixMatrix2x3 b, out FixMatrix2x3 result)
         {
             Fix64 m11 = a.M11 + b.M11;
             Fix64 m12 = a.M12 + b.M12;
@@ -87,7 +87,7 @@
         /// <param name="a">First matrix to multiply.</param>
         /// <param name="b">Second matrix to multiply.</param>
         /// <param name="result">Product of the multiplication.</param>
-        public static void Multiply(ref Matrix2x3 a, ref Matrix3x3 b, out Matrix2x3 result)
+        public static void Multiply(ref FixMatrix2x3 a, ref FixMatrix3x3 b, out FixMatrix2x3 result)
         {
             Fix64 resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
             Fix64 resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
@@ -112,7 +112,7 @@
         /// <param name="a">First matrix to multiply.</param>
         /// <param name="b">Second matrix to multiply.</param>
         /// <param name="result">Product of the multiplication.</param>
-        public static void Multiply(ref Matrix2x3 a, ref Matrix b, out Matrix2x3 result)
+        public static void Multiply(ref FixMatrix2x3 a, ref FixMatrix4x4 b, out FixMatrix2x3 result)
         {
             Fix64 resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
             Fix64 resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
@@ -136,7 +136,7 @@
         /// </summary>
         /// <param name="matrix">Matrix to negate.</param>
         /// <param name="result">Negated matrix.</param>
-        public static void Negate(ref Matrix2x3 matrix, out Matrix2x3 result)
+        public static void Negate(ref FixMatrix2x3 matrix, out FixMatrix2x3 result)
         {
             Fix64 m11 = -matrix.M11;
             Fix64 m12 = -matrix.M12;
@@ -161,7 +161,7 @@
         /// <param name="a">First matrix to subtract.</param>
         /// <param name="b">Second matrix to subtract.</param>
         /// <param name="result">Difference of the two matrices.</param>
-        public static void Subtract(ref Matrix2x3 a, ref Matrix2x3 b, out Matrix2x3 result)
+        public static void Subtract(ref FixMatrix2x3 a, ref FixMatrix2x3 b, out FixMatrix2x3 result)
         {
             Fix64 m11 = a.M11 - b.M11;
             Fix64 m12 = a.M12 - b.M12;
@@ -187,10 +187,10 @@
         /// <param name="v">Vector2 to transform.  Considered to be a row vector for purposes of multiplication.</param>
         /// <param name="matrix">Matrix to use as the transformation.</param>
         /// <param name="result">Row vector product of the transformation.</param>
-        public static void Transform(ref Vector2 v, ref Matrix2x3 matrix, out Vector3 result)
+        public static void Transform(ref FixVector2 v, ref FixMatrix2x3 matrix, out FixVector3 result)
         {
 #if !WINDOWS
-            result = new Vector3();
+            result = new FixVector3();
 #endif
             result.X = v.X * matrix.M11 + v.Y * matrix.M21;
             result.Y = v.X * matrix.M12 + v.Y * matrix.M22;
@@ -203,10 +203,10 @@
         /// <param name="v">Vector2 to transform.  Considered to be a column vector for purposes of multiplication.</param>
         /// <param name="matrix">Matrix to use as the transformation.</param>
         /// <param name="result">Column vector product of the transformation.</param>
-        public static void Transform(ref Vector3 v, ref Matrix2x3 matrix, out Vector2 result)
+        public static void Transform(ref FixVector3 v, ref FixMatrix2x3 matrix, out FixVector2 result)
         {
 #if !WINDOWS
-            result = new Vector2();
+            result = new FixVector2();
 #endif
             result.X = matrix.M11 * v.X + matrix.M12 * v.Y + matrix.M13 * v.Z;
             result.Y = matrix.M21 * v.X + matrix.M22 * v.Y + matrix.M23 * v.Z;
@@ -218,7 +218,7 @@
         /// </summary>
         /// <param name="matrix">Matrix to transpose.</param>
         /// <param name="result">Transposed matrix.</param>
-        public static void Transpose(ref Matrix2x3 matrix, out Matrix3x2 result)
+        public static void Transpose(ref FixMatrix2x3 matrix, out FixMatrix3x2 result)
         {
             result.M11 = matrix.M11;
             result.M12 = matrix.M21;

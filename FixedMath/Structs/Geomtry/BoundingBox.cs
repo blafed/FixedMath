@@ -14,19 +14,19 @@ namespace FixedMath.Geomtry
         /// <summary>
         /// Location with the lowest X, Y, and Z coordinates in the axis-aligned bounding box.
         /// </summary>
-        public Vector3 Min;
+        public FixVector3 Min;
 
         /// <summary>
         /// Location with the highest X, Y, and Z coordinates in the axis-aligned bounding box.
         /// </summary>
-        public Vector3 Max;
+        public FixVector3 Max;
 
         /// <summary>
         /// Constructs a bounding box from the specified minimum and maximum.
         /// </summary>
         /// <param name="min">Location with the lowest X, Y, and Z coordinates contained by the axis-aligned bounding box.</param>
         /// <param name="max">Location with the highest X, Y, and Z coordinates contained by the axis-aligned bounding box.</param>
-        public BoundingBox(Vector3 min, Vector3 max)
+        public BoundingBox(FixVector3 min, FixVector3 max)
         {
             this.Min = min;
             this.Max = max;
@@ -36,16 +36,16 @@ namespace FixedMath.Geomtry
         /// Gets an array of locations corresponding to the 8 corners of the bounding box.
         /// </summary>
         /// <returns>Corners of the bounding box.</returns>
-        public Vector3[] GetCorners()
+        public FixVector3[] GetCorners()
         {
-            var toReturn = new Vector3[8];
-            toReturn[0] = new Vector3(Min.X, Max.Y, Max.Z);
+            var toReturn = new FixVector3[8];
+            toReturn[0] = new FixVector3(Min.X, Max.Y, Max.Z);
             toReturn[1] = Max;
-            toReturn[2] = new Vector3(Max.X, Min.Y, Max.Z);
-            toReturn[3] = new Vector3(Min.X, Min.Y, Max.Z);
-            toReturn[4] = new Vector3(Min.X, Max.Y, Min.Z);
-            toReturn[5] = new Vector3(Max.X, Max.Y, Min.Z);
-            toReturn[6] = new Vector3(Max.X, Min.Y, Min.Z);
+            toReturn[2] = new FixVector3(Max.X, Min.Y, Max.Z);
+            toReturn[3] = new FixVector3(Min.X, Min.Y, Max.Z);
+            toReturn[4] = new FixVector3(Min.X, Max.Y, Min.Z);
+            toReturn[5] = new FixVector3(Max.X, Max.Y, Min.Z);
+            toReturn[6] = new FixVector3(Max.X, Min.Y, Min.Z);
             toReturn[7] = Min;
             return toReturn;
         }
@@ -93,7 +93,7 @@ namespace FixedMath.Geomtry
         /// <param name="intersects">Whether the bounding shapes intersect.</param>
         public void Intersects(ref BoundingSphere boundingSphere, out bool intersects)
         {
-            Vector3 clampedLocation;
+            FixVector3 clampedLocation;
             if (boundingSphere.Center.X > Max.X)
                 clampedLocation.X = Max.X;
             else if (boundingSphere.Center.X < Min.X)
@@ -116,7 +116,7 @@ namespace FixedMath.Geomtry
                 clampedLocation.Z = boundingSphere.Center.Z;
 
             Fix64 distanceSquared;
-            Vector3.DistanceSquared(ref clampedLocation, ref boundingSphere.Center, out distanceSquared);
+            FixVector3.DistanceSquared(ref clampedLocation, ref boundingSphere.Center, out distanceSquared);
             intersects = distanceSquared <= boundingSphere.Radius * boundingSphere.Radius;
 
         }
@@ -149,7 +149,7 @@ namespace FixedMath.Geomtry
         /// </summary>
         /// <param name="points">Points to enclose with a bounding box.</param>
         /// <returns>Bounding box which contains the list of points.</returns>
-        public static BoundingBox CreateFromPoints(IList<Vector3> points)
+        public static BoundingBox CreateFromPoints(IList<FixVector3> points)
         {
             BoundingBox aabb;
             if (points.Count == 0)
@@ -158,7 +158,7 @@ namespace FixedMath.Geomtry
             aabb.Max = aabb.Min;
             for (int i = points.Count - 1; i >= 1; i--)
             {
-                Vector3 v = points[i];
+                FixVector3 v = points[i];
                 if (v.X < aabb.Min.X)
                     aabb.Min.X = v.X;
                 else if (v.X > aabb.Max.X)

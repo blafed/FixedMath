@@ -173,7 +173,7 @@ namespace FixedMath
             return true;
         }
 
-        public static bool Invert(ref Matrix3x3 m, out Matrix3x3 r)
+        public static bool Invert(ref FixMatrix3x3 m, out FixMatrix3x3 r)
         {
             Matrix3x6 M;
 
@@ -218,10 +218,10 @@ namespace FixedMath
 
             if (!Gauss(ref M, 3, 6))
             {
-                r = new Matrix3x3();
+                r = new FixMatrix3x3();
                 return false;
             }
-            r = new Matrix3x3(
+            r = new FixMatrix3x3(
                 // m11...m13
                 // M[0, 3],
                 M.M14,

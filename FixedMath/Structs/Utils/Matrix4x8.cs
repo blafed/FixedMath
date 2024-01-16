@@ -151,7 +151,7 @@ namespace FixedMath
             }
         }
 
-        public static bool Invert(ref Matrix m, out Matrix r)
+        public static bool Invert(ref FixMatrix4x4 m, out FixMatrix4x4 r)
         {
             Matrix4x8 M;
 
@@ -224,10 +224,10 @@ namespace FixedMath
 
             if (!Matrix3x6.Gauss(ref M.M3x6, 4, 8))
             {
-                r = new Matrix();
+                r = new FixMatrix4x4();
                 return false;
             }
-            r = new Matrix(
+            r = new FixMatrix4x4(
                 // m11...m14
                 // M[0, 4],
                 M.M3x6.M15,

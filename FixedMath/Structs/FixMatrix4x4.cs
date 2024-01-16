@@ -6,7 +6,7 @@ namespace FixedMath
     /// <summary>
     /// Provides XNA-like 4x4 matrix math.
     /// </summary>
-    public struct Matrix
+    public struct FixMatrix4x4
     {
         /// <summary>
         /// Value at row 1, column 1 of the matrix.
@@ -107,7 +107,7 @@ namespace FixedMath
         /// <param name="m42">Value at row 4, column 2 of the matrix.</param>
         /// <param name="m43">Value at row 4, column 3 of the matrix.</param>
         /// <param name="m44">Value at row 4, column 4 of the matrix.</param>
-        public Matrix(Fix64 m11, Fix64 m12, Fix64 m13, Fix64 m14,
+        public FixMatrix4x4(Fix64 m11, Fix64 m12, Fix64 m13, Fix64 m14,
                       Fix64 m21, Fix64 m22, Fix64 m23, Fix64 m24,
                       Fix64 m31, Fix64 m32, Fix64 m33, Fix64 m34,
                       Fix64 m41, Fix64 m42, Fix64 m43, Fix64 m44)
@@ -136,11 +136,11 @@ namespace FixedMath
         /// <summary>
         /// Gets or sets the translation component of the transform.
         /// </summary>
-        public Vector3 Translation
+        public FixVector3 Translation
         {
             get
             {
-                return new Vector3()
+                return new FixVector3()
                 {
                     X = M41,
                     Y = M42,
@@ -158,12 +158,12 @@ namespace FixedMath
         /// <summary>
         /// Gets or sets the backward vector of the matrix.
         /// </summary>
-        public Vector3 Backward
+        public FixVector3 Backward
         {
             get
             {
 #if !WINDOWS
-                Vector3 vector = new Vector3();
+                FixVector3 vector = new FixVector3();
 #else
                 Vector3 vector;
 #endif
@@ -183,12 +183,12 @@ namespace FixedMath
         /// <summary>
         /// Gets or sets the down vector of the matrix.
         /// </summary>
-        public Vector3 Down
+        public FixVector3 Down
         {
             get
             {
 #if !WINDOWS
-                Vector3 vector = new Vector3();
+                FixVector3 vector = new FixVector3();
 #else
                 Vector3 vector;
 #endif
@@ -208,12 +208,12 @@ namespace FixedMath
         /// <summary>
         /// Gets or sets the forward vector of the matrix.
         /// </summary>
-        public Vector3 Forward
+        public FixVector3 Forward
         {
             get
             {
 #if !WINDOWS
-                Vector3 vector = new Vector3();
+                FixVector3 vector = new FixVector3();
 #else
                 Vector3 vector;
 #endif
@@ -233,12 +233,12 @@ namespace FixedMath
         /// <summary>
         /// Gets or sets the left vector of the matrix.
         /// </summary>
-        public Vector3 Left
+        public FixVector3 Left
         {
             get
             {
 #if !WINDOWS
-                Vector3 vector = new Vector3();
+                FixVector3 vector = new FixVector3();
 #else
                 Vector3 vector;
 #endif
@@ -258,12 +258,12 @@ namespace FixedMath
         /// <summary>
         /// Gets or sets the right vector of the matrix.
         /// </summary>
-        public Vector3 Right
+        public FixVector3 Right
         {
             get
             {
 #if !WINDOWS
-                Vector3 vector = new Vector3();
+                FixVector3 vector = new FixVector3();
 #else
                 Vector3 vector;
 #endif
@@ -283,12 +283,12 @@ namespace FixedMath
         /// <summary>
         /// Gets or sets the up vector of the matrix.
         /// </summary>
-        public Vector3 Up
+        public FixVector3 Up
         {
             get
             {
 #if !WINDOWS
-                Vector3 vector = new Vector3();
+                FixVector3 vector = new FixVector3();
 #else
                 Vector3 vector;
 #endif
@@ -362,9 +362,9 @@ namespace FixedMath
         /// <param name="axis">Axis around which to rotate.</param>
         /// <param name="angle">Angle to rotate around the axis.</param>
         /// <returns>Matrix created from the axis and angle.</returns>
-        public static Matrix CreateFromAxisAngle(Vector3 axis, Fix64 angle)
+        public static FixMatrix4x4 CreateFromAxisAngle(FixVector3 axis, Fix64 angle)
         {
-            Matrix toReturn;
+            FixMatrix4x4 toReturn;
             CreateFromAxisAngle(ref axis, angle, out toReturn);
             return toReturn;
         }
@@ -375,7 +375,7 @@ namespace FixedMath
         /// <param name="axis">Axis around which to rotate.</param>
         /// <param name="angle">Angle to rotate around the axis.</param>
         /// <param name="result">Matrix created from the axis and angle.</param>
-        public static void CreateFromAxisAngle(ref Vector3 axis, Fix64 angle, out Matrix result)
+        public static void CreateFromAxisAngle(ref FixVector3 axis, Fix64 angle, out FixMatrix4x4 result)
         {
             Fix64 xx = axis.X * axis.X;
             Fix64 yy = axis.Y * axis.Y;
@@ -413,7 +413,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="quaternion">Quaternion to convert.</param>
         /// <param name="result">Rotation matrix created from the quaternion.</param>
-        public static void CreateFromQuaternion(ref Quaternion quaternion, out Matrix result)
+        public static void CreateFromQuaternion(ref FixQuaternion quaternion, out FixMatrix4x4 result)
         {
             Fix64 qX2 = quaternion.X + quaternion.X;
             Fix64 qY2 = quaternion.Y + quaternion.Y;
@@ -454,9 +454,9 @@ namespace FixedMath
         /// </summary>
         /// <param name="quaternion">Quaternion to convert.</param>
         /// <returns>Rotation matrix created from the quaternion.</returns>
-        public static Matrix CreateFromQuaternion(Quaternion quaternion)
+        public static FixMatrix4x4 CreateFromQuaternion(FixQuaternion quaternion)
         {
-            Matrix toReturn;
+            FixMatrix4x4 toReturn;
             CreateFromQuaternion(ref quaternion, out toReturn);
             return toReturn;
         }
@@ -467,7 +467,7 @@ namespace FixedMath
         /// <param name="a">First matrix to multiply.</param>
         /// <param name="b">Second matrix to multiply.</param>
         /// <param name="result">Combined transformation.</param>
-        public static void Multiply(ref Matrix a, ref Matrix b, out Matrix result)
+        public static void Multiply(ref FixMatrix4x4 a, ref FixMatrix4x4 b, out FixMatrix4x4 result)
         {
             Fix64 resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31 + a.M14 * b.M41;
             Fix64 resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32 + a.M14 * b.M42;
@@ -517,9 +517,9 @@ namespace FixedMath
         /// <param name="a">First matrix to multiply.</param>
         /// <param name="b">Second matrix to multiply.</param>
         /// <returns>Combined transformation.</returns>
-        public static Matrix Multiply(Matrix a, Matrix b)
+        public static FixMatrix4x4 Multiply(FixMatrix4x4 a, FixMatrix4x4 b)
         {
-            Matrix result;
+            FixMatrix4x4 result;
             Multiply(ref a, ref b, out result);
             return result;
         }
@@ -531,7 +531,7 @@ namespace FixedMath
         /// <param name="matrix">Matrix to scale.</param>
         /// <param name="scale">Amount to scale.</param>
         /// <param name="result">Scaled matrix.</param>
-        public static void Multiply(ref Matrix matrix, Fix64 scale, out Matrix result)
+        public static void Multiply(ref FixMatrix4x4 matrix, Fix64 scale, out FixMatrix4x4 result)
         {
             result.M11 = matrix.M11 * scale;
             result.M12 = matrix.M12 * scale;
@@ -560,9 +560,9 @@ namespace FixedMath
         /// <param name="a">First matrix to multiply.</param>
         /// <param name="b">Second matrix to multiply.</param>
         /// <returns>Combined transformation.</returns>
-        public static Matrix operator *(Matrix a, Matrix b)
+        public static FixMatrix4x4 operator *(FixMatrix4x4 a, FixMatrix4x4 b)
         {
-            Matrix toReturn;
+            FixMatrix4x4 toReturn;
             Multiply(ref a, ref b, out toReturn);
             return toReturn;
         }
@@ -573,9 +573,9 @@ namespace FixedMath
         /// <param name="m">First matrix to multiply.</param>
         /// <param name="f">Scaling value to apply to all components of the matrix.</param>
         /// <returns>Product of the multiplication.</returns>
-        public static Matrix operator *(Matrix m, Fix64 f)
+        public static FixMatrix4x4 operator *(FixMatrix4x4 m, Fix64 f)
         {
-            Matrix result;
+            FixMatrix4x4 result;
             Multiply(ref m, f, out result);
             return result;
         }
@@ -586,9 +586,9 @@ namespace FixedMath
         /// <param name="m">First matrix to multiply.</param>
         /// <param name="f">Scaling value to apply to all components of the matrix.</param>
         /// <returns>Product of the multiplication.</returns>
-        public static Matrix operator *(Fix64 f, Matrix m)
+        public static FixMatrix4x4 operator *(Fix64 f, FixMatrix4x4 m)
         {
-            Matrix result;
+            FixMatrix4x4 result;
             Multiply(ref m, f, out result);
             return result;
         }
@@ -599,7 +599,7 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to apply to the vector.</param>
         /// <param name="result">Transformed vector.</param>
-        public static void Transform(ref Vector4 v, ref Matrix matrix, out Vector4 result)
+        public static void Transform(ref FixVector4 v, ref FixMatrix4x4 matrix, out FixVector4 result)
         {
             Fix64 vX = v.X;
             Fix64 vY = v.Y;
@@ -617,9 +617,9 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to apply to the vector.</param>
         /// <returns>Transformed vector.</returns>
-        public static Vector4 Transform(Vector4 v, Matrix matrix)
+        public static FixVector4 Transform(FixVector4 v, FixMatrix4x4 matrix)
         {
-            Vector4 toReturn;
+            FixVector4 toReturn;
             Transform(ref v, ref matrix, out toReturn);
             return toReturn;
         }
@@ -630,7 +630,7 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
         /// <param name="result">Transformed vector.</param>
-        public static void TransformTranspose(ref Vector4 v, ref Matrix matrix, out Vector4 result)
+        public static void TransformTranspose(ref FixVector4 v, ref FixMatrix4x4 matrix, out FixVector4 result)
         {
             Fix64 vX = v.X;
             Fix64 vY = v.Y;
@@ -648,9 +648,9 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
         /// <returns>Transformed vector.</returns>
-        public static Vector4 TransformTranspose(Vector4 v, Matrix matrix)
+        public static FixVector4 TransformTranspose(FixVector4 v, FixMatrix4x4 matrix)
         {
-            Vector4 toReturn;
+            FixVector4 toReturn;
             TransformTranspose(ref v, ref matrix, out toReturn);
             return toReturn;
         }
@@ -661,7 +661,7 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to apply to the vector.</param>
         /// <param name="result">Transformed vector.</param>
-        public static void Transform(ref Vector3 v, ref Matrix matrix, out Vector4 result)
+        public static void Transform(ref FixVector3 v, ref FixMatrix4x4 matrix, out FixVector4 result)
         {
             result.X = v.X * matrix.M11 + v.Y * matrix.M21 + v.Z * matrix.M31 + matrix.M41;
             result.Y = v.X * matrix.M12 + v.Y * matrix.M22 + v.Z * matrix.M32 + matrix.M42;
@@ -675,9 +675,9 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to apply to the vector.</param>
         /// <returns>Transformed vector.</returns>
-        public static Vector4 Transform(Vector3 v, Matrix matrix)
+        public static FixVector4 Transform(FixVector3 v, FixMatrix4x4 matrix)
         {
-            Vector4 toReturn;
+            FixVector4 toReturn;
             Transform(ref v, ref matrix, out toReturn);
             return toReturn;
         }
@@ -688,7 +688,7 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
         /// <param name="result">Transformed vector.</param>
-        public static void TransformTranspose(ref Vector3 v, ref Matrix matrix, out Vector4 result)
+        public static void TransformTranspose(ref FixVector3 v, ref FixMatrix4x4 matrix, out FixVector4 result)
         {
             result.X = v.X * matrix.M11 + v.Y * matrix.M12 + v.Z * matrix.M13 + matrix.M14;
             result.Y = v.X * matrix.M21 + v.Y * matrix.M22 + v.Z * matrix.M23 + matrix.M24;
@@ -702,9 +702,9 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
         /// <returns>Transformed vector.</returns>
-        public static Vector4 TransformTranspose(Vector3 v, Matrix matrix)
+        public static FixVector4 TransformTranspose(FixVector3 v, FixMatrix4x4 matrix)
         {
-            Vector4 toReturn;
+            FixVector4 toReturn;
             TransformTranspose(ref v, ref matrix, out toReturn);
             return toReturn;
         }
@@ -715,7 +715,7 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to apply to the vector.</param>
         /// <param name="result">Transformed vector.</param>
-        public static void Transform(ref Vector3 v, ref Matrix matrix, out Vector3 result)
+        public static void Transform(ref FixVector3 v, ref FixMatrix4x4 matrix, out FixVector3 result)
         {
             Fix64 vX = v.X;
             Fix64 vY = v.Y;
@@ -731,7 +731,7 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
         /// <param name="result">Transformed vector.</param>
-        public static void TransformTranspose(ref Vector3 v, ref Matrix matrix, out Vector3 result)
+        public static void TransformTranspose(ref FixVector3 v, ref FixMatrix4x4 matrix, out FixVector3 result)
         {
             Fix64 vX = v.X;
             Fix64 vY = v.Y;
@@ -747,7 +747,7 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to apply to the vector.</param>
         /// <param name="result">Transformed vector.</param>
-        public static void TransformNormal(ref Vector3 v, ref Matrix matrix, out Vector3 result)
+        public static void TransformNormal(ref FixVector3 v, ref FixMatrix4x4 matrix, out FixVector3 result)
         {
             Fix64 vX = v.X;
             Fix64 vY = v.Y;
@@ -763,9 +763,9 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to apply to the vector.</param>
         /// <returns>Transformed vector.</returns>
-        public static Vector3 TransformNormal(Vector3 v, Matrix matrix)
+        public static FixVector3 TransformNormal(FixVector3 v, FixMatrix4x4 matrix)
         {
-            Vector3 toReturn;
+            FixVector3 toReturn;
             TransformNormal(ref v, ref matrix, out toReturn);
             return toReturn;
         }
@@ -776,7 +776,7 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
         /// <param name="result">Transformed vector.</param>
-        public static void TransformNormalTranspose(ref Vector3 v, ref Matrix matrix, out Vector3 result)
+        public static void TransformNormalTranspose(ref FixVector3 v, ref FixMatrix4x4 matrix, out FixVector3 result)
         {
             Fix64 vX = v.X;
             Fix64 vY = v.Y;
@@ -792,9 +792,9 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
         /// <returns>Transformed vector.</returns>
-        public static Vector3 TransformNormalTranspose(Vector3 v, Matrix matrix)
+        public static FixVector3 TransformNormalTranspose(FixVector3 v, FixMatrix4x4 matrix)
         {
-            Vector3 toReturn;
+            FixVector3 toReturn;
             TransformNormalTranspose(ref v, ref matrix, out toReturn);
             return toReturn;
         }
@@ -805,7 +805,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="m">Matrix to transpose.</param>
         /// <param name="transposed">Matrix to transpose.</param>
-        public static void Transpose(ref Matrix m, out Matrix transposed)
+        public static void Transpose(ref FixMatrix4x4 m, out FixMatrix4x4 transposed)
         {
             Fix64 intermediate = m.M12;
             transposed.M12 = m.M21;
@@ -842,7 +842,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="m">Matrix to invert.</param>
         /// <param name="inverted">Inverted version of the matrix.</param>
-        public static void Invert(ref Matrix m, out Matrix inverted)
+        public static void Invert(ref FixMatrix4x4 m, out FixMatrix4x4 inverted)
         {
             Matrix4x8.Invert(ref m, out inverted);
         }
@@ -852,9 +852,9 @@ namespace FixedMath
         /// </summary>
         /// <param name="m">Matrix to invert.</param>
         /// <returns>Inverted version of the matrix.</returns>
-        public static Matrix Invert(Matrix m)
+        public static FixMatrix4x4 Invert(FixMatrix4x4 m)
         {
-            Matrix inverted;
+            FixMatrix4x4 inverted;
             Invert(ref m, out inverted);
             return inverted;
         }
@@ -864,7 +864,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="m">Matrix to invert.</param>
         /// <param name="inverted">Inverted version of the matrix.</param>
-        public static void InvertRigid(ref Matrix m, out Matrix inverted)
+        public static void InvertRigid(ref FixMatrix4x4 m, out FixMatrix4x4 inverted)
         {
             //Invert (transpose) the upper left 3x3 rotation.
             Fix64 intermediate = m.M12;
@@ -903,9 +903,9 @@ namespace FixedMath
         /// </summary>
         /// <param name="m">Matrix to invert.</param>
         /// <returns>Inverted version of the matrix.</returns>
-        public static Matrix InvertRigid(Matrix m)
+        public static FixMatrix4x4 InvertRigid(FixMatrix4x4 m)
         {
-            Matrix inverse;
+            FixMatrix4x4 inverse;
             InvertRigid(ref m, out inverse);
             return inverse;
         }
@@ -913,11 +913,11 @@ namespace FixedMath
         /// <summary>
         /// Gets the 4x4 identity matrix.
         /// </summary>
-        public static Matrix Identity
+        public static FixMatrix4x4 Identity
         {
             get
             {
-                Matrix toReturn;
+                FixMatrix4x4 toReturn;
                 toReturn.M11 = F64.C1;
                 toReturn.M12 = F64.C0;
                 toReturn.M13 = F64.C0;
@@ -951,7 +951,7 @@ namespace FixedMath
         /// <param name="zNear">Near plane of the projection.</param>
         /// <param name="zFar">Far plane of the projection.</param>
         /// <param name="projection">The resulting orthographic projection matrix.</param>
-        public static void CreateOrthographicRH(Fix64 left, Fix64 right, Fix64 bottom, Fix64 top, Fix64 zNear, Fix64 zFar, out Matrix projection)
+        public static void CreateOrthographicRH(Fix64 left, Fix64 right, Fix64 bottom, Fix64 top, Fix64 zNear, Fix64 zFar, out FixMatrix4x4 projection)
         {
             Fix64 width = right - left;
             Fix64 height = top - bottom;
@@ -986,7 +986,7 @@ namespace FixedMath
         /// <param name="nearClip">Near clip plane of the perspective.</param>
         /// <param name="farClip">Far clip plane of the perspective.</param>
         /// <param name="perspective">Resulting perspective matrix.</param>
-        public static void CreatePerspectiveFieldOfViewRH(Fix64 fieldOfView, Fix64 aspectRatio, Fix64 nearClip, Fix64 farClip, out Matrix perspective)
+        public static void CreatePerspectiveFieldOfViewRH(Fix64 fieldOfView, Fix64 aspectRatio, Fix64 nearClip, Fix64 farClip, out FixMatrix4x4 perspective)
         {
             Fix64 h = F64.C1 / Fix64.Tan(fieldOfView / F64.C2);
             Fix64 w = h / aspectRatio;
@@ -1020,9 +1020,9 @@ namespace FixedMath
         /// <param name="nearClip">Near clip plane of the perspective.</param>
         /// <param name="farClip">Far clip plane of the perspective.</param>
         /// <returns>Resulting perspective matrix.</returns>
-        public static Matrix CreatePerspectiveFieldOfViewRH(Fix64 fieldOfView, Fix64 aspectRatio, Fix64 nearClip, Fix64 farClip)
+        public static FixMatrix4x4 CreatePerspectiveFieldOfViewRH(Fix64 fieldOfView, Fix64 aspectRatio, Fix64 nearClip, Fix64 farClip)
         {
-            Matrix perspective;
+            FixMatrix4x4 perspective;
             CreatePerspectiveFieldOfViewRH(fieldOfView, aspectRatio, nearClip, farClip, out perspective);
             return perspective;
         }
@@ -1034,10 +1034,10 @@ namespace FixedMath
         /// <param name="target">Target of the camera.</param>
         /// <param name="upVector">Up vector of the camera.</param>
         /// <param name="viewMatrix">Look at matrix.</param>
-        public static void CreateLookAtRH(ref Vector3 position, ref Vector3 target, ref Vector3 upVector, out Matrix viewMatrix)
+        public static void CreateLookAtRH(ref FixVector3 position, ref FixVector3 target, ref FixVector3 upVector, out FixMatrix4x4 viewMatrix)
         {
-            Vector3 forward;
-            Vector3.Subtract(ref target, ref position, out forward);
+            FixVector3 forward;
+            FixVector3.Subtract(ref target, ref position, out forward);
             CreateViewRH(ref position, ref forward, ref upVector, out viewMatrix);
         }
 
@@ -1048,11 +1048,11 @@ namespace FixedMath
         /// <param name="target">Target of the camera.</param>
         /// <param name="upVector">Up vector of the camera.</param>
         /// <returns>Look at matrix.</returns>
-        public static Matrix CreateLookAtRH(Vector3 position, Vector3 target, Vector3 upVector)
+        public static FixMatrix4x4 CreateLookAtRH(FixVector3 position, FixVector3 target, FixVector3 upVector)
         {
-            Matrix lookAt;
-            Vector3 forward;
-            Vector3.Subtract(ref target, ref position, out forward);
+            FixMatrix4x4 lookAt;
+            FixVector3 forward;
+            FixVector3.Subtract(ref target, ref position, out forward);
             CreateViewRH(ref position, ref forward, ref upVector, out lookAt);
             return lookAt;
         }
@@ -1065,16 +1065,16 @@ namespace FixedMath
         /// <param name="forward">Forward direction of the camera.</param>
         /// <param name="upVector">Up vector of the camera.</param>
         /// <param name="viewMatrix">Look at matrix.</param>
-        public static void CreateViewRH(ref Vector3 position, ref Vector3 forward, ref Vector3 upVector, out Matrix viewMatrix)
+        public static void CreateViewRH(ref FixVector3 position, ref FixVector3 forward, ref FixVector3 upVector, out FixMatrix4x4 viewMatrix)
         {
-            Vector3 z;
+            FixVector3 z;
             Fix64 length = forward.Length();
-            Vector3.Divide(ref forward, -length, out z);
-            Vector3 x;
-            Vector3.Cross(ref upVector, ref z, out x);
+            FixVector3.Divide(ref forward, -length, out z);
+            FixVector3 x;
+            FixVector3.Cross(ref upVector, ref z, out x);
             x.Normalize();
-            Vector3 y;
-            Vector3.Cross(ref z, ref x, out y);
+            FixVector3 y;
+            FixVector3.Cross(ref z, ref x, out y);
 
             viewMatrix.M11 = x.X;
             viewMatrix.M12 = y.X;
@@ -1088,9 +1088,9 @@ namespace FixedMath
             viewMatrix.M32 = y.Z;
             viewMatrix.M33 = z.Z;
             viewMatrix.M34 = F64.C0;
-            Vector3.Dot(ref x, ref position, out viewMatrix.M41);
-            Vector3.Dot(ref y, ref position, out viewMatrix.M42);
-            Vector3.Dot(ref z, ref position, out viewMatrix.M43);
+            FixVector3.Dot(ref x, ref position, out viewMatrix.M41);
+            FixVector3.Dot(ref y, ref position, out viewMatrix.M42);
+            FixVector3.Dot(ref z, ref position, out viewMatrix.M43);
             viewMatrix.M41 = -viewMatrix.M41;
             viewMatrix.M42 = -viewMatrix.M42;
             viewMatrix.M43 = -viewMatrix.M43;
@@ -1105,9 +1105,9 @@ namespace FixedMath
         /// <param name="forward">Forward direction of the camera.</param>
         /// <param name="upVector">Up vector of the camera.</param>
         /// <returns>Look at matrix.</returns>
-        public static Matrix CreateViewRH(Vector3 position, Vector3 forward, Vector3 upVector)
+        public static FixMatrix4x4 CreateViewRH(FixVector3 position, FixVector3 forward, FixVector3 upVector)
         {
-            Matrix lookat;
+            FixMatrix4x4 lookat;
             CreateViewRH(ref position, ref forward, ref upVector, out lookat);
             return lookat;
         }
@@ -1121,16 +1121,16 @@ namespace FixedMath
         /// <param name="forward">Forward direction of the transformation.</param>
         /// <param name="upVector">Up vector which is crossed against the forward vector to compute the transform's basis.</param>
         /// <param name="worldMatrix">World matrix.</param>
-        public static void CreateWorldRH(ref Vector3 position, ref Vector3 forward, ref Vector3 upVector, out Matrix worldMatrix)
+        public static void CreateWorldRH(ref FixVector3 position, ref FixVector3 forward, ref FixVector3 upVector, out FixMatrix4x4 worldMatrix)
         {
-            Vector3 z;
+            FixVector3 z;
             Fix64 length = forward.Length();
-            Vector3.Divide(ref forward, -length, out z);
-            Vector3 x;
-            Vector3.Cross(ref upVector, ref z, out x);
+            FixVector3.Divide(ref forward, -length, out z);
+            FixVector3 x;
+            FixVector3.Cross(ref upVector, ref z, out x);
             x.Normalize();
-            Vector3 y;
-            Vector3.Cross(ref z, ref x, out y);
+            FixVector3 y;
+            FixVector3.Cross(ref z, ref x, out y);
 
             worldMatrix.M11 = x.X;
             worldMatrix.M12 = x.Y;
@@ -1160,9 +1160,9 @@ namespace FixedMath
         /// <param name="forward">Forward direction of the transformation.</param>
         /// <param name="upVector">Up vector which is crossed against the forward vector to compute the transform's basis.</param>
         /// <returns>World matrix.</returns>
-        public static Matrix CreateWorldRH(Vector3 position, Vector3 forward, Vector3 upVector)
+        public static FixMatrix4x4 CreateWorldRH(FixVector3 position, FixVector3 forward, FixVector3 upVector)
         {
-            Matrix lookat;
+            FixMatrix4x4 lookat;
             CreateWorldRH(ref position, ref forward, ref upVector, out lookat);
             return lookat;
         }
@@ -1174,9 +1174,9 @@ namespace FixedMath
         /// </summary>
         /// <param name="translation">Translation to be represented by the matrix.</param>
         /// <param name="translationMatrix">Matrix representing the given translation.</param>
-        public static void CreateTranslation(ref Vector3 translation, out Matrix translationMatrix)
+        public static void CreateTranslation(ref FixVector3 translation, out FixMatrix4x4 translationMatrix)
         {
-            translationMatrix = new Matrix
+            translationMatrix = new FixMatrix4x4
             {
                 M11 = F64.C1,
                 M22 = F64.C1,
@@ -1193,9 +1193,9 @@ namespace FixedMath
         /// </summary>
         /// <param name="translation">Translation to be represented by the matrix.</param>
         /// <returns>Matrix representing the given translation.</returns>
-        public static Matrix CreateTranslation(Vector3 translation)
+        public static FixMatrix4x4 CreateTranslation(FixVector3 translation)
         {
-            Matrix translationMatrix;
+            FixMatrix4x4 translationMatrix;
             CreateTranslation(ref translation, out translationMatrix);
             return translationMatrix;
         }
@@ -1205,9 +1205,9 @@ namespace FixedMath
         /// </summary>
         /// <param name="scale">Scale to be represented by the matrix.</param>
         /// <param name="scaleMatrix">Matrix representing the given scale.</param>
-        public static void CreateScale(ref Vector3 scale, out Matrix scaleMatrix)
+        public static void CreateScale(ref FixVector3 scale, out FixMatrix4x4 scaleMatrix)
         {
-            scaleMatrix = new Matrix
+            scaleMatrix = new FixMatrix4x4
             {
                 M11 = scale.X,
                 M22 = scale.Y,
@@ -1221,9 +1221,9 @@ namespace FixedMath
         /// </summary>
         /// <param name="scale">Scale to be represented by the matrix.</param>
         /// <returns>Matrix representing the given scale.</returns>
-        public static Matrix CreateScale(Vector3 scale)
+        public static FixMatrix4x4 CreateScale(FixVector3 scale)
         {
-            Matrix scaleMatrix;
+            FixMatrix4x4 scaleMatrix;
             CreateScale(ref scale, out scaleMatrix);
             return scaleMatrix;
         }
@@ -1235,9 +1235,9 @@ namespace FixedMath
         /// <param name="y">Scale along the y axis.</param>
         /// <param name="z">Scale along the z axis.</param>
         /// <param name="scaleMatrix">Matrix representing the given scale.</param>
-        public static void CreateScale(Fix64 x, Fix64 y, Fix64 z, out Matrix scaleMatrix)
+        public static void CreateScale(Fix64 x, Fix64 y, Fix64 z, out FixMatrix4x4 scaleMatrix)
         {
-            scaleMatrix = new Matrix
+            scaleMatrix = new FixMatrix4x4
             {
                 M11 = x,
                 M22 = y,
@@ -1253,9 +1253,9 @@ namespace FixedMath
         /// <param name="y">Scale along the y axis.</param>
         /// <param name="z">Scale along the z axis.</param>
         /// <returns>Matrix representing the given scale.</returns>
-        public static Matrix CreateScale(Fix64 x, Fix64 y, Fix64 z)
+        public static FixMatrix4x4 CreateScale(Fix64 x, Fix64 y, Fix64 z)
         {
-            Matrix scaleMatrix;
+            FixMatrix4x4 scaleMatrix;
             CreateScale(x, y, z, out scaleMatrix);
             return scaleMatrix;
         }

@@ -4,9 +4,9 @@ using System;
 namespace FixedMath
 {
     /// <summary>
-    /// Provides XNA-like 4-component vector math.
+    /// Provides XNA-like 3D vector math.
     /// </summary>
-    public struct Vector4 : IEquatable<Vector4>
+    public struct FixVector3 : IEquatable<FixVector3>
     {
         /// <summary>
         /// X component of the vector.
@@ -20,10 +20,6 @@ namespace FixedMath
         /// Z component of the vector.
         /// </summary>
         public Fix64 Z;
-        /// <summary>
-        /// W component of the vector.
-        /// </summary>
-        public Fix64 W;
 
         /// <summary>
         /// Constructs a new 3d vector.
@@ -31,40 +27,11 @@ namespace FixedMath
         /// <param name="x">X component of the vector.</param>
         /// <param name="y">Y component of the vector.</param>
         /// <param name="z">Z component of the vector.</param>
-        /// <param name="w">W component of the vector.</param>
-        public Vector4(Fix64 x, Fix64 y, Fix64 z, Fix64 w)
+        public FixVector3(Fix64 x, Fix64 y, Fix64 z)
         {
             this.X = x;
             this.Y = y;
             this.Z = z;
-            this.W = w;
-        }
-
-        /// <summary>
-        /// Constructs a new 3d vector.
-        /// </summary>
-        /// <param name="xyz">X, Y, and Z components of the vector.</param>
-        /// <param name="w">W component of the vector.</param>
-        public Vector4(Vector3 xyz, Fix64 w)
-        {
-            this.X = xyz.X;
-            this.Y = xyz.Y;
-            this.Z = xyz.Z;
-            this.W = w;
-        }
-
-
-        /// <summary>
-        /// Constructs a new 3d vector.
-        /// </summary>
-        /// <param name="x">X component of the vector.</param>
-        /// <param name="yzw">Y, Z, and W components of the vector.</param>
-        public Vector4(Fix64 x, Vector3 yzw)
-        {
-            this.X = x;
-            this.Y = yzw.X;
-            this.Z = yzw.Y;
-            this.W = yzw.Z;
         }
 
         /// <summary>
@@ -72,13 +39,11 @@ namespace FixedMath
         /// </summary>
         /// <param name="xy">X and Y components of the vector.</param>
         /// <param name="z">Z component of the vector.</param>
-        /// <param name="w">W component of the vector.</param>
-        public Vector4(Vector2 xy, Fix64 z, Fix64 w)
+        public FixVector3(FixVector2 xy, Fix64 z)
         {
             this.X = xy.X;
             this.Y = xy.Y;
             this.Z = z;
-            this.W = w;
         }
 
         /// <summary>
@@ -86,42 +51,12 @@ namespace FixedMath
         /// </summary>
         /// <param name="x">X component of the vector.</param>
         /// <param name="yz">Y and Z components of the vector.</param>
-        /// <param name="w">W component of the vector.</param>
-        public Vector4(Fix64 x, Vector2 yz, Fix64 w)
+        public FixVector3(Fix64 x, FixVector2 yz)
         {
             this.X = x;
             this.Y = yz.X;
             this.Z = yz.Y;
-            this.W = w;
         }
-
-        /// <summary>
-        /// Constructs a new 3d vector.
-        /// </summary>
-        /// <param name="x">X component of the vector.</param>
-        /// <param name="y">Y and Z components of the vector.</param>
-        /// <param name="zw">W component of the vector.</param>
-        public Vector4(Fix64 x, Fix64 y, Vector2 zw)
-        {
-            this.X = x;
-            this.Y = y;
-            this.Z = zw.X;
-            this.W = zw.Y;
-        }
-
-        /// <summary>
-        /// Constructs a new 3d vector.
-        /// </summary>
-        /// <param name="xy">X and Y components of the vector.</param>
-        /// <param name="zw">Z and W components of the vector.</param>
-        public Vector4(Vector2 xy, Vector2 zw)
-        {
-            this.X = xy.X;
-            this.Y = xy.Y;
-            this.Z = zw.X;
-            this.W = zw.Y;
-        }
-
 
         /// <summary>
         /// Computes the squared length of the vector.
@@ -129,7 +64,7 @@ namespace FixedMath
         /// <returns>Squared length of the vector.</returns>
         public Fix64 LengthSquared()
         {
-            return X * X + Y * Y + Z * Z + W * W;
+            return X * X + Y * Y + Z * Z;
         }
 
         /// <summary>
@@ -138,7 +73,7 @@ namespace FixedMath
         /// <returns>Length of the vector.</returns>
         public Fix64 Length()
         {
-            return Fix64.Sqrt(X * X + Y * Y + Z * Z + W * W);
+            return Fix64.Sqrt(X * X + Y * Y + Z * Z);
         }
 
         /// <summary>
@@ -146,11 +81,10 @@ namespace FixedMath
         /// </summary>
         public void Normalize()
         {
-            Fix64 inverse = F64.C1 / Fix64.Sqrt(X * X + Y * Y + Z * Z + W * W);
+            Fix64 inverse = F64.C1 / Fix64.Sqrt(X * X + Y * Y + Z * Z);
             X *= inverse;
             Y *= inverse;
             Z *= inverse;
-            W *= inverse;
         }
 
         /// <summary>
@@ -159,7 +93,7 @@ namespace FixedMath
         /// <returns>String representing the vector.</returns>
         public override string ToString()
         {
-            return "{" + X + ", " + Y + ", " + Z + ", " + W + "}";
+            return "{" + X + ", " + Y + ", " + Z + "}";
         }
 
         /// <summary>
@@ -168,9 +102,9 @@ namespace FixedMath
         /// <param name="a">First vector in the product.</param>
         /// <param name="b">Second vector in the product.</param>
         /// <returns>Resulting dot product.</returns>
-        public static Fix64 Dot(Vector4 a, Vector4 b)
+        public static Fix64 Dot(FixVector3 a, FixVector3 b)
         {
-            return a.X * b.X + a.Y * b.Y + a.Z * b.Z + a.W * b.W;
+            return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
         }
 
         /// <summary>
@@ -179,9 +113,9 @@ namespace FixedMath
         /// <param name="a">First vector in the product.</param>
         /// <param name="b">Second vector in the product.</param>
         /// <param name="product">Resulting dot product.</param>
-        public static void Dot(ref Vector4 a, ref Vector4 b, out Fix64 product)
+        public static void Dot(ref FixVector3 a, ref FixVector3 b, out Fix64 product)
         {
-            product = a.X * b.X + a.Y * b.Y + a.Z * b.Z + a.W * b.W;
+            product = a.X * b.X + a.Y * b.Y + a.Z * b.Z;
         }
         /// <summary>
         /// Adds two vectors together.
@@ -189,12 +123,11 @@ namespace FixedMath
         /// <param name="a">First vector to add.</param>
         /// <param name="b">Second vector to add.</param>
         /// <param name="sum">Sum of the two vectors.</param>
-        public static void Add(ref Vector4 a, ref Vector4 b, out Vector4 sum)
+        public static void Add(ref FixVector3 a, ref FixVector3 b, out FixVector3 sum)
         {
             sum.X = a.X + b.X;
             sum.Y = a.Y + b.Y;
             sum.Z = a.Z + b.Z;
-            sum.W = a.W + b.W;
         }
         /// <summary>
         /// Subtracts two vectors.
@@ -202,12 +135,11 @@ namespace FixedMath
         /// <param name="a">Vector to subtract from.</param>
         /// <param name="b">Vector to subtract from the first vector.</param>
         /// <param name="difference">Result of the subtraction.</param>
-        public static void Subtract(ref Vector4 a, ref Vector4 b, out Vector4 difference)
+        public static void Subtract(ref FixVector3 a, ref FixVector3 b, out FixVector3 difference)
         {
             difference.X = a.X - b.X;
             difference.Y = a.Y - b.Y;
             difference.Z = a.Z - b.Z;
-            difference.W = a.W - b.W;
         }
         /// <summary>
         /// Scales a vector.
@@ -215,14 +147,12 @@ namespace FixedMath
         /// <param name="v">Vector to scale.</param>
         /// <param name="scale">Amount to scale.</param>
         /// <param name="result">Scaled vector.</param>
-        public static void Multiply(ref Vector4 v, Fix64 scale, out Vector4 result)
+        public static void Multiply(ref FixVector3 v, Fix64 scale, out FixVector3 result)
         {
             result.X = v.X * scale;
             result.Y = v.Y * scale;
             result.Z = v.Z * scale;
-            result.W = v.W * scale;
         }
-
 
         /// <summary>
         /// Multiplies two vectors on a per-component basis.
@@ -230,14 +160,12 @@ namespace FixedMath
         /// <param name="a">First vector to multiply.</param>
         /// <param name="b">Second vector to multiply.</param>
         /// <param name="result">Result of the componentwise multiplication.</param>
-        public static void Multiply(ref Vector4 a, ref Vector4 b, out Vector4 result)
+        public static void Multiply(ref FixVector3 a, ref FixVector3 b, out FixVector3 result)
         {
             result.X = a.X * b.X;
             result.Y = a.Y * b.Y;
             result.Z = a.Z * b.Z;
-            result.W = a.W * b.W;
         }
-
 
         /// <summary>
         /// Divides a vector's components by some amount.
@@ -245,13 +173,12 @@ namespace FixedMath
         /// <param name="v">Vector to divide.</param>
         /// <param name="divisor">Value to divide the vector's components.</param>
         /// <param name="result">Result of the division.</param>
-        public static void Divide(ref Vector4 v, Fix64 divisor, out Vector4 result)
+        public static void Divide(ref FixVector3 v, Fix64 divisor, out FixVector3 result)
         {
             Fix64 inverse = F64.C1 / divisor;
             result.X = v.X * inverse;
             result.Y = v.Y * inverse;
             result.Z = v.Z * inverse;
-            result.W = v.W * inverse;
         }
         /// <summary>
         /// Scales a vector.
@@ -259,31 +186,29 @@ namespace FixedMath
         /// <param name="v">Vector to scale.</param>
         /// <param name="f">Amount to scale.</param>
         /// <returns>Scaled vector.</returns>
-        public static Vector4 operator *(Vector4 v, Fix64 f)
+        public static FixVector3 operator *(FixVector3 v, Fix64 f)
         {
-            Vector4 toReturn;
+            FixVector3 toReturn;
             toReturn.X = v.X * f;
             toReturn.Y = v.Y * f;
             toReturn.Z = v.Z * f;
-            toReturn.W = v.W * f;
-            return toReturn;
-        }
-        /// <summary>
-        /// Scales a vector.
-        /// </summary>
-        /// <param name="v">Vector to scale.</param>
-        /// <param name="f">Amount to scale.</param>
-        /// <returns>Scaled vector.</returns>
-        public static Vector4 operator *(Fix64 f, Vector4 v)
-        {
-            Vector4 toReturn;
-            toReturn.X = v.X * f;
-            toReturn.Y = v.Y * f;
-            toReturn.Z = v.Z * f;
-            toReturn.W = v.W * f;
             return toReturn;
         }
 
+        /// <summary>
+        /// Scales a vector.
+        /// </summary>
+        /// <param name="v">Vector to scale.</param>
+        /// <param name="f">Amount to scale.</param>
+        /// <returns>Scaled vector.</returns>
+        public static FixVector3 operator *(Fix64 f, FixVector3 v)
+        {
+            FixVector3 toReturn;
+            toReturn.X = v.X * f;
+            toReturn.Y = v.Y * f;
+            toReturn.Z = v.Z * f;
+            return toReturn;
+        }
 
         /// <summary>
         /// Multiplies two vectors on a per-component basis.
@@ -291,13 +216,12 @@ namespace FixedMath
         /// <param name="a">First vector to multiply.</param>
         /// <param name="b">Second vector to multiply.</param>
         /// <returns>Result of the componentwise multiplication.</returns>
-        public static Vector4 operator *(Vector4 a, Vector4 b)
+        public static FixVector3 operator *(FixVector3 a, FixVector3 b)
         {
-            Vector4 result;
+            FixVector3 result;
             Multiply(ref a, ref b, out result);
             return result;
         }
-
 
         /// <summary>
         /// Divides a vector's components by some amount.
@@ -305,14 +229,13 @@ namespace FixedMath
         /// <param name="v">Vector to divide.</param>
         /// <param name="f">Value to divide the vector's components.</param>
         /// <returns>Result of the division.</returns>
-        public static Vector4 operator /(Vector4 v, Fix64 f)
+        public static FixVector3 operator /(FixVector3 v, Fix64 f)
         {
-            Vector4 toReturn;
+            FixVector3 toReturn;
             f = F64.C1 / f;
             toReturn.X = v.X * f;
             toReturn.Y = v.Y * f;
             toReturn.Z = v.Z * f;
-            toReturn.W = v.W * f;
             return toReturn;
         }
         /// <summary>
@@ -321,13 +244,12 @@ namespace FixedMath
         /// <param name="a">Vector to subtract from.</param>
         /// <param name="b">Vector to subtract from the first vector.</param>
         /// <returns>Result of the subtraction.</returns>
-        public static Vector4 operator -(Vector4 a, Vector4 b)
+        public static FixVector3 operator -(FixVector3 a, FixVector3 b)
         {
-            Vector4 v;
+            FixVector3 v;
             v.X = a.X - b.X;
             v.Y = a.Y - b.Y;
             v.Z = a.Z - b.Z;
-            v.W = a.W - b.W;
             return v;
         }
         /// <summary>
@@ -336,13 +258,12 @@ namespace FixedMath
         /// <param name="a">First vector to add.</param>
         /// <param name="b">Second vector to add.</param>
         /// <returns>Sum of the two vectors.</returns>
-        public static Vector4 operator +(Vector4 a, Vector4 b)
+        public static FixVector3 operator +(FixVector3 a, FixVector3 b)
         {
-            Vector4 v;
+            FixVector3 v;
             v.X = a.X + b.X;
             v.Y = a.Y + b.Y;
             v.Z = a.Z + b.Z;
-            v.W = a.W + b.W;
             return v;
         }
 
@@ -352,12 +273,11 @@ namespace FixedMath
         /// </summary>
         /// <param name="v">Vector to negate.</param>
         /// <returns>Negated vector.</returns>
-        public static Vector4 operator -(Vector4 v)
+        public static FixVector3 operator -(FixVector3 v)
         {
             v.X = -v.X;
             v.Y = -v.Y;
             v.Z = -v.Z;
-            v.W = -v.W;
             return v;
         }
         /// <summary>
@@ -366,9 +286,9 @@ namespace FixedMath
         /// <param name="a">First vector to test for equivalence.</param>
         /// <param name="b">Second vector to test for equivalence.</param>
         /// <returns>Whether the vectors were equivalent.</returns>
-        public static bool operator ==(Vector4 a, Vector4 b)
+        public static bool operator ==(FixVector3 a, FixVector3 b)
         {
-            return a.X == b.X && a.Y == b.Y && a.Z == b.Z && a.W == b.W;
+            return a.X == b.X && a.Y == b.Y && a.Z == b.Z;
         }
         /// <summary>
         /// Tests two vectors for componentwise inequivalence.
@@ -376,9 +296,9 @@ namespace FixedMath
         /// <param name="a">First vector to test for inequivalence.</param>
         /// <param name="b">Second vector to test for inequivalence.</param>
         /// <returns>Whether the vectors were inequivalent.</returns>
-        public static bool operator !=(Vector4 a, Vector4 b)
+        public static bool operator !=(FixVector3 a, FixVector3 b)
         {
-            return a.X != b.X || a.Y != b.Y || a.Z != b.Z || a.W != b.W;
+            return a.X != b.X || a.Y != b.Y || a.Z != b.Z;
         }
 
         /// <summary>
@@ -388,9 +308,9 @@ namespace FixedMath
         /// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
         /// </returns>
         /// <param name="other">An object to compare with this object.</param>
-        public bool Equals(Vector4 other)
+        public bool Equals(FixVector3 other)
         {
-            return X == other.X && Y == other.Y && Z == other.Z && W == other.W;
+            return X == other.X && Y == other.Y && Z == other.Z;
         }
 
         /// <summary>
@@ -402,9 +322,9 @@ namespace FixedMath
         /// <param name="obj">Another object to compare to. </param><filterpriority>2</filterpriority>
         public override bool Equals(object obj)
         {
-            if (obj is Vector4)
+            if (obj is FixVector3)
             {
-                return Equals((Vector4)obj);
+                return Equals((FixVector3)obj);
             }
             return false;
         }
@@ -418,8 +338,9 @@ namespace FixedMath
         /// <filterpriority>2</filterpriority>
         public override int GetHashCode()
         {
-            return X.GetHashCode() + Y.GetHashCode() + Z.GetHashCode() + W.GetHashCode();
+            return X.GetHashCode() + Y.GetHashCode() + Z.GetHashCode();
         }
+
 
         /// <summary>
         /// Computes the squared distance between two vectors.
@@ -427,14 +348,28 @@ namespace FixedMath
         /// <param name="a">First vector.</param>
         /// <param name="b">Second vector.</param>
         /// <param name="distanceSquared">Squared distance between the two vectors.</param>
-        public static void DistanceSquared(ref Vector4 a, ref Vector4 b, out Fix64 distanceSquared)
+        public static void DistanceSquared(ref FixVector3 a, ref FixVector3 b, out Fix64 distanceSquared)
         {
             Fix64 x = a.X - b.X;
             Fix64 y = a.Y - b.Y;
             Fix64 z = a.Z - b.Z;
-            Fix64 w = a.W - b.W;
-            distanceSquared = x * x + y * y + z * z + w * w;
+            distanceSquared = x * x + y * y + z * z;
         }
+
+        /// <summary>
+        /// Computes the squared distance between two vectors.
+        /// </summary>
+        /// <param name="a">First vector.</param>
+        /// <param name="b">Second vector.</param>
+        /// <returns>Squared distance between the two vectors.</returns>
+        public static Fix64 DistanceSquared(FixVector3 a, FixVector3 b)
+        {
+            Fix64 x = a.X - b.X;
+            Fix64 y = a.Y - b.Y;
+            Fix64 z = a.Z - b.Z;
+            return x * x + y * y + z * z;
+        }
+
 
         /// <summary>
         /// Computes the distance between two two vectors.
@@ -442,13 +377,12 @@ namespace FixedMath
         /// <param name="a">First vector.</param>
         /// <param name="b">Second vector.</param>
         /// <param name="distance">Distance between the two vectors.</param>
-        public static void Distance(ref Vector4 a, ref Vector4 b, out Fix64 distance)
+        public static void Distance(ref FixVector3 a, ref FixVector3 b, out Fix64 distance)
         {
             Fix64 x = a.X - b.X;
             Fix64 y = a.Y - b.Y;
             Fix64 z = a.Z - b.Z;
-            Fix64 w = a.W - b.W;
-            distance = Fix64.Sqrt(x * x + y * y + z * z + w * w);
+            distance = Fix64.Sqrt(x * x + y * y + z * z);
         }
         /// <summary>
         /// Computes the distance between two two vectors.
@@ -456,7 +390,7 @@ namespace FixedMath
         /// <param name="a">First vector.</param>
         /// <param name="b">Second vector.</param>
         /// <returns>Distance between the two vectors.</returns>
-        public static Fix64 Distance(Vector4 a, Vector4 b)
+        public static Fix64 Distance(FixVector3 a, FixVector3 b)
         {
             Fix64 toReturn;
             Distance(ref a, ref b, out toReturn);
@@ -466,44 +400,160 @@ namespace FixedMath
         /// <summary>
         /// Gets the zero vector.
         /// </summary>
-        public static Vector4 Zero
+        public static FixVector3 Zero
         {
             get
             {
-                return new Vector4();
+                return new FixVector3();
+            }
+        }
+
+        /// <summary>
+        /// Gets the up vector (0,1,0).
+        /// </summary>
+        public static FixVector3 Up
+        {
+            get
+            {
+                return new FixVector3()
+                {
+                    X = F64.C0,
+                    Y = F64.C1,
+                    Z = F64.C0
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the down vector (0,-1,0).
+        /// </summary>
+        public static FixVector3 Down
+        {
+            get
+            {
+                return new FixVector3()
+                {
+                    X = F64.C0,
+                    Y = -1,
+                    Z = F64.C0
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the right vector (1,0,0).
+        /// </summary>
+        public static FixVector3 Right
+        {
+            get
+            {
+                return new FixVector3()
+                {
+                    X = F64.C1,
+                    Y = F64.C0,
+                    Z = F64.C0
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the left vector (-1,0,0).
+        /// </summary>
+        public static FixVector3 Left
+        {
+            get
+            {
+                return new FixVector3()
+                {
+                    X = -1,
+                    Y = F64.C0,
+                    Z = F64.C0
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the forward vector (0,0,-1).
+        /// </summary>
+        public static FixVector3 Forward
+        {
+            get
+            {
+                return new FixVector3()
+                {
+                    X = F64.C0,
+                    Y = F64.C0,
+                    Z = -1
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the back vector (0,0,1).
+        /// </summary>
+        public static FixVector3 Backward
+        {
+            get
+            {
+                return new FixVector3()
+                {
+                    X = F64.C0,
+                    Y = F64.C0,
+                    Z = F64.C1
+                };
             }
         }
 
         /// <summary>
         /// Gets a vector pointing along the X axis.
         /// </summary>
-        public static Vector4 UnitX
+        public static FixVector3 UnitX
         {
-            get { return new Vector4 { X = F64.C1 }; }
+            get { return new FixVector3 { X = F64.C1 }; }
         }
 
         /// <summary>
         /// Gets a vector pointing along the Y axis.
         /// </summary>
-        public static Vector4 UnitY
+        public static FixVector3 UnitY
         {
-            get { return new Vector4 { Y = F64.C1 }; }
+            get { return new FixVector3 { Y = F64.C1 }; }
         }
 
         /// <summary>
         /// Gets a vector pointing along the Z axis.
         /// </summary>
-        public static Vector4 UnitZ
+        public static FixVector3 UnitZ
         {
-            get { return new Vector4 { Z = F64.C1 }; }
+            get { return new FixVector3 { Z = F64.C1 }; }
         }
 
         /// <summary>
-        /// Gets a vector pointing along the W axis.
+        /// Computes the cross product between two vectors.
         /// </summary>
-        public static Vector4 UnitW
+        /// <param name="a">First vector.</param>
+        /// <param name="b">Second vector.</param>
+        /// <returns>Cross product of the two vectors.</returns>
+        public static FixVector3 Cross(FixVector3 a, FixVector3 b)
         {
-            get { return new Vector4 { W = F64.C1 }; }
+            FixVector3 toReturn;
+            FixVector3.Cross(ref a, ref b, out toReturn);
+            return toReturn;
+        }
+        /// <summary>
+        /// Computes the cross product between two vectors.
+        /// </summary>
+        /// <param name="a">First vector.</param>
+        /// <param name="b">Second vector.</param>
+        /// <param name="result">Cross product of the two vectors.</param>
+        public static void Cross(ref FixVector3 a, ref FixVector3 b, out FixVector3 result)
+        {
+            Fix64 resultX = a.Y * b.Z - a.Z * b.Y;
+            Fix64 resultY = a.Z * b.X - a.X * b.Z;
+            Fix64 resultZ = a.X * b.Y - a.Y * b.X;
+            result.X = resultX;
+            result.Y = resultY;
+            result.Z = resultZ;
         }
 
         /// <summary>
@@ -511,10 +561,10 @@ namespace FixedMath
         /// </summary>
         /// <param name="v">Vector to normalize.</param>
         /// <returns>Normalized vector.</returns>
-        public static Vector4 Normalize(Vector4 v)
+        public static FixVector3 Normalize(FixVector3 v)
         {
-            Vector4 toReturn;
-            Vector4.Normalize(ref v, out toReturn);
+            FixVector3 toReturn;
+            FixVector3.Normalize(ref v, out toReturn);
             return toReturn;
         }
 
@@ -523,13 +573,12 @@ namespace FixedMath
         /// </summary>
         /// <param name="v">Vector to normalize.</param>
         /// <param name="result">Normalized vector.</param>
-        public static void Normalize(ref Vector4 v, out Vector4 result)
+        public static void Normalize(ref FixVector3 v, out FixVector3 result)
         {
-            Fix64 inverse = F64.C1 / Fix64.Sqrt(v.X * v.X + v.Y * v.Y + v.Z * v.Z + v.W * v.W);
+            Fix64 inverse = F64.C1 / Fix64.Sqrt(v.X * v.X + v.Y * v.Y + v.Z * v.Z);
             result.X = v.X * inverse;
             result.Y = v.Y * inverse;
             result.Z = v.Z * inverse;
-            result.W = v.W * inverse;
         }
 
         /// <summary>
@@ -537,21 +586,19 @@ namespace FixedMath
         /// </summary>
         /// <param name="v">Vector to negate.</param>
         /// <param name="negated">Negated vector.</param>
-        public static void Negate(ref Vector4 v, out Vector4 negated)
+        public static void Negate(ref FixVector3 v, out FixVector3 negated)
         {
             negated.X = -v.X;
             negated.Y = -v.Y;
             negated.Z = -v.Z;
-            negated.W = -v.W;
         }
-
 
         /// <summary>
         /// Computes the absolute value of the input vector.
         /// </summary>
         /// <param name="v">Vector to take the absolute value of.</param>
         /// <param name="result">Vector with nonnegative elements.</param>
-        public static void Abs(ref Vector4 v, out Vector4 result)
+        public static void Abs(ref FixVector3 v, out FixVector3 result)
         {
             if (v.X < F64.C0)
                 result.X = -v.X;
@@ -565,10 +612,6 @@ namespace FixedMath
                 result.Z = -v.Z;
             else
                 result.Z = v.Z;
-            if (v.W < F64.C0)
-                result.W = -v.W;
-            else
-                result.W = v.W;
         }
 
         /// <summary>
@@ -576,9 +619,9 @@ namespace FixedMath
         /// </summary>
         /// <param name="v">Vector to take the absolute value of.</param>
         /// <returns>Vector with nonnegative elements.</returns>
-        public static Vector4 Abs(Vector4 v)
+        public static FixVector3 Abs(FixVector3 v)
         {
-            Vector4 result;
+            FixVector3 result;
             Abs(ref v, out result);
             return result;
         }
@@ -589,12 +632,11 @@ namespace FixedMath
         /// <param name="a">First input vector to compare values from.</param>
         /// <param name="b">Second input vector to compare values from.</param>
         /// <param name="min">Vector containing the lesser values of each vector.</param>
-        public static void Min(ref Vector4 a, ref Vector4 b, out Vector4 min)
+        public static void Min(ref FixVector3 a, ref FixVector3 b, out FixVector3 min)
         {
             min.X = a.X < b.X ? a.X : b.X;
             min.Y = a.Y < b.Y ? a.Y : b.Y;
             min.Z = a.Z < b.Z ? a.Z : b.Z;
-            min.W = a.W < b.W ? a.W : b.W;
         }
 
         /// <summary>
@@ -603,9 +645,9 @@ namespace FixedMath
         /// <param name="a">First input vector to compare values from.</param>
         /// <param name="b">Second input vector to compare values from.</param>
         /// <returns>Vector containing the lesser values of each vector.</returns>
-        public static Vector4 Min(Vector4 a, Vector4 b)
+        public static FixVector3 Min(FixVector3 a, FixVector3 b)
         {
-            Vector4 result;
+            FixVector3 result;
             Min(ref a, ref b, out result);
             return result;
         }
@@ -617,12 +659,11 @@ namespace FixedMath
         /// <param name="a">First input vector to compare values from.</param>
         /// <param name="b">Second input vector to compare values from.</param>
         /// <param name="max">Vector containing the greater values of each vector.</param>
-        public static void Max(ref Vector4 a, ref Vector4 b, out Vector4 max)
+        public static void Max(ref FixVector3 a, ref FixVector3 b, out FixVector3 max)
         {
             max.X = a.X > b.X ? a.X : b.X;
             max.Y = a.Y > b.Y ? a.Y : b.Y;
             max.Z = a.Z > b.Z ? a.Z : b.Z;
-            max.W = a.W > b.W ? a.W : b.W;
         }
 
         /// <summary>
@@ -631,9 +672,9 @@ namespace FixedMath
         /// <param name="a">First input vector to compare values from.</param>
         /// <param name="b">Second input vector to compare values from.</param>
         /// <returns>Vector containing the greater values of each vector.</returns>
-        public static Vector4 Max(Vector4 a, Vector4 b)
+        public static FixVector3 Max(FixVector3 a, FixVector3 b)
         {
-            Vector4 result;
+            FixVector3 result;
             Max(ref a, ref b, out result);
             return result;
         }
@@ -645,9 +686,9 @@ namespace FixedMath
         /// <param name="end">Ending location of the interpolation.</param>
         /// <param name="interpolationAmount">Amount of the end location to use.</param>
         /// <returns>Interpolated intermediate state.</returns>
-        public static Vector4 Lerp(Vector4 start, Vector4 end, Fix64 interpolationAmount)
+        public static FixVector3 Lerp(FixVector3 start, FixVector3 end, Fix64 interpolationAmount)
         {
-            Vector4 toReturn;
+            FixVector3 toReturn;
             Lerp(ref start, ref end, interpolationAmount, out toReturn);
             return toReturn;
         }
@@ -658,13 +699,12 @@ namespace FixedMath
         /// <param name="end">Ending location of the interpolation.</param>
         /// <param name="interpolationAmount">Amount of the end location to use.</param>
         /// <param name="result">Interpolated intermediate state.</param>
-        public static void Lerp(ref Vector4 start, ref Vector4 end, Fix64 interpolationAmount, out Vector4 result)
+        public static void Lerp(ref FixVector3 start, ref FixVector3 end, Fix64 interpolationAmount, out FixVector3 result)
         {
             Fix64 startAmount = F64.C1 - interpolationAmount;
             result.X = start.X * startAmount + end.X * interpolationAmount;
             result.Y = start.Y * startAmount + end.Y * interpolationAmount;
             result.Z = start.Z * startAmount + end.Z * interpolationAmount;
-            result.W = start.W * startAmount + end.W * interpolationAmount;
         }
 
         /// <summary>
@@ -676,7 +716,7 @@ namespace FixedMath
         /// <param name="tangent2">Tangent associated with the second position.</param>
         /// <param name="interpolationAmount">Amount of the second point to use.</param>
         /// <param name="result">Interpolated intermediate state.</param>
-        public static void Hermite(ref Vector4 value1, ref Vector4 tangent1, ref Vector4 value2, ref Vector4 tangent2, Fix64 interpolationAmount, out Vector4 result)
+        public static void Hermite(ref FixVector3 value1, ref FixVector3 tangent1, ref FixVector3 value2, ref FixVector3 tangent2, Fix64 interpolationAmount, out FixVector3 result)
         {
             Fix64 weightSquared = interpolationAmount * interpolationAmount;
             Fix64 weightCubed = interpolationAmount * weightSquared;
@@ -687,7 +727,6 @@ namespace FixedMath
             result.X = value1.X * value1Blend + value2.X * value2Blend + tangent1.X * tangent1Blend + tangent2.X * tangent2Blend;
             result.Y = value1.Y * value1Blend + value2.Y * value2Blend + tangent1.Y * tangent1Blend + tangent2.Y * tangent2Blend;
             result.Z = value1.Z * value1Blend + value2.Z * value2Blend + tangent1.Z * tangent1Blend + tangent2.Z * tangent2Blend;
-            result.W = value1.W * value1Blend + value2.W * value2Blend + tangent1.W * tangent1Blend + tangent2.W * tangent2Blend;
         }
         /// <summary>
         /// Computes an intermediate location using hermite interpolation.
@@ -698,9 +737,9 @@ namespace FixedMath
         /// <param name="tangent2">Tangent associated with the second position.</param>
         /// <param name="interpolationAmount">Amount of the second point to use.</param>
         /// <returns>Interpolated intermediate state.</returns>
-        public static Vector4 Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, Fix64 interpolationAmount)
+        public static FixVector3 Hermite(FixVector3 value1, FixVector3 tangent1, FixVector3 value2, FixVector3 tangent2, Fix64 interpolationAmount)
         {
-            Vector4 toReturn;
+            FixVector3 toReturn;
             Hermite(ref value1, ref tangent1, ref value2, ref tangent2, interpolationAmount, out toReturn);
             return toReturn;
         }
