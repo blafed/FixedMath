@@ -1,6 +1,6 @@
 ﻿
 
-namespace FixedMath
+namespace FixedMath.Geomtry
 {
     /// <summary>
     /// Provides XNA-like plane functionality.

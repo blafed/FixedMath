@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FixedMath
+namespace FixedMath.Geomtry
 {
     /// <summary>
     /// Provides XNA-like axis-aligned bounding box functionality.

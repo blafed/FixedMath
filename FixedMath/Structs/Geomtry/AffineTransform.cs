@@ -1,6 +1,4 @@
-﻿
-
-namespace FixedMath
+﻿namespace FixedMath.Geomtry
 {
     ///<summary>
     /// A transformation composed of a linear transformation and a translation.

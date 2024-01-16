@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace FixedMath
+namespace FixedMath.Geomtry
 {
     /// <summary>
     /// Provides XNA-like ray functionality.

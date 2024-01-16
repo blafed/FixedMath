@@ -1,6 +1,6 @@
 ﻿
 
-namespace FixedMath
+namespace FixedMath.Geomtry
 {
     ///<summary>
     /// Transform composed of a rotation and translation.

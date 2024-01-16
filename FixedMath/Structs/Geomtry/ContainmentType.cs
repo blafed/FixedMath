@@ -1,4 +1,4 @@
-﻿namespace FixedMath
+﻿namespace FixedMath.Geomtry
 {
     /// <summary>
     /// The current containment state of two objects.
