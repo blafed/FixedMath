@@ -179,23 +179,23 @@ namespace FixedMath
 
             // Initialize temporary matrix
             // M[0, 0] = m.M11;
-            M.M11 = m.M11;
+            M.M11 = m.m11;
             // M[0, 1] = m.M12;
-            M.M12 = m.M12;
+            M.M12 = m.m12;
             // M[0, 2] = m.M13;
-            M.M13 = m.M13;
+            M.M13 = m.m13;
             // M[1, 0] = m.M21;
-            M.M21 = m.M21;
+            M.M21 = m.m21;
             // M[1, 1] = m.M22;
-            M.M22 = m.M22;
+            M.M22 = m.m22;
             // M[1, 2] = m.M23;
-            M.M23 = m.M23;
+            M.M23 = m.m23;
             // M[2, 0] = m.M31;
-            M.M31 = m.M31;
+            M.M31 = m.m31;
             // M[2, 1] = m.M32;
-            M.M32 = m.M32;
+            M.M32 = m.m32;
             // M[2, 2] = m.M33;
-            M.M33 = m.M33;
+            M.M33 = m.m33;
 
             // M[0, 3] = Fix64.One;
             M.M14 = Fix64.One;

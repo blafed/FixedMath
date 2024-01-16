@@ -71,7 +71,7 @@ namespace FixedMath.Geomtry
         /// <param name="dot">Dot product.</param>
         public void DotCoordinate(ref FixVector3 v, out Fix64 dot)
         {
-            dot = Normal.X * v.X + Normal.Y * v.Y + Normal.Z * v.Z + D;
+            dot = Normal.x * v.x + Normal.y * v.y + Normal.z * v.z + D;
         }
     }
 }

@@ -8,32 +8,32 @@
         /// <summary>
         /// Value at row 1, column 1 of the matrix.
         /// </summary>
-        public Fix64 M11;
+        public Fix64 m11;
 
         /// <summary>
         /// Value at row 1, column 2 of the matrix.
         /// </summary>
-        public Fix64 M12;
+        public Fix64 m12;
 
         /// <summary>
         /// Value at row 1, column 2 of the matrix.
         /// </summary>
-        public Fix64 M13;
+        public Fix64 m13;
 
         /// <summary>
         /// Value at row 2, column 1 of the matrix.
         /// </summary>
-        public Fix64 M21;
+        public Fix64 m21;
 
         /// <summary>
         /// Value at row 2, column 2 of the matrix.
         /// </summary>
-        public Fix64 M22;
+        public Fix64 m22;
 
         /// <summary>
         /// Value at row 2, column 3 of the matrix.
         /// </summary>
-        public Fix64 M23;
+        public Fix64 m23;
 
 
         /// <summary>
@@ -47,12 +47,12 @@
         /// <param name="m23">Value at row 2, column 3 of the matrix.</param>
         public FixMatrix2x3(Fix64 m11, Fix64 m12, Fix64 m13, Fix64 m21, Fix64 m22, Fix64 m23)
         {
-            M11 = m11;
-            M12 = m12;
-            M13 = m13;
-            M21 = m21;
-            M22 = m22;
-            M23 = m23;
+            this.m11 = m11;
+            this.m12 = m12;
+            this.m13 = m13;
+            this.m21 = m21;
+            this.m22 = m22;
+            this.m23 = m23;
         }
 
         /// <summary>
@@ -63,21 +63,21 @@
         /// <param name="result">Sum of the two matrices.</param>
         public static void Add(ref FixMatrix2x3 a, ref FixMatrix2x3 b, out FixMatrix2x3 result)
         {
-            Fix64 m11 = a.M11 + b.M11;
-            Fix64 m12 = a.M12 + b.M12;
-            Fix64 m13 = a.M13 + b.M13;
+            Fix64 m11 = a.m11 + b.m11;
+            Fix64 m12 = a.m12 + b.m12;
+            Fix64 m13 = a.m13 + b.m13;
 
-            Fix64 m21 = a.M21 + b.M21;
-            Fix64 m22 = a.M22 + b.M22;
-            Fix64 m23 = a.M23 + b.M23;
+            Fix64 m21 = a.m21 + b.m21;
+            Fix64 m22 = a.m22 + b.m22;
+            Fix64 m23 = a.m23 + b.m23;
 
-            result.M11 = m11;
-            result.M12 = m12;
-            result.M13 = m13;
+            result.m11 = m11;
+            result.m12 = m12;
+            result.m13 = m13;
 
-            result.M21 = m21;
-            result.M22 = m22;
-            result.M23 = m23;
+            result.m21 = m21;
+            result.m22 = m22;
+            result.m23 = m23;
         }
 
 
@@ -89,21 +89,21 @@
         /// <param name="result">Product of the multiplication.</param>
         public static void Multiply(ref FixMatrix2x3 a, ref FixMatrix3x3 b, out FixMatrix2x3 result)
         {
-            Fix64 resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
-            Fix64 resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
-            Fix64 resultM13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33;
+            Fix64 resultM11 = a.m11 * b.m11 + a.m12 * b.m21 + a.m13 * b.m31;
+            Fix64 resultM12 = a.m11 * b.m12 + a.m12 * b.m22 + a.m13 * b.m32;
+            Fix64 resultM13 = a.m11 * b.m13 + a.m12 * b.m23 + a.m13 * b.m33;
 
-            Fix64 resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
-            Fix64 resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
-            Fix64 resultM23 = a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33;
+            Fix64 resultM21 = a.m21 * b.m11 + a.m22 * b.m21 + a.m23 * b.m31;
+            Fix64 resultM22 = a.m21 * b.m12 + a.m22 * b.m22 + a.m23 * b.m32;
+            Fix64 resultM23 = a.m21 * b.m13 + a.m22 * b.m23 + a.m23 * b.m33;
 
-            result.M11 = resultM11;
-            result.M12 = resultM12;
-            result.M13 = resultM13;
+            result.m11 = resultM11;
+            result.m12 = resultM12;
+            result.m13 = resultM13;
 
-            result.M21 = resultM21;
-            result.M22 = resultM22;
-            result.M23 = resultM23;
+            result.m21 = resultM21;
+            result.m22 = resultM22;
+            result.m23 = resultM23;
         }
 
         /// <summary>
@@ -114,21 +114,21 @@
         /// <param name="result">Product of the multiplication.</param>
         public static void Multiply(ref FixMatrix2x3 a, ref FixMatrix4x4 b, out FixMatrix2x3 result)
         {
-            Fix64 resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
-            Fix64 resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
-            Fix64 resultM13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33;
+            Fix64 resultM11 = a.m11 * b.m11 + a.m12 * b.m21 + a.m13 * b.m31;
+            Fix64 resultM12 = a.m11 * b.m12 + a.m12 * b.m22 + a.m13 * b.m32;
+            Fix64 resultM13 = a.m11 * b.m13 + a.m12 * b.m23 + a.m13 * b.m33;
 
-            Fix64 resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
-            Fix64 resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
-            Fix64 resultM23 = a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33;
+            Fix64 resultM21 = a.m21 * b.m11 + a.m22 * b.m21 + a.m23 * b.m31;
+            Fix64 resultM22 = a.m21 * b.m12 + a.m22 * b.m22 + a.m23 * b.m32;
+            Fix64 resultM23 = a.m21 * b.m13 + a.m22 * b.m23 + a.m23 * b.m33;
 
-            result.M11 = resultM11;
-            result.M12 = resultM12;
-            result.M13 = resultM13;
+            result.m11 = resultM11;
+            result.m12 = resultM12;
+            result.m13 = resultM13;
 
-            result.M21 = resultM21;
-            result.M22 = resultM22;
-            result.M23 = resultM23;
+            result.m21 = resultM21;
+            result.m22 = resultM22;
+            result.m23 = resultM23;
         }
 
         /// <summary>
@@ -138,21 +138,21 @@
         /// <param name="result">Negated matrix.</param>
         public static void Negate(ref FixMatrix2x3 matrix, out FixMatrix2x3 result)
         {
-            Fix64 m11 = -matrix.M11;
-            Fix64 m12 = -matrix.M12;
-            Fix64 m13 = -matrix.M13;
+            Fix64 m11 = -matrix.m11;
+            Fix64 m12 = -matrix.m12;
+            Fix64 m13 = -matrix.m13;
 
-            Fix64 m21 = -matrix.M21;
-            Fix64 m22 = -matrix.M22;
-            Fix64 m23 = -matrix.M23;
+            Fix64 m21 = -matrix.m21;
+            Fix64 m22 = -matrix.m22;
+            Fix64 m23 = -matrix.m23;
 
-            result.M11 = m11;
-            result.M12 = m12;
-            result.M13 = m13;
+            result.m11 = m11;
+            result.m12 = m12;
+            result.m13 = m13;
 
-            result.M21 = m21;
-            result.M22 = m22;
-            result.M23 = m23;
+            result.m21 = m21;
+            result.m22 = m22;
+            result.m23 = m23;
         }
 
         /// <summary>
@@ -163,21 +163,21 @@
         /// <param name="result">Difference of the two matrices.</param>
         public static void Subtract(ref FixMatrix2x3 a, ref FixMatrix2x3 b, out FixMatrix2x3 result)
         {
-            Fix64 m11 = a.M11 - b.M11;
-            Fix64 m12 = a.M12 - b.M12;
-            Fix64 m13 = a.M13 - b.M13;
+            Fix64 m11 = a.m11 - b.m11;
+            Fix64 m12 = a.m12 - b.m12;
+            Fix64 m13 = a.m13 - b.m13;
 
-            Fix64 m21 = a.M21 - b.M21;
-            Fix64 m22 = a.M22 - b.M22;
-            Fix64 m23 = a.M23 - b.M23;
+            Fix64 m21 = a.m21 - b.m21;
+            Fix64 m22 = a.m22 - b.m22;
+            Fix64 m23 = a.m23 - b.m23;
 
-            result.M11 = m11;
-            result.M12 = m12;
-            result.M13 = m13;
+            result.m11 = m11;
+            result.m12 = m12;
+            result.m13 = m13;
 
-            result.M21 = m21;
-            result.M22 = m22;
-            result.M23 = m23;
+            result.m21 = m21;
+            result.m22 = m22;
+            result.m23 = m23;
         }
 
 
@@ -192,9 +192,9 @@
 #if !WINDOWS
             result = new FixVector3();
 #endif
-            result.X = v.X * matrix.M11 + v.Y * matrix.M21;
-            result.Y = v.X * matrix.M12 + v.Y * matrix.M22;
-            result.Z = v.X * matrix.M13 + v.Y * matrix.M23;
+            result.x = v.x * matrix.m11 + v.y * matrix.m21;
+            result.y = v.x * matrix.m12 + v.y * matrix.m22;
+            result.z = v.x * matrix.m13 + v.y * matrix.m23;
         }
 
         /// <summary>
@@ -208,8 +208,8 @@
 #if !WINDOWS
             result = new FixVector2();
 #endif
-            result.X = matrix.M11 * v.X + matrix.M12 * v.Y + matrix.M13 * v.Z;
-            result.Y = matrix.M21 * v.X + matrix.M22 * v.Y + matrix.M23 * v.Z;
+            result.x = matrix.m11 * v.x + matrix.m12 * v.y + matrix.m13 * v.z;
+            result.y = matrix.m21 * v.x + matrix.m22 * v.y + matrix.m23 * v.z;
         }
 
 
@@ -220,14 +220,14 @@
         /// <param name="result">Transposed matrix.</param>
         public static void Transpose(ref FixMatrix2x3 matrix, out FixMatrix3x2 result)
         {
-            result.M11 = matrix.M11;
-            result.M12 = matrix.M21;
+            result.m11 = matrix.m11;
+            result.m12 = matrix.m21;
 
-            result.M21 = matrix.M12;
-            result.M22 = matrix.M22;
+            result.m21 = matrix.m12;
+            result.m22 = matrix.m22;
 
-            result.M31 = matrix.M13;
-            result.M32 = matrix.M23;
+            result.m31 = matrix.m13;
+            result.m32 = matrix.m23;
         }
 
 
@@ -237,8 +237,8 @@
         /// <returns>A string representation of the matrix.</returns>
         public override string ToString()
         {
-            return "{" + M11 + ", " + M12 + ", " + M13 + "} " +
-                   "{" + M21 + ", " + M22 + ", " + M23 + "}";
+            return "{" + m11 + ", " + m12 + ", " + m13 + "} " +
+                   "{" + m21 + ", " + m22 + ", " + m23 + "}";
         }
     }
 }

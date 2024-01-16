@@ -11,82 +11,82 @@ namespace FixedMath
         /// <summary>
         /// Value at row 1, column 1 of the matrix.
         /// </summary>
-        public Fix64 M11;
+        public Fix64 m11;
 
         /// <summary>
         /// Value at row 1, column 2 of the matrix.
         /// </summary>
-        public Fix64 M12;
+        public Fix64 m12;
 
         /// <summary>
         /// Value at row 1, column 3 of the matrix.
         /// </summary>
-        public Fix64 M13;
+        public Fix64 m13;
 
         /// <summary>
         /// Value at row 1, column 4 of the matrix.
         /// </summary>
-        public Fix64 M14;
+        public Fix64 m14;
 
         /// <summary>
         /// Value at row 2, column 1 of the matrix.
         /// </summary>
-        public Fix64 M21;
+        public Fix64 m21;
 
         /// <summary>
         /// Value at row 2, column 2 of the matrix.
         /// </summary>
-        public Fix64 M22;
+        public Fix64 m22;
 
         /// <summary>
         /// Value at row 2, column 3 of the matrix.
         /// </summary>
-        public Fix64 M23;
+        public Fix64 m23;
 
         /// <summary>
         /// Value at row 2, column 4 of the matrix.
         /// </summary>
-        public Fix64 M24;
+        public Fix64 m24;
 
         /// <summary>
         /// Value at row 3, column 1 of the matrix.
         /// </summary>
-        public Fix64 M31;
+        public Fix64 m31;
 
         /// <summary>
         /// Value at row 3, column 2 of the matrix.
         /// </summary>
-        public Fix64 M32;
+        public Fix64 m32;
 
         /// <summary>
         /// Value at row 3, column 3 of the matrix.
         /// </summary>
-        public Fix64 M33;
+        public Fix64 m33;
 
         /// <summary>
         /// Value at row 3, column 4 of the matrix.
         /// </summary>
-        public Fix64 M34;
+        public Fix64 m34;
 
         /// <summary>
         /// Value at row 4, column 1 of the matrix.
         /// </summary>
-        public Fix64 M41;
+        public Fix64 m41;
 
         /// <summary>
         /// Value at row 4, column 2 of the matrix.
         /// </summary>
-        public Fix64 M42;
+        public Fix64 m42;
 
         /// <summary>
         /// Value at row 4, column 3 of the matrix.
         /// </summary>
-        public Fix64 M43;
+        public Fix64 m43;
 
         /// <summary>
         /// Value at row 4, column 4 of the matrix.
         /// </summary>
-        public Fix64 M44;
+        public Fix64 m44;
 
         /// <summary>
         /// Constructs a new 4 row, 4 column matrix.
@@ -112,25 +112,25 @@ namespace FixedMath
                       Fix64 m31, Fix64 m32, Fix64 m33, Fix64 m34,
                       Fix64 m41, Fix64 m42, Fix64 m43, Fix64 m44)
         {
-            this.M11 = m11;
-            this.M12 = m12;
-            this.M13 = m13;
-            this.M14 = m14;
+            this.m11 = m11;
+            this.m12 = m12;
+            this.m13 = m13;
+            this.m14 = m14;
 
-            this.M21 = m21;
-            this.M22 = m22;
-            this.M23 = m23;
-            this.M24 = m24;
+            this.m21 = m21;
+            this.m22 = m22;
+            this.m23 = m23;
+            this.m24 = m24;
 
-            this.M31 = m31;
-            this.M32 = m32;
-            this.M33 = m33;
-            this.M34 = m34;
+            this.m31 = m31;
+            this.m32 = m32;
+            this.m33 = m33;
+            this.m34 = m34;
 
-            this.M41 = m41;
-            this.M42 = m42;
-            this.M43 = m43;
-            this.M44 = m44;
+            this.m41 = m41;
+            this.m42 = m42;
+            this.m43 = m43;
+            this.m44 = m44;
         }
 
         /// <summary>
@@ -142,16 +142,16 @@ namespace FixedMath
             {
                 return new FixVector3()
                 {
-                    X = M41,
-                    Y = M42,
-                    Z = M43
+                    x = m41,
+                    y = m42,
+                    z = m43
                 };
             }
             set
             {
-                M41 = value.X;
-                M42 = value.Y;
-                M43 = value.Z;
+                m41 = value.x;
+                m42 = value.y;
+                m43 = value.z;
             }
         }
 
@@ -167,16 +167,16 @@ namespace FixedMath
 #else
                 Vector3 vector;
 #endif
-                vector.X = M31;
-                vector.Y = M32;
-                vector.Z = M33;
+                vector.x = m31;
+                vector.y = m32;
+                vector.z = m33;
                 return vector;
             }
             set
             {
-                M31 = value.X;
-                M32 = value.Y;
-                M33 = value.Z;
+                m31 = value.x;
+                m32 = value.y;
+                m33 = value.z;
             }
         }
 
@@ -192,16 +192,16 @@ namespace FixedMath
 #else
                 Vector3 vector;
 #endif
-                vector.X = -M21;
-                vector.Y = -M22;
-                vector.Z = -M23;
+                vector.x = -m21;
+                vector.y = -m22;
+                vector.z = -m23;
                 return vector;
             }
             set
             {
-                M21 = -value.X;
-                M22 = -value.Y;
-                M23 = -value.Z;
+                m21 = -value.x;
+                m22 = -value.y;
+                m23 = -value.z;
             }
         }
 
@@ -217,16 +217,16 @@ namespace FixedMath
 #else
                 Vector3 vector;
 #endif
-                vector.X = -M31;
-                vector.Y = -M32;
-                vector.Z = -M33;
+                vector.x = -m31;
+                vector.y = -m32;
+                vector.z = -m33;
                 return vector;
             }
             set
             {
-                M31 = -value.X;
-                M32 = -value.Y;
-                M33 = -value.Z;
+                m31 = -value.x;
+                m32 = -value.y;
+                m33 = -value.z;
             }
         }
 
@@ -242,16 +242,16 @@ namespace FixedMath
 #else
                 Vector3 vector;
 #endif
-                vector.X = -M11;
-                vector.Y = -M12;
-                vector.Z = -M13;
+                vector.x = -m11;
+                vector.y = -m12;
+                vector.z = -m13;
                 return vector;
             }
             set
             {
-                M11 = -value.X;
-                M12 = -value.Y;
-                M13 = -value.Z;
+                m11 = -value.x;
+                m12 = -value.y;
+                m13 = -value.z;
             }
         }
 
@@ -267,16 +267,16 @@ namespace FixedMath
 #else
                 Vector3 vector;
 #endif
-                vector.X = M11;
-                vector.Y = M12;
-                vector.Z = M13;
+                vector.x = m11;
+                vector.y = m12;
+                vector.z = m13;
                 return vector;
             }
             set
             {
-                M11 = value.X;
-                M12 = value.Y;
-                M13 = value.Z;
+                m11 = value.x;
+                m12 = value.y;
+                m13 = value.z;
             }
         }
 
@@ -292,16 +292,16 @@ namespace FixedMath
 #else
                 Vector3 vector;
 #endif
-                vector.X = M21;
-                vector.Y = M22;
-                vector.Z = M23;
+                vector.x = m21;
+                vector.y = m22;
+                vector.z = m23;
                 return vector;
             }
             set
             {
-                M21 = value.X;
-                M22 = value.Y;
-                M23 = value.Z;
+                m21 = value.x;
+                m22 = value.y;
+                m23 = value.z;
             }
         }
 
@@ -313,17 +313,17 @@ namespace FixedMath
         public Fix64 Determinant()
         {
             //Compute the re-used 2x2 determinants.
-            Fix64 det1 = M33 * M44 - M34 * M43;
-            Fix64 det2 = M32 * M44 - M34 * M42;
-            Fix64 det3 = M32 * M43 - M33 * M42;
-            Fix64 det4 = M31 * M44 - M34 * M41;
-            Fix64 det5 = M31 * M43 - M33 * M41;
-            Fix64 det6 = M31 * M42 - M32 * M41;
+            Fix64 det1 = m33 * m44 - m34 * m43;
+            Fix64 det2 = m32 * m44 - m34 * m42;
+            Fix64 det3 = m32 * m43 - m33 * m42;
+            Fix64 det4 = m31 * m44 - m34 * m41;
+            Fix64 det5 = m31 * m43 - m33 * m41;
+            Fix64 det6 = m31 * m42 - m32 * m41;
             return
-                (M11 * ((M22 * det1 - M23 * det2) + M24 * det3)) -
-                (M12 * ((M21 * det1 - M23 * det4) + M24 * det5)) +
-                (M13 * ((M21 * det2 - M22 * det4) + M24 * det6)) -
-                (M14 * ((M21 * det3 - M22 * det5) + M23 * det6));
+                (m11 * ((m22 * det1 - m23 * det2) + m24 * det3)) -
+                (m12 * ((m21 * det1 - m23 * det4) + m24 * det5)) +
+                (m13 * ((m21 * det2 - m22 * det4) + m24 * det6)) -
+                (m14 * ((m21 * det3 - m22 * det5) + m23 * det6));
         }
 
         /// <summary>
@@ -331,29 +331,29 @@ namespace FixedMath
         /// </summary>
         public void Transpose()
         {
-            Fix64 intermediate = M12;
-            M12 = M21;
-            M21 = intermediate;
+            Fix64 intermediate = m12;
+            m12 = m21;
+            m21 = intermediate;
 
-            intermediate = M13;
-            M13 = M31;
-            M31 = intermediate;
+            intermediate = m13;
+            m13 = m31;
+            m31 = intermediate;
 
-            intermediate = M14;
-            M14 = M41;
-            M41 = intermediate;
+            intermediate = m14;
+            m14 = m41;
+            m41 = intermediate;
 
-            intermediate = M23;
-            M23 = M32;
-            M32 = intermediate;
+            intermediate = m23;
+            m23 = m32;
+            m32 = intermediate;
 
-            intermediate = M24;
-            M24 = M42;
-            M42 = intermediate;
+            intermediate = m24;
+            m24 = m42;
+            m42 = intermediate;
 
-            intermediate = M34;
-            M34 = M43;
-            M43 = intermediate;
+            intermediate = m34;
+            m34 = m43;
+            m43 = intermediate;
         }
 
         /// <summary>
@@ -377,35 +377,35 @@ namespace FixedMath
         /// <param name="result">Matrix created from the axis and angle.</param>
         public static void CreateFromAxisAngle(ref FixVector3 axis, Fix64 angle, out FixMatrix4x4 result)
         {
-            Fix64 xx = axis.X * axis.X;
-            Fix64 yy = axis.Y * axis.Y;
-            Fix64 zz = axis.Z * axis.Z;
-            Fix64 xy = axis.X * axis.Y;
-            Fix64 xz = axis.X * axis.Z;
-            Fix64 yz = axis.Y * axis.Z;
+            Fix64 xx = axis.x * axis.x;
+            Fix64 yy = axis.y * axis.y;
+            Fix64 zz = axis.z * axis.z;
+            Fix64 xy = axis.x * axis.y;
+            Fix64 xz = axis.x * axis.z;
+            Fix64 yz = axis.y * axis.z;
 
             Fix64 sinAngle = Fix64.Sin(angle);
             Fix64 oneMinusCosAngle = F64.C1 - Fix64.Cos(angle);
 
-            result.M11 = F64.C1 + oneMinusCosAngle * (xx - F64.C1);
-            result.M21 = -axis.Z * sinAngle + oneMinusCosAngle * xy;
-            result.M31 = axis.Y * sinAngle + oneMinusCosAngle * xz;
-            result.M41 = F64.C0;
+            result.m11 = F64.C1 + oneMinusCosAngle * (xx - F64.C1);
+            result.m21 = -axis.z * sinAngle + oneMinusCosAngle * xy;
+            result.m31 = axis.y * sinAngle + oneMinusCosAngle * xz;
+            result.m41 = F64.C0;
 
-            result.M12 = axis.Z * sinAngle + oneMinusCosAngle * xy;
-            result.M22 = F64.C1 + oneMinusCosAngle * (yy - F64.C1);
-            result.M32 = -axis.X * sinAngle + oneMinusCosAngle * yz;
-            result.M42 = F64.C0;
+            result.m12 = axis.z * sinAngle + oneMinusCosAngle * xy;
+            result.m22 = F64.C1 + oneMinusCosAngle * (yy - F64.C1);
+            result.m32 = -axis.x * sinAngle + oneMinusCosAngle * yz;
+            result.m42 = F64.C0;
 
-            result.M13 = -axis.Y * sinAngle + oneMinusCosAngle * xz;
-            result.M23 = axis.X * sinAngle + oneMinusCosAngle * yz;
-            result.M33 = F64.C1 + oneMinusCosAngle * (zz - F64.C1);
-            result.M43 = F64.C0;
+            result.m13 = -axis.y * sinAngle + oneMinusCosAngle * xz;
+            result.m23 = axis.x * sinAngle + oneMinusCosAngle * yz;
+            result.m33 = F64.C1 + oneMinusCosAngle * (zz - F64.C1);
+            result.m43 = F64.C0;
 
-            result.M14 = F64.C0;
-            result.M24 = F64.C0;
-            result.M34 = F64.C0;
-            result.M44 = F64.C1;
+            result.m14 = F64.C0;
+            result.m24 = F64.C0;
+            result.m34 = F64.C0;
+            result.m44 = F64.C1;
         }
 
         /// <summary>
@@ -415,38 +415,38 @@ namespace FixedMath
         /// <param name="result">Rotation matrix created from the quaternion.</param>
         public static void CreateFromQuaternion(ref FixQuaternion quaternion, out FixMatrix4x4 result)
         {
-            Fix64 qX2 = quaternion.X + quaternion.X;
-            Fix64 qY2 = quaternion.Y + quaternion.Y;
-            Fix64 qZ2 = quaternion.Z + quaternion.Z;
-            Fix64 XX = qX2 * quaternion.X;
-            Fix64 YY = qY2 * quaternion.Y;
-            Fix64 ZZ = qZ2 * quaternion.Z;
-            Fix64 XY = qX2 * quaternion.Y;
-            Fix64 XZ = qX2 * quaternion.Z;
-            Fix64 XW = qX2 * quaternion.W;
-            Fix64 YZ = qY2 * quaternion.Z;
-            Fix64 YW = qY2 * quaternion.W;
-            Fix64 ZW = qZ2 * quaternion.W;
+            Fix64 qX2 = quaternion.x + quaternion.x;
+            Fix64 qY2 = quaternion.y + quaternion.y;
+            Fix64 qZ2 = quaternion.z + quaternion.z;
+            Fix64 XX = qX2 * quaternion.x;
+            Fix64 YY = qY2 * quaternion.y;
+            Fix64 ZZ = qZ2 * quaternion.z;
+            Fix64 XY = qX2 * quaternion.y;
+            Fix64 XZ = qX2 * quaternion.z;
+            Fix64 XW = qX2 * quaternion.w;
+            Fix64 YZ = qY2 * quaternion.z;
+            Fix64 YW = qY2 * quaternion.w;
+            Fix64 ZW = qZ2 * quaternion.w;
 
-            result.M11 = F64.C1 - YY - ZZ;
-            result.M21 = XY - ZW;
-            result.M31 = XZ + YW;
-            result.M41 = F64.C0;
+            result.m11 = F64.C1 - YY - ZZ;
+            result.m21 = XY - ZW;
+            result.m31 = XZ + YW;
+            result.m41 = F64.C0;
 
-            result.M12 = XY + ZW;
-            result.M22 = F64.C1 - XX - ZZ;
-            result.M32 = YZ - XW;
-            result.M42 = F64.C0;
+            result.m12 = XY + ZW;
+            result.m22 = F64.C1 - XX - ZZ;
+            result.m32 = YZ - XW;
+            result.m42 = F64.C0;
 
-            result.M13 = XZ - YW;
-            result.M23 = YZ + XW;
-            result.M33 = F64.C1 - XX - YY;
-            result.M43 = F64.C0;
+            result.m13 = XZ - YW;
+            result.m23 = YZ + XW;
+            result.m33 = F64.C1 - XX - YY;
+            result.m43 = F64.C0;
 
-            result.M14 = F64.C0;
-            result.M24 = F64.C0;
-            result.M34 = F64.C0;
-            result.M44 = F64.C1;
+            result.m14 = F64.C0;
+            result.m24 = F64.C0;
+            result.m34 = F64.C0;
+            result.m44 = F64.C1;
         }
 
         /// <summary>
@@ -469,45 +469,45 @@ namespace FixedMath
         /// <param name="result">Combined transformation.</param>
         public static void Multiply(ref FixMatrix4x4 a, ref FixMatrix4x4 b, out FixMatrix4x4 result)
         {
-            Fix64 resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31 + a.M14 * b.M41;
-            Fix64 resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32 + a.M14 * b.M42;
-            Fix64 resultM13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33 + a.M14 * b.M43;
-            Fix64 resultM14 = a.M11 * b.M14 + a.M12 * b.M24 + a.M13 * b.M34 + a.M14 * b.M44;
+            Fix64 resultM11 = a.m11 * b.m11 + a.m12 * b.m21 + a.m13 * b.m31 + a.m14 * b.m41;
+            Fix64 resultM12 = a.m11 * b.m12 + a.m12 * b.m22 + a.m13 * b.m32 + a.m14 * b.m42;
+            Fix64 resultM13 = a.m11 * b.m13 + a.m12 * b.m23 + a.m13 * b.m33 + a.m14 * b.m43;
+            Fix64 resultM14 = a.m11 * b.m14 + a.m12 * b.m24 + a.m13 * b.m34 + a.m14 * b.m44;
 
-            Fix64 resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31 + a.M24 * b.M41;
-            Fix64 resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32 + a.M24 * b.M42;
-            Fix64 resultM23 = a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33 + a.M24 * b.M43;
-            Fix64 resultM24 = a.M21 * b.M14 + a.M22 * b.M24 + a.M23 * b.M34 + a.M24 * b.M44;
+            Fix64 resultM21 = a.m21 * b.m11 + a.m22 * b.m21 + a.m23 * b.m31 + a.m24 * b.m41;
+            Fix64 resultM22 = a.m21 * b.m12 + a.m22 * b.m22 + a.m23 * b.m32 + a.m24 * b.m42;
+            Fix64 resultM23 = a.m21 * b.m13 + a.m22 * b.m23 + a.m23 * b.m33 + a.m24 * b.m43;
+            Fix64 resultM24 = a.m21 * b.m14 + a.m22 * b.m24 + a.m23 * b.m34 + a.m24 * b.m44;
 
-            Fix64 resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31 + a.M34 * b.M41;
-            Fix64 resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32 + a.M34 * b.M42;
-            Fix64 resultM33 = a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33 + a.M34 * b.M43;
-            Fix64 resultM34 = a.M31 * b.M14 + a.M32 * b.M24 + a.M33 * b.M34 + a.M34 * b.M44;
+            Fix64 resultM31 = a.m31 * b.m11 + a.m32 * b.m21 + a.m33 * b.m31 + a.m34 * b.m41;
+            Fix64 resultM32 = a.m31 * b.m12 + a.m32 * b.m22 + a.m33 * b.m32 + a.m34 * b.m42;
+            Fix64 resultM33 = a.m31 * b.m13 + a.m32 * b.m23 + a.m33 * b.m33 + a.m34 * b.m43;
+            Fix64 resultM34 = a.m31 * b.m14 + a.m32 * b.m24 + a.m33 * b.m34 + a.m34 * b.m44;
 
-            Fix64 resultM41 = a.M41 * b.M11 + a.M42 * b.M21 + a.M43 * b.M31 + a.M44 * b.M41;
-            Fix64 resultM42 = a.M41 * b.M12 + a.M42 * b.M22 + a.M43 * b.M32 + a.M44 * b.M42;
-            Fix64 resultM43 = a.M41 * b.M13 + a.M42 * b.M23 + a.M43 * b.M33 + a.M44 * b.M43;
-            Fix64 resultM44 = a.M41 * b.M14 + a.M42 * b.M24 + a.M43 * b.M34 + a.M44 * b.M44;
+            Fix64 resultM41 = a.m41 * b.m11 + a.m42 * b.m21 + a.m43 * b.m31 + a.m44 * b.m41;
+            Fix64 resultM42 = a.m41 * b.m12 + a.m42 * b.m22 + a.m43 * b.m32 + a.m44 * b.m42;
+            Fix64 resultM43 = a.m41 * b.m13 + a.m42 * b.m23 + a.m43 * b.m33 + a.m44 * b.m43;
+            Fix64 resultM44 = a.m41 * b.m14 + a.m42 * b.m24 + a.m43 * b.m34 + a.m44 * b.m44;
 
-            result.M11 = resultM11;
-            result.M12 = resultM12;
-            result.M13 = resultM13;
-            result.M14 = resultM14;
+            result.m11 = resultM11;
+            result.m12 = resultM12;
+            result.m13 = resultM13;
+            result.m14 = resultM14;
 
-            result.M21 = resultM21;
-            result.M22 = resultM22;
-            result.M23 = resultM23;
-            result.M24 = resultM24;
+            result.m21 = resultM21;
+            result.m22 = resultM22;
+            result.m23 = resultM23;
+            result.m24 = resultM24;
 
-            result.M31 = resultM31;
-            result.M32 = resultM32;
-            result.M33 = resultM33;
-            result.M34 = resultM34;
+            result.m31 = resultM31;
+            result.m32 = resultM32;
+            result.m33 = resultM33;
+            result.m34 = resultM34;
 
-            result.M41 = resultM41;
-            result.M42 = resultM42;
-            result.M43 = resultM43;
-            result.M44 = resultM44;
+            result.m41 = resultM41;
+            result.m42 = resultM42;
+            result.m43 = resultM43;
+            result.m44 = resultM44;
         }
 
 
@@ -533,25 +533,25 @@ namespace FixedMath
         /// <param name="result">Scaled matrix.</param>
         public static void Multiply(ref FixMatrix4x4 matrix, Fix64 scale, out FixMatrix4x4 result)
         {
-            result.M11 = matrix.M11 * scale;
-            result.M12 = matrix.M12 * scale;
-            result.M13 = matrix.M13 * scale;
-            result.M14 = matrix.M14 * scale;
+            result.m11 = matrix.m11 * scale;
+            result.m12 = matrix.m12 * scale;
+            result.m13 = matrix.m13 * scale;
+            result.m14 = matrix.m14 * scale;
 
-            result.M21 = matrix.M21 * scale;
-            result.M22 = matrix.M22 * scale;
-            result.M23 = matrix.M23 * scale;
-            result.M24 = matrix.M24 * scale;
+            result.m21 = matrix.m21 * scale;
+            result.m22 = matrix.m22 * scale;
+            result.m23 = matrix.m23 * scale;
+            result.m24 = matrix.m24 * scale;
 
-            result.M31 = matrix.M31 * scale;
-            result.M32 = matrix.M32 * scale;
-            result.M33 = matrix.M33 * scale;
-            result.M34 = matrix.M34 * scale;
+            result.m31 = matrix.m31 * scale;
+            result.m32 = matrix.m32 * scale;
+            result.m33 = matrix.m33 * scale;
+            result.m34 = matrix.m34 * scale;
 
-            result.M41 = matrix.M41 * scale;
-            result.M42 = matrix.M42 * scale;
-            result.M43 = matrix.M43 * scale;
-            result.M44 = matrix.M44 * scale;
+            result.m41 = matrix.m41 * scale;
+            result.m42 = matrix.m42 * scale;
+            result.m43 = matrix.m43 * scale;
+            result.m44 = matrix.m44 * scale;
         }
 
         /// <summary>
@@ -601,14 +601,14 @@ namespace FixedMath
         /// <param name="result">Transformed vector.</param>
         public static void Transform(ref FixVector4 v, ref FixMatrix4x4 matrix, out FixVector4 result)
         {
-            Fix64 vX = v.X;
-            Fix64 vY = v.Y;
-            Fix64 vZ = v.Z;
-            Fix64 vW = v.W;
-            result.X = vX * matrix.M11 + vY * matrix.M21 + vZ * matrix.M31 + vW * matrix.M41;
-            result.Y = vX * matrix.M12 + vY * matrix.M22 + vZ * matrix.M32 + vW * matrix.M42;
-            result.Z = vX * matrix.M13 + vY * matrix.M23 + vZ * matrix.M33 + vW * matrix.M43;
-            result.W = vX * matrix.M14 + vY * matrix.M24 + vZ * matrix.M34 + vW * matrix.M44;
+            Fix64 vX = v.x;
+            Fix64 vY = v.y;
+            Fix64 vZ = v.z;
+            Fix64 vW = v.w;
+            result.x = vX * matrix.m11 + vY * matrix.m21 + vZ * matrix.m31 + vW * matrix.m41;
+            result.y = vX * matrix.m12 + vY * matrix.m22 + vZ * matrix.m32 + vW * matrix.m42;
+            result.z = vX * matrix.m13 + vY * matrix.m23 + vZ * matrix.m33 + vW * matrix.m43;
+            result.w = vX * matrix.m14 + vY * matrix.m24 + vZ * matrix.m34 + vW * matrix.m44;
         }
 
         /// <summary>
@@ -632,14 +632,14 @@ namespace FixedMath
         /// <param name="result">Transformed vector.</param>
         public static void TransformTranspose(ref FixVector4 v, ref FixMatrix4x4 matrix, out FixVector4 result)
         {
-            Fix64 vX = v.X;
-            Fix64 vY = v.Y;
-            Fix64 vZ = v.Z;
-            Fix64 vW = v.W;
-            result.X = vX * matrix.M11 + vY * matrix.M12 + vZ * matrix.M13 + vW * matrix.M14;
-            result.Y = vX * matrix.M21 + vY * matrix.M22 + vZ * matrix.M23 + vW * matrix.M24;
-            result.Z = vX * matrix.M31 + vY * matrix.M32 + vZ * matrix.M33 + vW * matrix.M34;
-            result.W = vX * matrix.M41 + vY * matrix.M42 + vZ * matrix.M43 + vW * matrix.M44;
+            Fix64 vX = v.x;
+            Fix64 vY = v.y;
+            Fix64 vZ = v.z;
+            Fix64 vW = v.w;
+            result.x = vX * matrix.m11 + vY * matrix.m12 + vZ * matrix.m13 + vW * matrix.m14;
+            result.y = vX * matrix.m21 + vY * matrix.m22 + vZ * matrix.m23 + vW * matrix.m24;
+            result.z = vX * matrix.m31 + vY * matrix.m32 + vZ * matrix.m33 + vW * matrix.m34;
+            result.w = vX * matrix.m41 + vY * matrix.m42 + vZ * matrix.m43 + vW * matrix.m44;
         }
 
         /// <summary>
@@ -663,10 +663,10 @@ namespace FixedMath
         /// <param name="result">Transformed vector.</param>
         public static void Transform(ref FixVector3 v, ref FixMatrix4x4 matrix, out FixVector4 result)
         {
-            result.X = v.X * matrix.M11 + v.Y * matrix.M21 + v.Z * matrix.M31 + matrix.M41;
-            result.Y = v.X * matrix.M12 + v.Y * matrix.M22 + v.Z * matrix.M32 + matrix.M42;
-            result.Z = v.X * matrix.M13 + v.Y * matrix.M23 + v.Z * matrix.M33 + matrix.M43;
-            result.W = v.X * matrix.M14 + v.Y * matrix.M24 + v.Z * matrix.M34 + matrix.M44;
+            result.x = v.x * matrix.m11 + v.y * matrix.m21 + v.z * matrix.m31 + matrix.m41;
+            result.y = v.x * matrix.m12 + v.y * matrix.m22 + v.z * matrix.m32 + matrix.m42;
+            result.z = v.x * matrix.m13 + v.y * matrix.m23 + v.z * matrix.m33 + matrix.m43;
+            result.w = v.x * matrix.m14 + v.y * matrix.m24 + v.z * matrix.m34 + matrix.m44;
         }
 
         /// <summary>
@@ -690,10 +690,10 @@ namespace FixedMath
         /// <param name="result">Transformed vector.</param>
         public static void TransformTranspose(ref FixVector3 v, ref FixMatrix4x4 matrix, out FixVector4 result)
         {
-            result.X = v.X * matrix.M11 + v.Y * matrix.M12 + v.Z * matrix.M13 + matrix.M14;
-            result.Y = v.X * matrix.M21 + v.Y * matrix.M22 + v.Z * matrix.M23 + matrix.M24;
-            result.Z = v.X * matrix.M31 + v.Y * matrix.M32 + v.Z * matrix.M33 + matrix.M34;
-            result.W = v.X * matrix.M41 + v.Y * matrix.M42 + v.Z * matrix.M43 + matrix.M44;
+            result.x = v.x * matrix.m11 + v.y * matrix.m12 + v.z * matrix.m13 + matrix.m14;
+            result.y = v.x * matrix.m21 + v.y * matrix.m22 + v.z * matrix.m23 + matrix.m24;
+            result.z = v.x * matrix.m31 + v.y * matrix.m32 + v.z * matrix.m33 + matrix.m34;
+            result.w = v.x * matrix.m41 + v.y * matrix.m42 + v.z * matrix.m43 + matrix.m44;
         }
 
         /// <summary>
@@ -717,12 +717,12 @@ namespace FixedMath
         /// <param name="result">Transformed vector.</param>
         public static void Transform(ref FixVector3 v, ref FixMatrix4x4 matrix, out FixVector3 result)
         {
-            Fix64 vX = v.X;
-            Fix64 vY = v.Y;
-            Fix64 vZ = v.Z;
-            result.X = vX * matrix.M11 + vY * matrix.M21 + vZ * matrix.M31 + matrix.M41;
-            result.Y = vX * matrix.M12 + vY * matrix.M22 + vZ * matrix.M32 + matrix.M42;
-            result.Z = vX * matrix.M13 + vY * matrix.M23 + vZ * matrix.M33 + matrix.M43;
+            Fix64 vX = v.x;
+            Fix64 vY = v.y;
+            Fix64 vZ = v.z;
+            result.x = vX * matrix.m11 + vY * matrix.m21 + vZ * matrix.m31 + matrix.m41;
+            result.y = vX * matrix.m12 + vY * matrix.m22 + vZ * matrix.m32 + matrix.m42;
+            result.z = vX * matrix.m13 + vY * matrix.m23 + vZ * matrix.m33 + matrix.m43;
         }
 
         /// <summary>
@@ -733,12 +733,12 @@ namespace FixedMath
         /// <param name="result">Transformed vector.</param>
         public static void TransformTranspose(ref FixVector3 v, ref FixMatrix4x4 matrix, out FixVector3 result)
         {
-            Fix64 vX = v.X;
-            Fix64 vY = v.Y;
-            Fix64 vZ = v.Z;
-            result.X = vX * matrix.M11 + vY * matrix.M12 + vZ * matrix.M13 + matrix.M14;
-            result.Y = vX * matrix.M21 + vY * matrix.M22 + vZ * matrix.M23 + matrix.M24;
-            result.Z = vX * matrix.M31 + vY * matrix.M32 + vZ * matrix.M33 + matrix.M34;
+            Fix64 vX = v.x;
+            Fix64 vY = v.y;
+            Fix64 vZ = v.z;
+            result.x = vX * matrix.m11 + vY * matrix.m12 + vZ * matrix.m13 + matrix.m14;
+            result.y = vX * matrix.m21 + vY * matrix.m22 + vZ * matrix.m23 + matrix.m24;
+            result.z = vX * matrix.m31 + vY * matrix.m32 + vZ * matrix.m33 + matrix.m34;
         }
 
         /// <summary>
@@ -749,12 +749,12 @@ namespace FixedMath
         /// <param name="result">Transformed vector.</param>
         public static void TransformNormal(ref FixVector3 v, ref FixMatrix4x4 matrix, out FixVector3 result)
         {
-            Fix64 vX = v.X;
-            Fix64 vY = v.Y;
-            Fix64 vZ = v.Z;
-            result.X = vX * matrix.M11 + vY * matrix.M21 + vZ * matrix.M31;
-            result.Y = vX * matrix.M12 + vY * matrix.M22 + vZ * matrix.M32;
-            result.Z = vX * matrix.M13 + vY * matrix.M23 + vZ * matrix.M33;
+            Fix64 vX = v.x;
+            Fix64 vY = v.y;
+            Fix64 vZ = v.z;
+            result.x = vX * matrix.m11 + vY * matrix.m21 + vZ * matrix.m31;
+            result.y = vX * matrix.m12 + vY * matrix.m22 + vZ * matrix.m32;
+            result.z = vX * matrix.m13 + vY * matrix.m23 + vZ * matrix.m33;
         }
 
         /// <summary>
@@ -778,12 +778,12 @@ namespace FixedMath
         /// <param name="result">Transformed vector.</param>
         public static void TransformNormalTranspose(ref FixVector3 v, ref FixMatrix4x4 matrix, out FixVector3 result)
         {
-            Fix64 vX = v.X;
-            Fix64 vY = v.Y;
-            Fix64 vZ = v.Z;
-            result.X = vX * matrix.M11 + vY * matrix.M12 + vZ * matrix.M13;
-            result.Y = vX * matrix.M21 + vY * matrix.M22 + vZ * matrix.M23;
-            result.Z = vX * matrix.M31 + vY * matrix.M32 + vZ * matrix.M33;
+            Fix64 vX = v.x;
+            Fix64 vY = v.y;
+            Fix64 vZ = v.z;
+            result.x = vX * matrix.m11 + vY * matrix.m12 + vZ * matrix.m13;
+            result.y = vX * matrix.m21 + vY * matrix.m22 + vZ * matrix.m23;
+            result.z = vX * matrix.m31 + vY * matrix.m32 + vZ * matrix.m33;
         }
 
         /// <summary>
@@ -807,34 +807,34 @@ namespace FixedMath
         /// <param name="transposed">Matrix to transpose.</param>
         public static void Transpose(ref FixMatrix4x4 m, out FixMatrix4x4 transposed)
         {
-            Fix64 intermediate = m.M12;
-            transposed.M12 = m.M21;
-            transposed.M21 = intermediate;
+            Fix64 intermediate = m.m12;
+            transposed.m12 = m.m21;
+            transposed.m21 = intermediate;
 
-            intermediate = m.M13;
-            transposed.M13 = m.M31;
-            transposed.M31 = intermediate;
+            intermediate = m.m13;
+            transposed.m13 = m.m31;
+            transposed.m31 = intermediate;
 
-            intermediate = m.M14;
-            transposed.M14 = m.M41;
-            transposed.M41 = intermediate;
+            intermediate = m.m14;
+            transposed.m14 = m.m41;
+            transposed.m41 = intermediate;
 
-            intermediate = m.M23;
-            transposed.M23 = m.M32;
-            transposed.M32 = intermediate;
+            intermediate = m.m23;
+            transposed.m23 = m.m32;
+            transposed.m32 = intermediate;
 
-            intermediate = m.M24;
-            transposed.M24 = m.M42;
-            transposed.M42 = intermediate;
+            intermediate = m.m24;
+            transposed.m24 = m.m42;
+            transposed.m42 = intermediate;
 
-            intermediate = m.M34;
-            transposed.M34 = m.M43;
-            transposed.M43 = intermediate;
+            intermediate = m.m34;
+            transposed.m34 = m.m43;
+            transposed.m43 = intermediate;
 
-            transposed.M11 = m.M11;
-            transposed.M22 = m.M22;
-            transposed.M33 = m.M33;
-            transposed.M44 = m.M44;
+            transposed.m11 = m.m11;
+            transposed.m22 = m.m22;
+            transposed.m33 = m.m33;
+            transposed.m44 = m.m44;
         }
 
         /// <summary>
@@ -867,35 +867,35 @@ namespace FixedMath
         public static void InvertRigid(ref FixMatrix4x4 m, out FixMatrix4x4 inverted)
         {
             //Invert (transpose) the upper left 3x3 rotation.
-            Fix64 intermediate = m.M12;
-            inverted.M12 = m.M21;
-            inverted.M21 = intermediate;
+            Fix64 intermediate = m.m12;
+            inverted.m12 = m.m21;
+            inverted.m21 = intermediate;
 
-            intermediate = m.M13;
-            inverted.M13 = m.M31;
-            inverted.M31 = intermediate;
+            intermediate = m.m13;
+            inverted.m13 = m.m31;
+            inverted.m31 = intermediate;
 
-            intermediate = m.M23;
-            inverted.M23 = m.M32;
-            inverted.M32 = intermediate;
+            intermediate = m.m23;
+            inverted.m23 = m.m32;
+            inverted.m32 = intermediate;
 
-            inverted.M11 = m.M11;
-            inverted.M22 = m.M22;
-            inverted.M33 = m.M33;
+            inverted.m11 = m.m11;
+            inverted.m22 = m.m22;
+            inverted.m33 = m.m33;
 
             //Translation component
-            var vX = m.M41;
-            var vY = m.M42;
-            var vZ = m.M43;
-            inverted.M41 = -(vX * inverted.M11 + vY * inverted.M21 + vZ * inverted.M31);
-            inverted.M42 = -(vX * inverted.M12 + vY * inverted.M22 + vZ * inverted.M32);
-            inverted.M43 = -(vX * inverted.M13 + vY * inverted.M23 + vZ * inverted.M33);
+            var vX = m.m41;
+            var vY = m.m42;
+            var vZ = m.m43;
+            inverted.m41 = -(vX * inverted.m11 + vY * inverted.m21 + vZ * inverted.m31);
+            inverted.m42 = -(vX * inverted.m12 + vY * inverted.m22 + vZ * inverted.m32);
+            inverted.m43 = -(vX * inverted.m13 + vY * inverted.m23 + vZ * inverted.m33);
 
             //Last chunk.
-            inverted.M14 = F64.C0;
-            inverted.M24 = F64.C0;
-            inverted.M34 = F64.C0;
-            inverted.M44 = F64.C1;
+            inverted.m14 = F64.C0;
+            inverted.m24 = F64.C0;
+            inverted.m34 = F64.C0;
+            inverted.m44 = F64.C1;
         }
 
         /// <summary>
@@ -918,25 +918,25 @@ namespace FixedMath
             get
             {
                 FixMatrix4x4 toReturn;
-                toReturn.M11 = F64.C1;
-                toReturn.M12 = F64.C0;
-                toReturn.M13 = F64.C0;
-                toReturn.M14 = F64.C0;
+                toReturn.m11 = F64.C1;
+                toReturn.m12 = F64.C0;
+                toReturn.m13 = F64.C0;
+                toReturn.m14 = F64.C0;
 
-                toReturn.M21 = F64.C0;
-                toReturn.M22 = F64.C1;
-                toReturn.M23 = F64.C0;
-                toReturn.M24 = F64.C0;
+                toReturn.m21 = F64.C0;
+                toReturn.m22 = F64.C1;
+                toReturn.m23 = F64.C0;
+                toReturn.m24 = F64.C0;
 
-                toReturn.M31 = F64.C0;
-                toReturn.M32 = F64.C0;
-                toReturn.M33 = F64.C1;
-                toReturn.M34 = F64.C0;
+                toReturn.m31 = F64.C0;
+                toReturn.m32 = F64.C0;
+                toReturn.m33 = F64.C1;
+                toReturn.m34 = F64.C0;
 
-                toReturn.M41 = F64.C0;
-                toReturn.M42 = F64.C0;
-                toReturn.M43 = F64.C0;
-                toReturn.M44 = F64.C1;
+                toReturn.m41 = F64.C0;
+                toReturn.m42 = F64.C0;
+                toReturn.m43 = F64.C0;
+                toReturn.m44 = F64.C1;
                 return toReturn;
             }
         }
@@ -956,25 +956,25 @@ namespace FixedMath
             Fix64 width = right - left;
             Fix64 height = top - bottom;
             Fix64 depth = zFar - zNear;
-            projection.M11 = F64.C2 / width;
-            projection.M12 = F64.C0;
-            projection.M13 = F64.C0;
-            projection.M14 = F64.C0;
+            projection.m11 = F64.C2 / width;
+            projection.m12 = F64.C0;
+            projection.m13 = F64.C0;
+            projection.m14 = F64.C0;
 
-            projection.M21 = F64.C0;
-            projection.M22 = F64.C2 / height;
-            projection.M23 = F64.C0;
-            projection.M24 = F64.C0;
+            projection.m21 = F64.C0;
+            projection.m22 = F64.C2 / height;
+            projection.m23 = F64.C0;
+            projection.m24 = F64.C0;
 
-            projection.M31 = F64.C0;
-            projection.M32 = F64.C0;
-            projection.M33 = -1 / depth;
-            projection.M34 = F64.C0;
+            projection.m31 = F64.C0;
+            projection.m32 = F64.C0;
+            projection.m33 = -1 / depth;
+            projection.m34 = F64.C0;
 
-            projection.M41 = (left + right) / -width;
-            projection.M42 = (top + bottom) / -height;
-            projection.M43 = zNear / -depth;
-            projection.M44 = F64.C1;
+            projection.m41 = (left + right) / -width;
+            projection.m42 = (top + bottom) / -height;
+            projection.m43 = zNear / -depth;
+            projection.m44 = F64.C1;
 
         }
 
@@ -990,25 +990,25 @@ namespace FixedMath
         {
             Fix64 h = F64.C1 / Fix64.Tan(fieldOfView / F64.C2);
             Fix64 w = h / aspectRatio;
-            perspective.M11 = w;
-            perspective.M12 = F64.C0;
-            perspective.M13 = F64.C0;
-            perspective.M14 = F64.C0;
+            perspective.m11 = w;
+            perspective.m12 = F64.C0;
+            perspective.m13 = F64.C0;
+            perspective.m14 = F64.C0;
 
-            perspective.M21 = F64.C0;
-            perspective.M22 = h;
-            perspective.M23 = F64.C0;
-            perspective.M24 = F64.C0;
+            perspective.m21 = F64.C0;
+            perspective.m22 = h;
+            perspective.m23 = F64.C0;
+            perspective.m24 = F64.C0;
 
-            perspective.M31 = F64.C0;
-            perspective.M32 = F64.C0;
-            perspective.M33 = farClip / (nearClip - farClip);
-            perspective.M34 = -1;
+            perspective.m31 = F64.C0;
+            perspective.m32 = F64.C0;
+            perspective.m33 = farClip / (nearClip - farClip);
+            perspective.m34 = -1;
 
-            perspective.M41 = F64.C0;
-            perspective.M42 = F64.C0;
-            perspective.M44 = F64.C0;
-            perspective.M43 = nearClip * perspective.M33;
+            perspective.m41 = F64.C0;
+            perspective.m42 = F64.C0;
+            perspective.m44 = F64.C0;
+            perspective.m43 = nearClip * perspective.m33;
 
         }
 
@@ -1076,25 +1076,25 @@ namespace FixedMath
             FixVector3 y;
             FixVector3.Cross(ref z, ref x, out y);
 
-            viewMatrix.M11 = x.X;
-            viewMatrix.M12 = y.X;
-            viewMatrix.M13 = z.X;
-            viewMatrix.M14 = F64.C0;
-            viewMatrix.M21 = x.Y;
-            viewMatrix.M22 = y.Y;
-            viewMatrix.M23 = z.Y;
-            viewMatrix.M24 = F64.C0;
-            viewMatrix.M31 = x.Z;
-            viewMatrix.M32 = y.Z;
-            viewMatrix.M33 = z.Z;
-            viewMatrix.M34 = F64.C0;
-            FixVector3.Dot(ref x, ref position, out viewMatrix.M41);
-            FixVector3.Dot(ref y, ref position, out viewMatrix.M42);
-            FixVector3.Dot(ref z, ref position, out viewMatrix.M43);
-            viewMatrix.M41 = -viewMatrix.M41;
-            viewMatrix.M42 = -viewMatrix.M42;
-            viewMatrix.M43 = -viewMatrix.M43;
-            viewMatrix.M44 = F64.C1;
+            viewMatrix.m11 = x.x;
+            viewMatrix.m12 = y.x;
+            viewMatrix.m13 = z.x;
+            viewMatrix.m14 = F64.C0;
+            viewMatrix.m21 = x.y;
+            viewMatrix.m22 = y.y;
+            viewMatrix.m23 = z.y;
+            viewMatrix.m24 = F64.C0;
+            viewMatrix.m31 = x.z;
+            viewMatrix.m32 = y.z;
+            viewMatrix.m33 = z.z;
+            viewMatrix.m34 = F64.C0;
+            FixVector3.Dot(ref x, ref position, out viewMatrix.m41);
+            FixVector3.Dot(ref y, ref position, out viewMatrix.m42);
+            FixVector3.Dot(ref z, ref position, out viewMatrix.m43);
+            viewMatrix.m41 = -viewMatrix.m41;
+            viewMatrix.m42 = -viewMatrix.m42;
+            viewMatrix.m43 = -viewMatrix.m43;
+            viewMatrix.m44 = F64.C1;
 
         }
 
@@ -1132,23 +1132,23 @@ namespace FixedMath
             FixVector3 y;
             FixVector3.Cross(ref z, ref x, out y);
 
-            worldMatrix.M11 = x.X;
-            worldMatrix.M12 = x.Y;
-            worldMatrix.M13 = x.Z;
-            worldMatrix.M14 = F64.C0;
-            worldMatrix.M21 = y.X;
-            worldMatrix.M22 = y.Y;
-            worldMatrix.M23 = y.Z;
-            worldMatrix.M24 = F64.C0;
-            worldMatrix.M31 = z.X;
-            worldMatrix.M32 = z.Y;
-            worldMatrix.M33 = z.Z;
-            worldMatrix.M34 = F64.C0;
+            worldMatrix.m11 = x.x;
+            worldMatrix.m12 = x.y;
+            worldMatrix.m13 = x.z;
+            worldMatrix.m14 = F64.C0;
+            worldMatrix.m21 = y.x;
+            worldMatrix.m22 = y.y;
+            worldMatrix.m23 = y.z;
+            worldMatrix.m24 = F64.C0;
+            worldMatrix.m31 = z.x;
+            worldMatrix.m32 = z.y;
+            worldMatrix.m33 = z.z;
+            worldMatrix.m34 = F64.C0;
 
-            worldMatrix.M41 = position.X;
-            worldMatrix.M42 = position.Y;
-            worldMatrix.M43 = position.Z;
-            worldMatrix.M44 = F64.C1;
+            worldMatrix.m41 = position.x;
+            worldMatrix.m42 = position.y;
+            worldMatrix.m43 = position.z;
+            worldMatrix.m44 = F64.C1;
 
         }
 
@@ -1178,13 +1178,13 @@ namespace FixedMath
         {
             translationMatrix = new FixMatrix4x4
             {
-                M11 = F64.C1,
-                M22 = F64.C1,
-                M33 = F64.C1,
-                M44 = F64.C1,
-                M41 = translation.X,
-                M42 = translation.Y,
-                M43 = translation.Z
+                m11 = F64.C1,
+                m22 = F64.C1,
+                m33 = F64.C1,
+                m44 = F64.C1,
+                m41 = translation.x,
+                m42 = translation.y,
+                m43 = translation.z
             };
         }
 
@@ -1209,10 +1209,10 @@ namespace FixedMath
         {
             scaleMatrix = new FixMatrix4x4
             {
-                M11 = scale.X,
-                M22 = scale.Y,
-                M33 = scale.Z,
-                M44 = F64.C1
+                m11 = scale.x,
+                m22 = scale.y,
+                m33 = scale.z,
+                m44 = F64.C1
             };
         }
 
@@ -1239,10 +1239,10 @@ namespace FixedMath
         {
             scaleMatrix = new FixMatrix4x4
             {
-                M11 = x,
-                M22 = y,
-                M33 = z,
-                M44 = F64.C1
+                m11 = x,
+                m22 = y,
+                m33 = z,
+                m44 = F64.C1
             };
         }
 
@@ -1266,10 +1266,10 @@ namespace FixedMath
         /// <returns>A string representation of the matrix.</returns>
         public override string ToString()
         {
-            return "{" + M11 + ", " + M12 + ", " + M13 + ", " + M14 + "} " +
-                   "{" + M21 + ", " + M22 + ", " + M23 + ", " + M24 + "} " +
-                   "{" + M31 + ", " + M32 + ", " + M33 + ", " + M34 + "} " +
-                   "{" + M41 + ", " + M42 + ", " + M43 + ", " + M44 + "}";
+            return "{" + m11 + ", " + m12 + ", " + m13 + ", " + m14 + "} " +
+                   "{" + m21 + ", " + m22 + ", " + m23 + ", " + m24 + "} " +
+                   "{" + m31 + ", " + m32 + ", " + m33 + ", " + m34 + "} " +
+                   "{" + m41 + ", " + m42 + ", " + m43 + ", " + m44 + "}";
         }
     }
 }

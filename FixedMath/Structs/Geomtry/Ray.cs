@@ -40,9 +40,9 @@ namespace FixedMath.Geomtry
         public bool Intersects(ref BoundingBox boundingBox, out Fix64 t)
         {
             Fix64 tmin = F64.C0, tmax = Fix64.MaxValue;
-            if (Fix64.Abs(Direction.X) < Fix64.Epsilon)
+            if (Fix64.Abs(Direction.x) < Fix64.Epsilon)
             {
-                if (Position.X < boundingBox.Min.X || Position.X > boundingBox.Max.X)
+                if (Position.x < boundingBox.Min.x || Position.x > boundingBox.Max.x)
                 {
                     //If the ray isn't pointing along the axis at all, and is outside of the box's interval, then it
                     //can't be intersecting.
@@ -52,9 +52,9 @@ namespace FixedMath.Geomtry
             }
             else
             {
-                var inverseDirection = F64.C1 / Direction.X;
-                var t1 = (boundingBox.Min.X - Position.X) * inverseDirection;
-                var t2 = (boundingBox.Max.X - Position.X) * inverseDirection;
+                var inverseDirection = F64.C1 / Direction.x;
+                var t1 = (boundingBox.Min.x - Position.x) * inverseDirection;
+                var t2 = (boundingBox.Max.x - Position.x) * inverseDirection;
                 if (t1 > t2)
                 {
                     Fix64 temp = t1;
@@ -69,9 +69,9 @@ namespace FixedMath.Geomtry
                     return false;
                 }
             }
-            if (Fix64.Abs(Direction.Y) < Fix64.Epsilon)
+            if (Fix64.Abs(Direction.y) < Fix64.Epsilon)
             {
-                if (Position.Y < boundingBox.Min.Y || Position.Y > boundingBox.Max.Y)
+                if (Position.y < boundingBox.Min.y || Position.y > boundingBox.Max.y)
                 {
                     //If the ray isn't pointing along the axis at all, and is outside of the box's interval, then it
                     //can't be intersecting.
@@ -81,9 +81,9 @@ namespace FixedMath.Geomtry
             }
             else
             {
-                var inverseDirection = F64.C1 / Direction.Y;
-                var t1 = (boundingBox.Min.Y - Position.Y) * inverseDirection;
-                var t2 = (boundingBox.Max.Y - Position.Y) * inverseDirection;
+                var inverseDirection = F64.C1 / Direction.y;
+                var t1 = (boundingBox.Min.y - Position.y) * inverseDirection;
+                var t2 = (boundingBox.Max.y - Position.y) * inverseDirection;
                 if (t1 > t2)
                 {
                     Fix64 temp = t1;
@@ -98,9 +98,9 @@ namespace FixedMath.Geomtry
                     return false;
                 }
             }
-            if (Fix64.Abs(Direction.Z) < Fix64.Epsilon)
+            if (Fix64.Abs(Direction.z) < Fix64.Epsilon)
             {
-                if (Position.Z < boundingBox.Min.Z || Position.Z > boundingBox.Max.Z)
+                if (Position.z < boundingBox.Min.z || Position.z > boundingBox.Max.z)
                 {
                     //If the ray isn't pointing along the axis at all, and is outside of the box's interval, then it
                     //can't be intersecting.
@@ -110,9 +110,9 @@ namespace FixedMath.Geomtry
             }
             else
             {
-                var inverseDirection = F64.C1 / Direction.Z;
-                var t1 = (boundingBox.Min.Z - Position.Z) * inverseDirection;
-                var t2 = (boundingBox.Max.Z - Position.Z) * inverseDirection;
+                var inverseDirection = F64.C1 / Direction.z;
+                var t1 = (boundingBox.Min.z - Position.z) * inverseDirection;
+                var t2 = (boundingBox.Max.z - Position.z) * inverseDirection;
                 if (t1 > t2)
                 {
                     Fix64 temp = t1;
