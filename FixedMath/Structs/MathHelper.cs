@@ -1,44 +1,44 @@
-﻿using FixMath.NET;
+﻿
 using System;
 
-namespace BEPUutilities
+namespace FixedMath
 {
     /// <summary>
     /// Contains helper math methods.
     /// </summary>
-    public static class MathHelper
+    public static class MathHelper1
     {
         /// <summary>
         /// Approximate value of Pi.
         /// </summary>
         public static readonly Fix64 Pi = Fix64.Pi;
 
-    /// <summary>
-    /// Approximate value of Pi multiplied by two.
-    /// </summary>
-    public static readonly Fix64 TwoPi = Fix64.PiTimes2;
+        /// <summary>
+        /// Approximate value of Pi multiplied by two.
+        /// </summary>
+        public static readonly Fix64 TwoPi = Fix64.PiTimes2;
 
-    /// <summary>
-    /// Approximate value of Pi divided by two.
-    /// </summary>
-    public static readonly Fix64 PiOver2 = Fix64.PiOver2;
+        /// <summary>
+        /// Approximate value of Pi divided by two.
+        /// </summary>
+        public static readonly Fix64 PiOver2 = Fix64.PiOver2;
 
-    /// <summary>
-    /// Approximate value of Pi divided by four.
-    /// </summary>
-    public static readonly Fix64 PiOver4 = Fix64.Pi / new Fix64(4);
+        /// <summary>
+        /// Approximate value of Pi divided by four.
+        /// </summary>
+        public static readonly Fix64 PiOver4 = Fix64.Pi / new Fix64(4);
 
-    /// <summary>
-    /// Calculate remainder of of Fix64 division using same algorithm
-    /// as Math.IEEERemainder
-    /// </summary>
-    /// <param name="dividend">Dividend</param>
-    /// <param name="divisor">Divisor</param>
-    /// <returns>Remainder</returns>
-    public static Fix64 IEEERemainder(Fix64 dividend, Fix64 divisor)
-    {
-		return dividend - (divisor * Fix64.Round(dividend / divisor));
-    }
+        /// <summary>
+        /// Calculate remainder of of Fix64 division using same algorithm
+        /// as Math.IEEERemainder
+        /// </summary>
+        /// <param name="dividend">Dividend</param>
+        /// <param name="divisor">Divisor</param>
+        /// <returns>Remainder</returns>
+        public static Fix64 IEEERemainder(Fix64 dividend, Fix64 divisor)
+        {
+            return dividend - (divisor * Fix64.Round(dividend / divisor));
+        }
 
         /// <summary>
         /// Reduces the angle into a range from -Pi to Pi.

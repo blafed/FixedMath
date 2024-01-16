@@ -2,7 +2,7 @@
 using System.Threading;
 
 
-namespace BEPUutilities
+namespace FixedMath
 {
     /// <summary>
     /// Synchronizes using a busy wait.  Take care when using this; if the critical section is long or there's any doubt about the use of a busy wait, consider using Monitor locks or other approaches instead.

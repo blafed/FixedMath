@@ -1,7 +1,7 @@
-﻿using FixMath.NET;
+﻿
 using System;
 
-namespace BEPUutilities
+namespace FixedMath
 {
     /// <summary>
     /// Provides XNA-like 2D vector math.

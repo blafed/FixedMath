@@ -1,9 +1,4 @@
-﻿
-
-
-using FixMath.NET;
-
-namespace BEPUutilities
+﻿namespace FixedMath
 {
     /// <summary>
     /// 3 row, 2 column matrix.

@@ -1,6 +1,6 @@
 ﻿
 
-namespace BEPUutilities
+namespace FixedMath
 {
     ///<summary>
     /// A transformation composed of a linear transformation and a translation.

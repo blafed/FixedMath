@@ -1,7 +1,7 @@
-﻿using FixMath.NET;
+﻿
 using System;
 
-namespace BEPUutilities
+namespace FixedMath
 {
     /// <summary>
     /// Provides XNA-like 3D vector math.
@@ -341,7 +341,7 @@ namespace BEPUutilities
             return X.GetHashCode() + Y.GetHashCode() + Z.GetHashCode();
         }
 
-        
+
         /// <summary>
         /// Computes the squared distance between two vectors.
         /// </summary>
@@ -420,7 +420,7 @@ namespace BEPUutilities
                     X = F64.C0,
                     Y = F64.C1,
                     Z = F64.C0
-				};
+                };
             }
         }
 
@@ -436,7 +436,7 @@ namespace BEPUutilities
                     X = F64.C0,
                     Y = -1,
                     Z = F64.C0
-				};
+                };
             }
         }
 
@@ -452,7 +452,7 @@ namespace BEPUutilities
                     X = F64.C1,
                     Y = F64.C0,
                     Z = F64.C0
-				};
+                };
             }
         }
 
@@ -468,7 +468,7 @@ namespace BEPUutilities
                     X = -1,
                     Y = F64.C0,
                     Z = F64.C0
-				};
+                };
             }
         }
 
@@ -500,7 +500,7 @@ namespace BEPUutilities
                     X = F64.C0,
                     Y = F64.C0,
                     Z = F64.C1
-				};
+                };
             }
         }
 

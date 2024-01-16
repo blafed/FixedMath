@@ -1,9 +1,5 @@
-﻿using FixMath.NET;
-using System;
- 
-
-
-namespace BEPUutilities
+﻿using System;
+namespace FixedMath
 {
     /// <summary>
     /// 3 row, 3 column matrix.
@@ -437,7 +433,7 @@ namespace BEPUutilities
         /// <param name="matrix">Scaling matrix.</param>
         public static void CreateScale(Fix64 scale, out Matrix3x3 matrix)
         {
-            matrix = new Matrix3x3 {M11 = scale, M22 = scale, M33 = scale};
+            matrix = new Matrix3x3 { M11 = scale, M22 = scale, M33 = scale };
         }
 
         /// <summary>
@@ -447,7 +443,7 @@ namespace BEPUutilities
         /// <returns>Scaling matrix.</returns>
         public static Matrix3x3 CreateScale(Fix64 scale)
         {
-            var matrix = new Matrix3x3 {M11 = scale, M22 = scale, M33 = scale};
+            var matrix = new Matrix3x3 { M11 = scale, M22 = scale, M33 = scale };
             return matrix;
         }
 
@@ -458,7 +454,7 @@ namespace BEPUutilities
         /// <param name="matrix">Scaling matrix.</param>
         public static void CreateScale(ref Vector3 scale, out Matrix3x3 matrix)
         {
-            matrix = new Matrix3x3 {M11 = scale.X, M22 = scale.Y, M33 = scale.Z};
+            matrix = new Matrix3x3 { M11 = scale.X, M22 = scale.Y, M33 = scale.Z };
         }
 
         /// <summary>
@@ -468,7 +464,7 @@ namespace BEPUutilities
         /// <returns>Scaling matrix.</returns>
         public static Matrix3x3 CreateScale(ref Vector3 scale)
         {
-            var matrix = new Matrix3x3 {M11 = scale.X, M22 = scale.Y, M33 = scale.Z};
+            var matrix = new Matrix3x3 { M11 = scale.X, M22 = scale.Y, M33 = scale.Z };
             return matrix;
         }
 
@@ -482,7 +478,7 @@ namespace BEPUutilities
         /// <param name="matrix">Scaling matrix.</param>
         public static void CreateScale(Fix64 x, Fix64 y, Fix64 z, out Matrix3x3 matrix)
         {
-            matrix = new Matrix3x3 {M11 = x, M22 = y, M33 = z};
+            matrix = new Matrix3x3 { M11 = x, M22 = y, M33 = z };
         }
 
         /// <summary>
@@ -494,19 +490,19 @@ namespace BEPUutilities
         /// <returns>Scaling matrix.</returns>
         public static Matrix3x3 CreateScale(Fix64 x, Fix64 y, Fix64 z)
         {
-            var matrix = new Matrix3x3 {M11 = x, M22 = y, M33 = z};
+            var matrix = new Matrix3x3 { M11 = x, M22 = y, M33 = z };
             return matrix;
         }
 
-		/// <summary>
-		/// Inverts the given matix.
-		/// </summary>
-		/// <param name="matrix">Matrix to be inverted.</param>
-		/// <param name="result">Inverted matrix.</param>
-		/// <returns>false if matrix is singular, true otherwise</returns>
-		public static bool Invert(ref Matrix3x3 matrix, out Matrix3x3 result)
+        /// <summary>
+        /// Inverts the given matix.
+        /// </summary>
+        /// <param name="matrix">Matrix to be inverted.</param>
+        /// <param name="result">Inverted matrix.</param>
+        /// <returns>false if matrix is singular, true otherwise</returns>
+        public static bool Invert(ref Matrix3x3 matrix, out Matrix3x3 result)
         {
-			return Matrix3x6.Invert(ref matrix, out result);
+            return Matrix3x6.Invert(ref matrix, out result);
         }
 
         /// <summary>
@@ -528,11 +524,11 @@ namespace BEPUutilities
         /// <param name="result">Inverted matrix.</param>
         public static void AdaptiveInvert(ref Matrix3x3 matrix, out Matrix3x3 result)
         {
-			// Perform full Gauss-invert and return if successful
-			if (Invert(ref matrix, out result))
-				return;
+            // Perform full Gauss-invert and return if successful
+            if (Invert(ref matrix, out result))
+                return;
 
-			int submatrix;
+            int submatrix;
             Fix64 determinantInverse = F64.C1 / matrix.AdaptiveDeterminant(out submatrix);
             Fix64 m11, m12, m13, m21, m22, m23, m31, m32, m33;
             switch (submatrix)
@@ -699,7 +695,7 @@ namespace BEPUutilities
             Matrix3x3 result;
             Matrix3x3.Multiply(ref a, ref b, out result);
             return result;
-        }        
+        }
 
         /// <summary>
         /// Scales all components of the matrix by the given value.
@@ -1031,7 +1027,7 @@ namespace BEPUutilities
             b.M43 = F64.C0;
             return b;
         }
-        
+
         /// <summary>
         /// Transforms the vector by the matrix.
         /// </summary>
@@ -1163,7 +1159,7 @@ namespace BEPUutilities
             result.M32 = m32;
             result.M33 = matrix.M33;
         }
-       
+
         /// <summary>
         /// Transposes the matrix in-place.
         /// </summary>
@@ -1192,7 +1188,7 @@ namespace BEPUutilities
             return "{" + M11 + ", " + M12 + ", " + M13 + "} " +
                    "{" + M21 + ", " + M22 + ", " + M23 + "} " +
                    "{" + M31 + ", " + M32 + ", " + M33 + "}";
-        }		
+        }
 
         /// <summary>
         /// Calculates the determinant of largest nonsingular submatrix, excluding 2x2's that involve M13 or M31, and excluding all 1x1's that involve nondiagonal elements.
@@ -1205,7 +1201,7 @@ namespace BEPUutilities
         {
             // We do not try the full matrix. This is handled by the AdaptiveInverse.
 
-			// We'll play it fast and loose here and assume the following won't overflow
+            // We'll play it fast and loose here and assume the following won't overflow
             //Try m11, m12, m21, m22.
             Fix64 determinant = M11 * M22 - M12 * M21;
             if (determinant != F64.C0)
@@ -1249,7 +1245,7 @@ namespace BEPUutilities
             subMatrixCode = -1;
             return F64.C0;
         }
-        
+
         /// <summary>
         /// Creates a 3x3 matrix representing the orientation stored in the quaternion.
         /// </summary>

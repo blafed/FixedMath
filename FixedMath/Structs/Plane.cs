@@ -1,6 +1,6 @@
-﻿using FixMath.NET;
+﻿
 
-namespace BEPUutilities
+namespace FixedMath
 {
     /// <summary>
     /// Provides XNA-like plane functionality.

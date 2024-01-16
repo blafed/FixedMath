@@ -1,10 +1,4 @@
-﻿
-
-
-
-using FixMath.NET;
-
-namespace BEPUutilities
+﻿namespace FixedMath
 {
     /// <summary>
     /// 2 row, 2 column matrix.
@@ -327,7 +321,7 @@ namespace BEPUutilities
             result.M21 = m21;
             result.M22 = matrix.M22;
         }
-        
+
         /// <summary>
         /// Transposes the matrix in-place.
         /// </summary>
@@ -336,7 +330,7 @@ namespace BEPUutilities
             Fix64 m21 = M21;
             M21 = M12;
             M12 = m21;
-        }      
+        }
 
         /// <summary>
         /// Creates a string representation of the matrix.

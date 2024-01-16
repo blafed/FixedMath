@@ -1,7 +1,7 @@
-﻿using FixMath.NET;
+﻿
 using System;
 
-namespace BEPUutilities
+namespace FixedMath
 {
     /// <summary>
     /// Provides XNA-like 4-component vector math.

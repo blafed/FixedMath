@@ -1,7 +1,7 @@
-﻿using FixMath.NET;
+﻿
 using System;
 
-namespace BEPUutilities
+namespace FixedMath
 {
     /// <summary>
     /// Provides XNA-like 4x4 matrix math.
@@ -844,7 +844,7 @@ namespace BEPUutilities
         /// <param name="inverted">Inverted version of the matrix.</param>
         public static void Invert(ref Matrix m, out Matrix inverted)
         {
-			Matrix4x8.Invert(ref m, out inverted);
+            Matrix4x8.Invert(ref m, out inverted);
         }
 
         /// <summary>
@@ -858,7 +858,7 @@ namespace BEPUutilities
             Invert(ref m, out inverted);
             return inverted;
         }
-		
+
         /// <summary>
         /// Inverts the matrix using a process that only works for rigid transforms.
         /// </summary>
@@ -1208,12 +1208,12 @@ namespace BEPUutilities
         public static void CreateScale(ref Vector3 scale, out Matrix scaleMatrix)
         {
             scaleMatrix = new Matrix
-                {
-                    M11 = scale.X,
-                    M22 = scale.Y,
-                    M33 = scale.Z,
-                    M44 = F64.C1
-			};
+            {
+                M11 = scale.X,
+                M22 = scale.Y,
+                M33 = scale.Z,
+                M44 = F64.C1
+            };
         }
 
         /// <summary>
@@ -1243,7 +1243,7 @@ namespace BEPUutilities
                 M22 = y,
                 M33 = z,
                 M44 = F64.C1
-			};
+            };
         }
 
         /// <summary>

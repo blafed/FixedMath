@@ -1,7 +1,7 @@
-﻿using FixMath.NET;
+﻿
 using System;
 
-namespace BEPUutilities
+namespace FixedMath
 {
     /// <summary>
     /// Provides XNA-like quaternion support.
@@ -297,7 +297,7 @@ namespace BEPUutilities
         /// <param name="result">Interpolated intermediate quaternion.</param>
         public static void Slerp(ref Quaternion start, ref Quaternion end, Fix64 interpolationAmount, out Quaternion result)
         {
-			Fix64 cosHalfTheta = start.W * end.W + start.X * end.X + start.Y * end.Y + start.Z * end.Z;
+            Fix64 cosHalfTheta = start.W * end.W + start.X * end.X + start.Y * end.Y + start.Z * end.Z;
             if (cosHalfTheta < F64.C0)
             {
                 //Negating a quaternion results in the same orientation, 
@@ -319,10 +319,10 @@ namespace BEPUutilities
             }
             // Calculate temporary values.
             Fix64 halfTheta = Fix64.Acos(cosHalfTheta);
-			Fix64 sinHalfTheta = Fix64.Sqrt(F64.C1 - cosHalfTheta * cosHalfTheta);
+            Fix64 sinHalfTheta = Fix64.Sqrt(F64.C1 - cosHalfTheta * cosHalfTheta);
 
-			Fix64 aFraction = Fix64.Sin((F64.C1 - interpolationAmount) * halfTheta) / sinHalfTheta;
-			Fix64 bFraction = Fix64.Sin(interpolationAmount * halfTheta) / sinHalfTheta;
+            Fix64 aFraction = Fix64.Sin((F64.C1 - interpolationAmount) * halfTheta) / sinHalfTheta;
+            Fix64 bFraction = Fix64.Sin(interpolationAmount * halfTheta) / sinHalfTheta;
 
             //Blend the two quaternions to get the result!
             result.X = (Fix64)(start.X * aFraction + end.X * bFraction);
@@ -437,8 +437,8 @@ namespace BEPUutilities
             b.Y = -a.Y;
             b.Z = -a.Z;
             b.W = -a.W;
-        }      
-        
+        }
+
         /// <summary>
         /// Negates the components of a quaternion.
         /// </summary>
@@ -662,8 +662,8 @@ namespace BEPUutilities
         /// <returns>Quaternion representing the axis and angle rotation.</returns>
         public static Quaternion CreateFromAxisAngle(Vector3 axis, Fix64 angle)
         {
-			Fix64 halfAngle = angle * F64.C0p5;
-			Fix64 s = Fix64.Sin(halfAngle);
+            Fix64 halfAngle = angle * F64.C0p5;
+            Fix64 s = Fix64.Sin(halfAngle);
             Quaternion q;
             q.X = axis.X * s;
             q.Y = axis.Y * s;
@@ -680,8 +680,8 @@ namespace BEPUutilities
         /// <param name="q">Quaternion representing the axis and angle rotation.</param>
         public static void CreateFromAxisAngle(ref Vector3 axis, Fix64 angle, out Quaternion q)
         {
-			Fix64 halfAngle = angle * F64.C0p5;
-			Fix64 s = Fix64.Sin(halfAngle);
+            Fix64 halfAngle = angle * F64.C0p5;
+            Fix64 s = Fix64.Sin(halfAngle);
             q.X = axis.X * s;
             q.Y = axis.Y * s;
             q.Z = axis.Z * s;
@@ -711,22 +711,22 @@ namespace BEPUutilities
         /// <param name="q">Quaternion representing the yaw, pitch, and roll.</param>
         public static void CreateFromYawPitchRoll(Fix64 yaw, Fix64 pitch, Fix64 roll, out Quaternion q)
         {
-			Fix64 halfRoll = roll * F64.C0p5;
-			Fix64 halfPitch = pitch * F64.C0p5;
-			Fix64 halfYaw = yaw * F64.C0p5;
+            Fix64 halfRoll = roll * F64.C0p5;
+            Fix64 halfPitch = pitch * F64.C0p5;
+            Fix64 halfYaw = yaw * F64.C0p5;
 
-			Fix64 sinRoll = Fix64.Sin(halfRoll);
-			Fix64 sinPitch = Fix64.Sin(halfPitch);
-			Fix64 sinYaw = Fix64.Sin(halfYaw);
+            Fix64 sinRoll = Fix64.Sin(halfRoll);
+            Fix64 sinPitch = Fix64.Sin(halfPitch);
+            Fix64 sinYaw = Fix64.Sin(halfYaw);
 
-			Fix64 cosRoll = Fix64.Cos(halfRoll);
-			Fix64 cosPitch = Fix64.Cos(halfPitch);
-			Fix64 cosYaw = Fix64.Cos(halfYaw);
+            Fix64 cosRoll = Fix64.Cos(halfRoll);
+            Fix64 cosPitch = Fix64.Cos(halfPitch);
+            Fix64 cosYaw = Fix64.Cos(halfYaw);
 
-			Fix64 cosYawCosPitch = cosYaw * cosPitch;
-			Fix64 cosYawSinPitch = cosYaw * sinPitch;
-			Fix64 sinYawCosPitch = sinYaw * cosPitch;
-			Fix64 sinYawSinPitch = sinYaw * sinPitch;
+            Fix64 cosYawCosPitch = cosYaw * cosPitch;
+            Fix64 cosYawSinPitch = cosYaw * sinPitch;
+            Fix64 sinYawCosPitch = sinYaw * cosPitch;
+            Fix64 sinYawSinPitch = sinYaw * sinPitch;
 
             q.X = cosYawSinPitch * cosRoll + sinYawCosPitch * sinRoll;
             q.Y = sinYawCosPitch * cosRoll - cosYawSinPitch * sinRoll;
@@ -778,11 +778,11 @@ namespace BEPUutilities
             if (lengthSquared > F64.C1em14)
             {
                 Vector3.Divide(ref axis, Fix64.Sqrt(lengthSquared), out axis);
-                angle = F64.C2 * Fix64.Acos(MathHelper.Clamp(qw, -1, F64.C1));
+                angle = F64.C2 * Fix64.Acos(Fix64.Clamp(qw, -1, F64.C1));
             }
             else
             {
-                axis = Toolbox.UpVector;
+                axis = Vector3.Up;
                 angle = F64.C0;
             }
         }
@@ -841,7 +841,7 @@ namespace BEPUutilities
             Concatenate(ref startInverse, ref end, out relative);
         }
 
-        
+
         /// <summary>
         /// Transforms the rotation into the local space of the target basis such that rotation = Quaternion.Concatenate(localRotation, targetBasis)
         /// </summary>

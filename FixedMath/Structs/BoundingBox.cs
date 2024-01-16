@@ -1,10 +1,10 @@
-﻿using FixMath.NET;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BEPUutilities
+namespace FixedMath
 {
     /// <summary>
     /// Provides XNA-like axis-aligned bounding box functionality.
@@ -115,7 +115,7 @@ namespace BEPUutilities
             else
                 clampedLocation.Z = boundingSphere.Center.Z;
 
-			Fix64 distanceSquared;
+            Fix64 distanceSquared;
             Vector3.DistanceSquared(ref clampedLocation, ref boundingSphere.Center, out distanceSquared);
             intersects = distanceSquared <= boundingSphere.Radius * boundingSphere.Radius;
 

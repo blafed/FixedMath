@@ -1,4 +1,4 @@
-﻿namespace BEPUutilities
+﻿namespace FixedMath
 {
     /// <summary>
     /// The current containment state of two objects.

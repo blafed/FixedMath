@@ -1,6 +1,6 @@
-﻿ 
+﻿
 
-namespace BEPUutilities
+namespace FixedMath
 {
     ///<summary>
     /// Transform composed of a rotation and translation.
@@ -73,7 +73,7 @@ namespace BEPUutilities
             }
         }
 
-      
+
 
         ///<summary>
         /// Gets the identity rigid transform.
@@ -82,7 +82,7 @@ namespace BEPUutilities
         {
             get
             {
-                var t = new RigidTransform {Orientation = Quaternion.Identity, Position = new Vector3()};
+                var t = new RigidTransform { Orientation = Quaternion.Identity, Position = new Vector3() };
                 return t;
             }
         }
