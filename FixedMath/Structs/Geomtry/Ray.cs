@@ -37,7 +37,7 @@ namespace FixedMath.Geomtry
         /// <param name="boundingBox">Bounding box to test against.</param>
         /// <param name="t">The length along the ray to the impact, if any impact occurs.</param>
         /// <returns>True if the ray intersects the target, false otherwise.</returns>
-        public bool Intersects(ref BoundingBox boundingBox, out Fix64 t)
+        public bool Intersects(in BoundingBox boundingBox, out Fix64 t)
         {
             Fix64 tmin = F64.C0, tmax = Fix64.MaxValue;
             if (Fix64.Abs(Direction.x) < Fix64.Epsilon)
@@ -139,7 +139,7 @@ namespace FixedMath.Geomtry
         /// <returns>True if the ray intersects the target, false otherwise.</returns>
         public bool Intersects(BoundingBox boundingBox, out Fix64 t)
         {
-            return Intersects(ref boundingBox, out t);
+            return Intersects(in boundingBox, out t);
         }
 
         /// <summary>
@@ -148,17 +148,17 @@ namespace FixedMath.Geomtry
         /// <param name="plane">Plane to test against.</param>
         /// <param name="t">The length along the ray to the impact, if any impact occurs.</param>
         /// <returns>True if the ray intersects the target, false otherwise.</returns>
-        public bool Intersects(ref Plane plane, out Fix64 t)
+        public bool Intersects(in Plane plane, out Fix64 t)
         {
             Fix64 velocity;
-            FixVector3.Dot(ref Direction, ref plane.Normal, out velocity);
+            FixVector3.Dot(in Direction, in plane.Normal, out velocity);
             if (Fix64.Abs(velocity) < Fix64.Epsilon)
             {
                 t = F64.C0;
                 return false;
             }
             Fix64 distanceAlongNormal;
-            FixVector3.Dot(ref Position, ref plane.Normal, out distanceAlongNormal);
+            FixVector3.Dot(in Position, in plane.Normal, out distanceAlongNormal);
             distanceAlongNormal += plane.D;
             t = -distanceAlongNormal / velocity;
             return t >= -Fix64.Epsilon;
@@ -172,7 +172,7 @@ namespace FixedMath.Geomtry
         /// <returns>True if the ray intersects the target, false otherwise.</returns>
         public bool Intersects(Plane plane, out Fix64 t)
         {
-            return Intersects(ref plane, out t);
+            return Intersects(in plane, out t);
         }
 
         /// <summary>
@@ -182,8 +182,8 @@ namespace FixedMath.Geomtry
         /// <param name="v">Point along the ray at the given location.</param>
         public void GetPointOnRay(Fix64 t, out FixVector3 v)
         {
-            FixVector3.Multiply(ref Direction, t, out v);
-            FixVector3.Add(ref v, ref Position, out v);
+            FixVector3.Multiply(in Direction, t, out v);
+            FixVector3.Add(in v, in Position, out v);
         }
     }
 }

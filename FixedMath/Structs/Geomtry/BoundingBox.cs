@@ -71,7 +71,7 @@ namespace FixedMath.Geomtry
         /// </summary>
         /// <param name="boundingBox">Bounding box to test against.</param>
         /// <param name="intersects">Whether the bounding boxes intersect.</param>
-        public void Intersects(ref BoundingBox boundingBox, out bool intersects)
+        public void Intersects(in BoundingBox boundingBox, out bool intersects)
         {
             if (boundingBox.Min.x > Max.x || boundingBox.Min.y > Max.y || boundingBox.Min.z > Max.z)
             {
@@ -91,7 +91,7 @@ namespace FixedMath.Geomtry
         /// </summary>
         /// <param name="boundingSphere">Sphere to test for intersection.</param>
         /// <param name="intersects">Whether the bounding shapes intersect.</param>
-        public void Intersects(ref BoundingSphere boundingSphere, out bool intersects)
+        public void Intersects(in BoundingSphere boundingSphere, out bool intersects)
         {
             FixVector3 clampedLocation;
             if (boundingSphere.Center.x > Max.x)
@@ -116,7 +116,7 @@ namespace FixedMath.Geomtry
                 clampedLocation.z = boundingSphere.Center.z;
 
             Fix64 distanceSquared;
-            FixVector3.DistanceSquared(ref clampedLocation, ref boundingSphere.Center, out distanceSquared);
+            FixVector3.DistanceSquared(in clampedLocation, in boundingSphere.Center, out distanceSquared);
             intersects = distanceSquared <= boundingSphere.Radius * boundingSphere.Radius;
 
         }
@@ -124,11 +124,11 @@ namespace FixedMath.Geomtry
         //public bool Intersects(BoundingFrustum frustum)
         //{
         //    bool intersects;
-        //    frustum.Intersects(ref this, out intersects);
+        //    frustum.Intersects(in this, out intersects);
         //    return intersects;
         //}
 
-        public ContainmentType Contains(ref BoundingBox boundingBox)
+        public ContainmentType Contains(in BoundingBox boundingBox)
         {
             if (Max.x < boundingBox.Min.x || Min.x > boundingBox.Max.x ||
                 Max.y < boundingBox.Min.y || Min.y > boundingBox.Max.y ||
@@ -185,7 +185,7 @@ namespace FixedMath.Geomtry
         /// <param name="a">First bounding box to be contained.</param>
         /// <param name="b">Second bounding box to be contained.</param>
         /// <param name="merged">Smallest bounding box which contains the two input bounding boxes.</param>
-        public static void CreateMerged(ref BoundingBox a, ref BoundingBox b, out BoundingBox merged)
+        public static void CreateMerged(in BoundingBox a, in BoundingBox b, out BoundingBox merged)
         {
             if (a.Min.x < b.Min.x)
                 merged.Min.x = a.Min.x;
@@ -220,7 +220,7 @@ namespace FixedMath.Geomtry
         /// </summary>
         /// <param name="boundingSphere">Bounding sphere to be used to create the bounding box.</param>
         /// <param name="boundingBox">Bounding box created from the bounding sphere.</param>
-        public static void CreateFromSphere(ref BoundingSphere boundingSphere, out BoundingBox boundingBox)
+        public static void CreateFromSphere(in BoundingSphere boundingSphere, out BoundingBox boundingBox)
         {
             boundingBox.Min.x = boundingSphere.Center.x - boundingSphere.Radius;
             boundingBox.Min.y = boundingSphere.Center.y - boundingSphere.Radius;

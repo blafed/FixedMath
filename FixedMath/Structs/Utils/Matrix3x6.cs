@@ -173,7 +173,7 @@ namespace FixedMath
             return true;
         }
 
-        public static bool Invert(ref FixMatrix3x3 m, out FixMatrix3x3 r)
+        public static bool Invert(in FixMatrix3x3 m, out FixMatrix3x3 r)
         {
             Matrix3x6 M;
 

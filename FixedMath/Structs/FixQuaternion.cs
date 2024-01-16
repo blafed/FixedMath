@@ -49,7 +49,7 @@ namespace FixedMath
         /// <param name="a">First quaternion to add.</param>
         /// <param name="b">Second quaternion to add.</param>
         /// <param name="result">Sum of the addition.</param>
-        public static void Add(ref FixQuaternion a, ref FixQuaternion b, out FixQuaternion result)
+        public static void Add(in FixQuaternion a, in FixQuaternion b, out FixQuaternion result)
         {
             result.x = a.x + b.x;
             result.y = a.y + b.y;
@@ -63,7 +63,7 @@ namespace FixedMath
         /// <param name="a">First quaternion to multiply.</param>
         /// <param name="b">Second quaternion to multiply.</param>
         /// <param name="result">Product of the multiplication.</param>
-        public static void Multiply(ref FixQuaternion a, ref FixQuaternion b, out FixQuaternion result)
+        public static void Multiply(in FixQuaternion a, in FixQuaternion b, out FixQuaternion result)
         {
             Fix64 x = a.x;
             Fix64 y = a.y;
@@ -85,7 +85,7 @@ namespace FixedMath
         /// <param name="q">Quaternion to multiply.</param>
         /// <param name="scale">Amount to multiply each component of the quaternion by.</param>
         /// <param name="result">Scaled quaternion.</param>
-        public static void Multiply(ref FixQuaternion q, Fix64 scale, out FixQuaternion result)
+        public static void Multiply(in FixQuaternion q, Fix64 scale, out FixQuaternion result)
         {
             result.x = q.x * scale;
             result.y = q.y * scale;
@@ -99,7 +99,7 @@ namespace FixedMath
         /// <param name="a">First quaternion to multiply.</param>
         /// <param name="b">Second quaternion to multiply.</param>
         /// <param name="result">Product of the multiplication.</param>
-        public static void Concatenate(ref FixQuaternion a, ref FixQuaternion b, out FixQuaternion result)
+        public static void Concatenate(in FixQuaternion a, in FixQuaternion b, out FixQuaternion result)
         {
             Fix64 aX = a.x;
             Fix64 aY = a.y;
@@ -127,7 +127,7 @@ namespace FixedMath
         public static FixQuaternion Concatenate(FixQuaternion a, FixQuaternion b)
         {
             FixQuaternion result;
-            Concatenate(ref a, ref b, out result);
+            Concatenate(in a, in b, out result);
             return result;
         }
 
@@ -150,7 +150,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="r">Rotation matrix to create the quaternion from.</param>
         /// <param name="q">Quaternion based on the rotation matrix.</param>
-        public static void CreateFromRotationMatrix(ref FixMatrix3x3 r, out FixQuaternion q)
+        public static void CreateFromRotationMatrix(in FixMatrix3x3 r, out FixQuaternion q)
         {
             Fix64 trace = r.m11 + r.m22 + r.m33;
 #if !WINDOWS
@@ -202,7 +202,7 @@ namespace FixedMath
         public static FixQuaternion CreateFromRotationMatrix(FixMatrix3x3 r)
         {
             FixQuaternion toReturn;
-            CreateFromRotationMatrix(ref r, out toReturn);
+            CreateFromRotationMatrix(in r, out toReturn);
             return toReturn;
         }
 
@@ -211,11 +211,11 @@ namespace FixedMath
         /// </summary>
         /// <param name="r">Rotation matrix to create the quaternion from.</param>
         /// <param name="q">Quaternion based on the rotation matrix.</param>
-        public static void CreateFromRotationMatrix(ref FixMatrix4x4 r, out FixQuaternion q)
+        public static void CreateFromRotationMatrix(in FixMatrix4x4 r, out FixQuaternion q)
         {
             FixMatrix3x3 downsizedMatrix;
-            FixMatrix3x3.CreateFromMatrix(ref r, out downsizedMatrix);
-            CreateFromRotationMatrix(ref downsizedMatrix, out q);
+            FixMatrix3x3.CreateFromMatrix(in r, out downsizedMatrix);
+            CreateFromRotationMatrix(in downsizedMatrix, out q);
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace FixedMath
         public static FixQuaternion CreateFromRotationMatrix(FixMatrix4x4 r)
         {
             FixQuaternion toReturn;
-            CreateFromRotationMatrix(ref r, out toReturn);
+            CreateFromRotationMatrix(in r, out toReturn);
             return toReturn;
         }
 
@@ -239,7 +239,7 @@ namespace FixedMath
         public static FixQuaternion Normalize(FixQuaternion quaternion)
         {
             FixQuaternion toReturn;
-            Normalize(ref quaternion, out toReturn);
+            Normalize(in quaternion, out toReturn);
             return toReturn;
         }
 
@@ -248,7 +248,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="quaternion">Quaternion to normalize.</param>
         /// <param name="toReturn">Normalized quaternion.</param>
-        public static void Normalize(ref FixQuaternion quaternion, out FixQuaternion toReturn)
+        public static void Normalize(in FixQuaternion quaternion, out FixQuaternion toReturn)
         {
             Fix64 inverse = F64.C1 / Fix64.Sqrt(quaternion.x * quaternion.x + quaternion.y * quaternion.y + quaternion.z * quaternion.z + quaternion.w * quaternion.w);
             toReturn.x = quaternion.x * inverse;
@@ -295,7 +295,7 @@ namespace FixedMath
         /// <param name="end">Ending point of the interpolation.</param>
         /// <param name="interpolationAmount">Amount of the end point to use.</param>
         /// <param name="result">Interpolated intermediate quaternion.</param>
-        public static void Slerp(ref FixQuaternion start, ref FixQuaternion end, Fix64 interpolationAmount, out FixQuaternion result)
+        public static void Slerp(in FixQuaternion start, FixQuaternion end, Fix64 interpolationAmount, out FixQuaternion result)
         {
             Fix64 cosHalfTheta = start.w * end.w + start.x * end.x + start.y * end.y + start.z * end.z;
             if (cosHalfTheta < F64.C0)
@@ -345,7 +345,7 @@ namespace FixedMath
         public static FixQuaternion Slerp(FixQuaternion start, FixQuaternion end, Fix64 interpolationAmount)
         {
             FixQuaternion toReturn;
-            Slerp(ref start, ref end, interpolationAmount, out toReturn);
+            Slerp(in start, end, interpolationAmount, out toReturn);
             return toReturn;
         }
 
@@ -355,7 +355,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="quaternion">Quaternion to conjugate.</param>
         /// <param name="result">Conjugated quaternion.</param>
-        public static void Conjugate(ref FixQuaternion quaternion, out FixQuaternion result)
+        public static void Conjugate(in FixQuaternion quaternion, out FixQuaternion result)
         {
             result.x = -quaternion.x;
             result.y = -quaternion.y;
@@ -371,7 +371,7 @@ namespace FixedMath
         public static FixQuaternion Conjugate(FixQuaternion quaternion)
         {
             FixQuaternion toReturn;
-            Conjugate(ref quaternion, out toReturn);
+            Conjugate(in quaternion, out toReturn);
             return toReturn;
         }
 
@@ -382,7 +382,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="quaternion">Quaternion to invert.</param>
         /// <param name="result">Result of the inversion.</param>
-        public static void Inverse(ref FixQuaternion quaternion, out FixQuaternion result)
+        public static void Inverse(in FixQuaternion quaternion, out FixQuaternion result)
         {
             Fix64 inverseSquaredNorm = quaternion.x * quaternion.x + quaternion.y * quaternion.y + quaternion.z * quaternion.z + quaternion.w * quaternion.w;
             result.x = -quaternion.x * inverseSquaredNorm;
@@ -399,7 +399,7 @@ namespace FixedMath
         public static FixQuaternion Inverse(FixQuaternion quaternion)
         {
             FixQuaternion result;
-            Inverse(ref quaternion, out result);
+            Inverse(in quaternion, out result);
             return result;
 
         }
@@ -431,7 +431,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="a">Quaternion to negate.</param>
         /// <param name="b">Negated result.</param>
-        public static void Negate(ref FixQuaternion a, out FixQuaternion b)
+        public static void Negate(in FixQuaternion a, out FixQuaternion b)
         {
             b.x = -a.x;
             b.y = -a.y;
@@ -446,7 +446,7 @@ namespace FixedMath
         /// <returns>Negated result.</returns>
         public static FixQuaternion Negate(FixQuaternion q)
         {
-            Negate(ref q, out var result);
+            Negate(in q, out var result);
             return result;
         }
 
@@ -457,7 +457,7 @@ namespace FixedMath
         /// <returns>Negated result.</returns>
         public static FixQuaternion operator -(FixQuaternion q)
         {
-            Negate(ref q, out var result);
+            Negate(in q, out var result);
             return result;
         }
 
@@ -507,7 +507,7 @@ namespace FixedMath
         /// <param name="v">Vector to transform.</param>
         /// <param name="rotation">Rotation to apply to the vector.</param>
         /// <param name="result">Transformed vector.</param>
-        public static void Transform(ref FixVector3 v, ref FixQuaternion rotation, out FixVector3 result)
+        public static void Transform(in FixVector3 v, in FixQuaternion rotation, out FixVector3 result)
         {
             //This operation is an optimized-down version of v' = q * v * q^-1.
             //The expanded form would be to treat v as an 'axis only' quaternion
@@ -544,7 +544,7 @@ namespace FixedMath
         public static FixVector3 Transform(FixVector3 v, FixQuaternion rotation)
         {
             FixVector3 toReturn;
-            Transform(ref v, ref rotation, out toReturn);
+            Transform(in v, in rotation, out toReturn);
             return toReturn;
         }
 
@@ -554,7 +554,7 @@ namespace FixedMath
         /// <param name="x">X component of the vector to transform.</param>
         /// <param name="rotation">Rotation to apply to the vector.</param>
         /// <param name="result">Transformed vector.</param>
-        public static void TransformX(Fix64 x, ref FixQuaternion rotation, out FixVector3 result)
+        public static void TransformX(Fix64 x, in FixQuaternion rotation, out FixVector3 result)
         {
             //This operation is an optimized-down version of v' = q * v * q^-1.
             //The expanded form would be to treat v as an 'axis only' quaternion
@@ -584,7 +584,7 @@ namespace FixedMath
         /// <param name="y">Y component of the vector to transform.</param>
         /// <param name="rotation">Rotation to apply to the vector.</param>
         /// <param name="result">Transformed vector.</param>
-        public static void TransformY(Fix64 y, ref FixQuaternion rotation, out FixVector3 result)
+        public static void TransformY(Fix64 y, in FixQuaternion rotation, out FixVector3 result)
         {
             //This operation is an optimized-down version of v' = q * v * q^-1.
             //The expanded form would be to treat v as an 'axis only' quaternion
@@ -615,7 +615,7 @@ namespace FixedMath
         /// <param name="z">Z component of the vector to transform.</param>
         /// <param name="rotation">Rotation to apply to the vector.</param>
         /// <param name="result">Transformed vector.</param>
-        public static void TransformZ(Fix64 z, ref FixQuaternion rotation, out FixVector3 result)
+        public static void TransformZ(Fix64 z, in FixQuaternion rotation, out FixVector3 result)
         {
             //This operation is an optimized-down version of v' = q * v * q^-1.
             //The expanded form would be to treat v as an 'axis only' quaternion
@@ -650,7 +650,7 @@ namespace FixedMath
         public static FixQuaternion operator *(FixQuaternion a, FixQuaternion b)
         {
             FixQuaternion toReturn;
-            Multiply(ref a, ref b, out toReturn);
+            Multiply(in a, in b, out toReturn);
             return toReturn;
         }
 
@@ -678,7 +678,7 @@ namespace FixedMath
         /// <param name="axis">Axis of rotation.</param>
         /// <param name="angle">Angle to rotate around the axis.</param>
         /// <param name="q">Quaternion representing the axis and angle rotation.</param>
-        public static void CreateFromAxisAngle(ref FixVector3 axis, Fix64 angle, out FixQuaternion q)
+        public static void CreateFromAxisAngle(in FixVector3 axis, Fix64 angle, out FixQuaternion q)
         {
             Fix64 halfAngle = angle * F64.C0p5;
             Fix64 s = Fix64.Sin(halfAngle);
@@ -740,7 +740,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="q">Quaternion to be converted.</param>
         /// <returns>Angle around the axis represented by the quaternion.</returns>
-        public static Fix64 GetAngleFromQuaternion(ref FixQuaternion q)
+        public static Fix64 GetAngleFromQuaternion(in FixQuaternion q)
         {
             Fix64 qw = Fix64.Abs(q.w);
             if (qw > F64.C1)
@@ -754,7 +754,7 @@ namespace FixedMath
         /// <param name="q">Quaternion to be converted.</param>
         /// <param name="axis">Axis represented by the quaternion.</param>
         /// <param name="angle">Angle around the axis represented by the quaternion.</param>
-        public static void GetAxisAngleFromQuaternion(ref FixQuaternion q, out FixVector3 axis, out Fix64 angle)
+        public static void GetAxisAngleFromQuaternion(in FixQuaternion q, out FixVector3 axis, out Fix64 angle)
         {
 #if !WINDOWS
             axis = new FixVector3();
@@ -777,7 +777,7 @@ namespace FixedMath
             Fix64 lengthSquared = axis.LengthSquared();
             if (lengthSquared > F64.C1em14)
             {
-                FixVector3.Divide(ref axis, Fix64.Sqrt(lengthSquared), out axis);
+                FixVector3.Divide(in axis, Fix64.Sqrt(lengthSquared), out axis);
                 angle = F64.C2 * Fix64.Acos(Fix64.Clamp(qw, -1, F64.C1));
             }
             else
@@ -793,10 +793,10 @@ namespace FixedMath
         /// <param name="v1">First unit-length vector.</param>
         /// <param name="v2">Second unit-length vector.</param>
         /// <param name="q">Quaternion representing the rotation from v1 to v2.</param>
-        public static void GetQuaternionBetweenNormalizedVectors(ref FixVector3 v1, ref FixVector3 v2, out FixQuaternion q)
+        public static void GetQuaternionBetweenNormalizedVectors(in FixVector3 v1, in FixVector3 v2, out FixQuaternion q)
         {
             Fix64 dot;
-            FixVector3.Dot(ref v1, ref v2, out dot);
+            FixVector3.Dot(in v1, in v2, out dot);
             //For non-normal vectors, the multiplying the axes length squared would be necessary:
             //Fix64 w = dot + (Fix64)Math.Sqrt(v1.LengthSquared() * v2.LengthSquared());
             if (dot < F64.Cm0p9999) //parallel, opposing direction
@@ -819,7 +819,7 @@ namespace FixedMath
             else
             {
                 FixVector3 axis;
-                FixVector3.Cross(ref v1, ref v2, out axis);
+                FixVector3.Cross(in v1, in v2, out axis);
                 q = new FixQuaternion(axis.x, axis.y, axis.z, dot + F64.C1);
             }
             q.Normalize();
@@ -834,11 +834,11 @@ namespace FixedMath
         /// <param name="start">Starting orientation.</param>
         /// <param name="end">Ending orientation.</param>
         /// <param name="relative">Relative rotation from the start to the end orientation.</param>
-        public static void GetRelativeRotation(ref FixQuaternion start, ref FixQuaternion end, out FixQuaternion relative)
+        public static void GetRelativeRotation(in FixQuaternion start, in FixQuaternion end, out FixQuaternion relative)
         {
             FixQuaternion startInverse;
-            Conjugate(ref start, out startInverse);
-            Concatenate(ref startInverse, ref end, out relative);
+            Conjugate(in start, out startInverse);
+            Concatenate(in startInverse, in end, out relative);
         }
 
 
@@ -848,11 +848,11 @@ namespace FixedMath
         /// <param name="rotation">Rotation in the original frame of reference.</param>
         /// <param name="targetBasis">Basis in the original frame of reference to transform the rotation into.</param>
         /// <param name="localRotation">Rotation in the local space of the target basis.</param>
-        public static void GetLocalRotation(ref FixQuaternion rotation, ref FixQuaternion targetBasis, out FixQuaternion localRotation)
+        public static void GetLocalRotation(in FixQuaternion rotation, in FixQuaternion targetBasis, out FixQuaternion localRotation)
         {
             FixQuaternion basisInverse;
-            Conjugate(ref targetBasis, out basisInverse);
-            Concatenate(ref rotation, ref basisInverse, out localRotation);
+            Conjugate(in targetBasis, out basisInverse);
+            Concatenate(in rotation, in basisInverse, out localRotation);
         }
 
         /// <summary>

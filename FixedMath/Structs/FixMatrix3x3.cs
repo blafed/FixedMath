@@ -241,7 +241,7 @@ namespace FixedMath
         /// <param name="a">First matrix to add.</param>
         /// <param name="b">Second matrix to add.</param>
         /// <param name="result">Sum of the two matrices.</param>
-        public static void Add(ref FixMatrix3x3 a, ref FixMatrix3x3 b, out FixMatrix3x3 result)
+        public static void Add(in FixMatrix3x3 a, in FixMatrix3x3 b, out FixMatrix3x3 result)
         {
             Fix64 m11 = a.m11 + b.m11;
             Fix64 m12 = a.m12 + b.m12;
@@ -274,7 +274,7 @@ namespace FixedMath
         /// <param name="a">First matrix to add.</param>
         /// <param name="b">Second matrix to add.</param>
         /// <param name="result">Sum of the two matrices.</param>
-        public static void Add(ref FixMatrix4x4 a, ref FixMatrix3x3 b, out FixMatrix3x3 result)
+        public static void Add(in FixMatrix4x4 a, in FixMatrix3x3 b, out FixMatrix3x3 result)
         {
             Fix64 m11 = a.m11 + b.m11;
             Fix64 m12 = a.m12 + b.m12;
@@ -307,7 +307,7 @@ namespace FixedMath
         /// <param name="a">First matrix to add.</param>
         /// <param name="b">Second matrix to add.</param>
         /// <param name="result">Sum of the two matrices.</param>
-        public static void Add(ref FixMatrix3x3 a, ref FixMatrix4x4 b, out FixMatrix3x3 result)
+        public static void Add(in FixMatrix3x3 a, in FixMatrix4x4 b, out FixMatrix3x3 result)
         {
             Fix64 m11 = a.m11 + b.m11;
             Fix64 m12 = a.m12 + b.m12;
@@ -340,7 +340,7 @@ namespace FixedMath
         /// <param name="a">First matrix to add.</param>
         /// <param name="b">Second matrix to add.</param>
         /// <param name="result">Sum of the two matrices.</param>
-        public static void Add(ref FixMatrix4x4 a, ref FixMatrix4x4 b, out FixMatrix3x3 result)
+        public static void Add(in FixMatrix4x4 a, in FixMatrix4x4 b, out FixMatrix3x3 result)
         {
             Fix64 m11 = a.m11 + b.m11;
             Fix64 m12 = a.m12 + b.m12;
@@ -372,7 +372,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="v">Vector to base the matrix on.</param>
         /// <param name="result">Skew-symmetric matrix result.</param>
-        public static void CreateCrossProduct(ref FixVector3 v, out FixMatrix3x3 result)
+        public static void CreateCrossProduct(in FixVector3 v, out FixMatrix3x3 result)
         {
             result.m11 = F64.C0;
             result.m12 = -v.z;
@@ -390,7 +390,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="matrix4X4">Matrix to extract a 3x3 matrix from.</param>
         /// <param name="matrix3X3">Upper 3x3 matrix extracted from the XNA matrix.</param>
-        public static void CreateFromMatrix(ref FixMatrix4x4 matrix4X4, out FixMatrix3x3 matrix3X3)
+        public static void CreateFromMatrix(in FixMatrix4x4 matrix4X4, out FixMatrix3x3 matrix3X3)
         {
             matrix3X3.m11 = matrix4X4.m11;
             matrix3X3.m12 = matrix4X4.m12;
@@ -452,7 +452,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="scale">Values defining the axis scales.</param>
         /// <param name="matrix">Scaling matrix.</param>
-        public static void CreateScale(ref FixVector3 scale, out FixMatrix3x3 matrix)
+        public static void CreateScale(in FixVector3 scale, out FixMatrix3x3 matrix)
         {
             matrix = new FixMatrix3x3 { m11 = scale.x, m22 = scale.y, m33 = scale.z };
         }
@@ -462,7 +462,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="scale">Values defining the axis scales.</param>
         /// <returns>Scaling matrix.</returns>
-        public static FixMatrix3x3 CreateScale(ref FixVector3 scale)
+        public static FixMatrix3x3 CreateScale(in FixVector3 scale)
         {
             var matrix = new FixMatrix3x3 { m11 = scale.x, m22 = scale.y, m33 = scale.z };
             return matrix;
@@ -500,9 +500,9 @@ namespace FixedMath
         /// <param name="matrix">Matrix to be inverted.</param>
         /// <param name="result">Inverted matrix.</param>
         /// <returns>false if matrix is singular, true otherwise</returns>
-        public static bool Invert(ref FixMatrix3x3 matrix, out FixMatrix3x3 result)
+        public static bool Invert(in FixMatrix3x3 matrix, out FixMatrix3x3 result)
         {
-            return Matrix3x6.Invert(ref matrix, out result);
+            return Matrix3x6.Invert(in matrix, out result);
         }
 
         /// <summary>
@@ -513,7 +513,7 @@ namespace FixedMath
         public static FixMatrix3x3 Invert(FixMatrix3x3 matrix)
         {
             FixMatrix3x3 toReturn;
-            Invert(ref matrix, out toReturn);
+            Invert(in matrix, out toReturn);
             return toReturn;
         }
 
@@ -522,10 +522,10 @@ namespace FixedMath
         /// </summary>
         /// <param name="matrix">Matrix to be inverted.</param>
         /// <param name="result">Inverted matrix.</param>
-        public static void AdaptiveInvert(ref FixMatrix3x3 matrix, out FixMatrix3x3 result)
+        public static void AdaptiveInvert(in FixMatrix3x3 matrix, out FixMatrix3x3 result)
         {
             // Perform full Gauss-invert and return if successful
-            if (Invert(ref matrix, out result))
+            if (Invert(in matrix, out result))
                 return;
 
             int submatrix;
@@ -636,7 +636,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="matrix">Matrix to compute the adjugate transpose of.</param>
         /// <param name="result">Adjugate transpose of the input matrix.</param>
-        public static void AdjugateTranspose(ref FixMatrix3x3 matrix, out FixMatrix3x3 result)
+        public static void AdjugateTranspose(in FixMatrix3x3 matrix, out FixMatrix3x3 result)
         {
             //Despite the relative obscurity of the operation, this is a fairly straightforward operation which is actually faster than a true invert (by virtue of cancellation).
             //Conceptually, this is implemented as transpose(det(M) * invert(M)), but that's perfectly acceptable:
@@ -680,7 +680,7 @@ namespace FixedMath
         public static FixMatrix3x3 AdjugateTranspose(FixMatrix3x3 matrix)
         {
             FixMatrix3x3 toReturn;
-            AdjugateTranspose(ref matrix, out toReturn);
+            AdjugateTranspose(in matrix, out toReturn);
             return toReturn;
         }
 
@@ -693,7 +693,7 @@ namespace FixedMath
         public static FixMatrix3x3 operator *(FixMatrix3x3 a, FixMatrix3x3 b)
         {
             FixMatrix3x3 result;
-            FixMatrix3x3.Multiply(ref a, ref b, out result);
+            FixMatrix3x3.Multiply(in a, in b, out result);
             return result;
         }
 
@@ -706,7 +706,7 @@ namespace FixedMath
         public static FixMatrix3x3 operator *(FixMatrix3x3 m, Fix64 f)
         {
             FixMatrix3x3 result;
-            Multiply(ref m, f, out result);
+            Multiply(in m, f, out result);
             return result;
         }
 
@@ -719,7 +719,7 @@ namespace FixedMath
         public static FixMatrix3x3 operator *(Fix64 f, FixMatrix3x3 m)
         {
             FixMatrix3x3 result;
-            Multiply(ref m, f, out result);
+            Multiply(in m, f, out result);
             return result;
         }
 
@@ -729,7 +729,7 @@ namespace FixedMath
         /// <param name="a">First matrix to multiply.</param>
         /// <param name="b">Second matrix to multiply.</param>
         /// <param name="result">Product of the multiplication.</param>
-        public static void Multiply(ref FixMatrix3x3 a, ref FixMatrix3x3 b, out FixMatrix3x3 result)
+        public static void Multiply(in FixMatrix3x3 a, in FixMatrix3x3 b, out FixMatrix3x3 result)
         {
             Fix64 resultM11 = a.m11 * b.m11 + a.m12 * b.m21 + a.m13 * b.m31;
             Fix64 resultM12 = a.m11 * b.m12 + a.m12 * b.m22 + a.m13 * b.m32;
@@ -762,7 +762,7 @@ namespace FixedMath
         /// <param name="a">First matrix to multiply.</param>
         /// <param name="b">Second matrix to multiply.</param>
         /// <param name="result">Product of the multiplication.</param>
-        public static void Multiply(ref FixMatrix3x3 a, ref FixMatrix4x4 b, out FixMatrix3x3 result)
+        public static void Multiply(in FixMatrix3x3 a, in FixMatrix4x4 b, out FixMatrix3x3 result)
         {
             Fix64 resultM11 = a.m11 * b.m11 + a.m12 * b.m21 + a.m13 * b.m31;
             Fix64 resultM12 = a.m11 * b.m12 + a.m12 * b.m22 + a.m13 * b.m32;
@@ -795,7 +795,7 @@ namespace FixedMath
         /// <param name="a">First matrix to multiply.</param>
         /// <param name="b">Second matrix to multiply.</param>
         /// <param name="result">Product of the multiplication.</param>
-        public static void Multiply(ref FixMatrix4x4 a, ref FixMatrix3x3 b, out FixMatrix3x3 result)
+        public static void Multiply(in FixMatrix4x4 a, in FixMatrix3x3 b, out FixMatrix3x3 result)
         {
             Fix64 resultM11 = a.m11 * b.m11 + a.m12 * b.m21 + a.m13 * b.m31;
             Fix64 resultM12 = a.m11 * b.m12 + a.m12 * b.m22 + a.m13 * b.m32;
@@ -829,7 +829,7 @@ namespace FixedMath
         /// <param name="matrix">Matrix to be multiplied.</param>
         /// <param name="transpose">Matrix to be transposed and multiplied.</param>
         /// <param name="result">Product of the multiplication.</param>
-        public static void MultiplyTransposed(ref FixMatrix3x3 transpose, ref FixMatrix3x3 matrix, out FixMatrix3x3 result)
+        public static void MultiplyTransposed(in FixMatrix3x3 transpose, in FixMatrix3x3 matrix, out FixMatrix3x3 result)
         {
             Fix64 resultM11 = transpose.m11 * matrix.m11 + transpose.m21 * matrix.m21 + transpose.m31 * matrix.m31;
             Fix64 resultM12 = transpose.m11 * matrix.m12 + transpose.m21 * matrix.m22 + transpose.m31 * matrix.m32;
@@ -862,7 +862,7 @@ namespace FixedMath
         /// <param name="matrix">Matrix to be multiplied.</param>
         /// <param name="transpose">Matrix to be transposed and multiplied.</param>
         /// <param name="result">Product of the multiplication.</param>
-        public static void MultiplyByTransposed(ref FixMatrix3x3 matrix, ref FixMatrix3x3 transpose, out FixMatrix3x3 result)
+        public static void MultiplyByTransposed(in FixMatrix3x3 matrix, in FixMatrix3x3 transpose, out FixMatrix3x3 result)
         {
             Fix64 resultM11 = matrix.m11 * transpose.m11 + matrix.m12 * transpose.m12 + matrix.m13 * transpose.m13;
             Fix64 resultM12 = matrix.m11 * transpose.m21 + matrix.m12 * transpose.m22 + matrix.m13 * transpose.m23;
@@ -895,7 +895,7 @@ namespace FixedMath
         /// <param name="matrix">Matrix to scale.</param>
         /// <param name="scale">Amount to scale.</param>
         /// <param name="result">Scaled matrix.</param>
-        public static void Multiply(ref FixMatrix3x3 matrix, Fix64 scale, out FixMatrix3x3 result)
+        public static void Multiply(in FixMatrix3x3 matrix, Fix64 scale, out FixMatrix3x3 result)
         {
             result.m11 = matrix.m11 * scale;
             result.m12 = matrix.m12 * scale;
@@ -915,7 +915,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="matrix">Matrix to negate.</param>
         /// <param name="result">Negated matrix.</param>
-        public static void Negate(ref FixMatrix3x3 matrix, out FixMatrix3x3 result)
+        public static void Negate(in FixMatrix3x3 matrix, out FixMatrix3x3 result)
         {
             result.m11 = -matrix.m11;
             result.m12 = -matrix.m12;
@@ -936,7 +936,7 @@ namespace FixedMath
         /// <param name="a">First matrix to subtract.</param>
         /// <param name="b">Second matrix to subtract.</param>
         /// <param name="result">Difference of the two matrices.</param>
-        public static void Subtract(ref FixMatrix3x3 a, ref FixMatrix3x3 b, out FixMatrix3x3 result)
+        public static void Subtract(in FixMatrix3x3 a, in FixMatrix3x3 b, out FixMatrix3x3 result)
         {
             Fix64 m11 = a.m11 - b.m11;
             Fix64 m12 = a.m12 - b.m12;
@@ -968,7 +968,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="a">3x3 matrix.</param>
         /// <param name="b">Created 4x4 matrix.</param>
-        public static void ToMatrix4X4(ref FixMatrix3x3 a, out FixMatrix4x4 b)
+        public static void ToMatrix4X4(in FixMatrix3x3 a, out FixMatrix4x4 b)
         {
 #if !WINDOWS
             b = new FixMatrix4x4();
@@ -1034,7 +1034,7 @@ namespace FixedMath
         /// <param name="v">Vector3 to transform.</param>
         /// <param name="matrix">Matrix to use as the transformation.</param>
         /// <param name="result">Product of the transformation.</param>
-        public static void Transform(ref FixVector3 v, ref FixMatrix3x3 matrix, out FixVector3 result)
+        public static void Transform(in FixVector3 v, in FixMatrix3x3 matrix, out FixVector3 result)
         {
             Fix64 vX = v.x;
             Fix64 vY = v.y;
@@ -1076,7 +1076,7 @@ namespace FixedMath
         /// <param name="v">Vector3 to transform.</param>
         /// <param name="matrix">Matrix to use as the transformation transpose.</param>
         /// <param name="result">Product of the transformation.</param>
-        public static void TransformTranspose(ref FixVector3 v, ref FixMatrix3x3 matrix, out FixVector3 result)
+        public static void TransformTranspose(in FixVector3 v, in FixMatrix3x3 matrix, out FixVector3 result)
         {
             Fix64 vX = v.x;
             Fix64 vY = v.y;
@@ -1115,7 +1115,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="matrix">Matrix to transpose.</param>
         /// <param name="result">Transposed matrix.</param>
-        public static void Transpose(ref FixMatrix3x3 matrix, out FixMatrix3x3 result)
+        public static void Transpose(in FixMatrix3x3 matrix, out FixMatrix3x3 result)
         {
             Fix64 m21 = matrix.m12;
             Fix64 m31 = matrix.m13;
@@ -1140,7 +1140,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="matrix">Matrix to transpose.</param>
         /// <param name="result">Transposed matrix.</param>
-        public static void Transpose(ref FixMatrix4x4 matrix, out FixMatrix3x3 result)
+        public static void Transpose(in FixMatrix4x4 matrix, out FixMatrix3x3 result)
         {
             Fix64 m21 = matrix.m12;
             Fix64 m31 = matrix.m13;
@@ -1251,7 +1251,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="quaternion">Quaternion to use to create a matrix.</param>
         /// <param name="result">Matrix representing the quaternion's orientation.</param>
-        public static void CreateFromQuaternion(ref FixQuaternion quaternion, out FixMatrix3x3 result)
+        public static void CreateFromQuaternion(in FixQuaternion quaternion, out FixMatrix3x3 result)
         {
             Fix64 qX2 = quaternion.x + quaternion.x;
             Fix64 qY2 = quaternion.y + quaternion.y;
@@ -1287,7 +1287,7 @@ namespace FixedMath
         public static FixMatrix3x3 CreateFromQuaternion(FixQuaternion quaternion)
         {
             FixMatrix3x3 result;
-            CreateFromQuaternion(ref quaternion, out result);
+            CreateFromQuaternion(in quaternion, out result);
             return result;
         }
 
@@ -1297,7 +1297,7 @@ namespace FixedMath
         /// <param name="a">First vector.</param>
         /// <param name="b">Second vector.</param>
         /// <param name="result">Outer product result.</param>
-        public static void CreateOuterProduct(ref FixVector3 a, ref FixVector3 b, out FixMatrix3x3 result)
+        public static void CreateOuterProduct(in FixVector3 a, in FixVector3 b, out FixMatrix3x3 result)
         {
             result.m11 = a.x * b.x;
             result.m12 = a.x * b.y;
@@ -1321,7 +1321,7 @@ namespace FixedMath
         public static FixMatrix3x3 CreateFromAxisAngle(FixVector3 axis, Fix64 angle)
         {
             FixMatrix3x3 toReturn;
-            CreateFromAxisAngle(ref axis, angle, out toReturn);
+            CreateFromAxisAngle(in axis, angle, out toReturn);
             return toReturn;
         }
 
@@ -1331,7 +1331,7 @@ namespace FixedMath
         /// <param name="axis">Axis around which to rotate.</param>
         /// <param name="angle">Amount to rotate.</param>
         /// <param name="result">Matrix representing the rotation.</param>
-        public static void CreateFromAxisAngle(ref FixVector3 axis, Fix64 angle, out FixMatrix3x3 result)
+        public static void CreateFromAxisAngle(in FixVector3 axis, Fix64 angle, out FixMatrix3x3 result)
         {
             Fix64 xx = axis.x * axis.x;
             Fix64 yy = axis.y * axis.y;

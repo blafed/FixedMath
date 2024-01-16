@@ -17,6 +17,11 @@ namespace FixedMath
         /// </summary>
         public Fix64 y;
 
+
+        public Fix64 magitude => Fix64.Sqrt(x * x + y * y);
+        public Fix64 sqrMagnitude => x * x + y * y;
+        public FixVector2 normalized => Normalize(this);
+
         /// <summary>
         /// Constructs a new two dimensional vector.
         /// </summary>
@@ -61,7 +66,7 @@ namespace FixedMath
         /// <param name="a">First vector to add.</param>
         /// <param name="b">Second vector to add.</param>
         /// <param name="sum">Sum of the two vectors.</param>
-        public static void Add(ref FixVector2 a, ref FixVector2 b, out FixVector2 sum)
+        public static void Add(in FixVector2 a, in FixVector2 b, out FixVector2 sum)
         {
             sum.x = a.x + b.x;
             sum.y = a.y + b.y;
@@ -73,7 +78,7 @@ namespace FixedMath
         /// <param name="a">Vector to subtract from.</param>
         /// <param name="b">Vector to subtract from the first vector.</param>
         /// <param name="difference">Result of the subtraction.</param>
-        public static void Subtract(ref FixVector2 a, ref FixVector2 b, out FixVector2 difference)
+        public static void Subtract(in FixVector2 a, in FixVector2 b, out FixVector2 difference)
         {
             difference.x = a.x - b.x;
             difference.y = a.y - b.y;
@@ -85,7 +90,7 @@ namespace FixedMath
         /// <param name="v">Vector to scale.</param>
         /// <param name="scale">Amount to scale.</param>
         /// <param name="result">Scaled vector.</param>
-        public static void Multiply(ref FixVector2 v, Fix64 scale, out FixVector2 result)
+        public static void Multiply(in FixVector2 v, Fix64 scale, out FixVector2 result)
         {
             result.x = v.x * scale;
             result.y = v.y * scale;
@@ -97,7 +102,7 @@ namespace FixedMath
         /// <param name="a">First vector to multiply.</param>
         /// <param name="b">Second vector to multiply.</param>
         /// <param name="result">Result of the componentwise multiplication.</param>
-        public static void Multiply(ref FixVector2 a, ref FixVector2 b, out FixVector2 result)
+        public static void Multiply(in FixVector2 a, in FixVector2 b, out FixVector2 result)
         {
             result.x = a.x * b.x;
             result.y = a.y * b.y;
@@ -109,7 +114,7 @@ namespace FixedMath
         /// <param name="v">Vector to divide.</param>
         /// <param name="divisor">Value to divide the vector's components.</param>
         /// <param name="result">Result of the division.</param>
-        public static void Divide(ref FixVector2 v, Fix64 divisor, out FixVector2 result)
+        public static void Divide(in FixVector2 v, Fix64 divisor, out FixVector2 result)
         {
             Fix64 inverse = F64.C1 / divisor;
             result.x = v.x * inverse;
@@ -122,7 +127,7 @@ namespace FixedMath
         /// <param name="a">First vector of the dot product.</param>
         /// <param name="b">Second vector of the dot product.</param>
         /// <param name="dot">Dot product of the two vectors.</param>
-        public static void Dot(ref FixVector2 a, ref FixVector2 b, out Fix64 dot)
+        public static void Dot(in FixVector2 a, in FixVector2 b, out Fix64 dot)
         {
             dot = a.x * b.x + a.y * b.y;
         }
@@ -174,7 +179,7 @@ namespace FixedMath
         public static FixVector2 Normalize(FixVector2 v)
         {
             FixVector2 toReturn;
-            FixVector2.Normalize(ref v, out toReturn);
+            FixVector2.Normalize(in v, out toReturn);
             return toReturn;
         }
 
@@ -183,7 +188,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="v">Vector to normalize.</param>
         /// <param name="result">Normalized vector.</param>
-        public static void Normalize(ref FixVector2 v, out FixVector2 result)
+        public static void Normalize(in FixVector2 v, out FixVector2 result)
         {
             Fix64 inverse = F64.C1 / Fix64.Sqrt(v.x * v.x + v.y * v.y);
             result.x = v.x * inverse;
@@ -195,7 +200,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="v">Vector to negate.</param>
         /// <param name="negated">Negated version of the vector.</param>
-        public static void Negate(ref FixVector2 v, out FixVector2 negated)
+        public static void Negate(in FixVector2 v, out FixVector2 negated)
         {
             negated.x = -v.x;
             negated.y = -v.y;
@@ -206,7 +211,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="v">Vector to take the absolute value of.</param>
         /// <param name="result">Vector with nonnegative elements.</param>
-        public static void Abs(ref FixVector2 v, out FixVector2 result)
+        public static void Abs(in FixVector2 v, out FixVector2 result)
         {
             if (v.x < F64.C0)
                 result.x = -v.x;
@@ -226,7 +231,7 @@ namespace FixedMath
         public static FixVector2 Abs(FixVector2 v)
         {
             FixVector2 result;
-            Abs(ref v, out result);
+            Abs(in v, out result);
             return result;
         }
 
@@ -236,7 +241,7 @@ namespace FixedMath
         /// <param name="a">First input vector to compare values from.</param>
         /// <param name="b">Second input vector to compare values from.</param>
         /// <param name="min">Vector containing the lesser values of each vector.</param>
-        public static void Min(ref FixVector2 a, ref FixVector2 b, out FixVector2 min)
+        public static void Min(in FixVector2 a, in FixVector2 b, out FixVector2 min)
         {
             min.x = a.x < b.x ? a.x : b.x;
             min.y = a.y < b.y ? a.y : b.y;
@@ -251,7 +256,7 @@ namespace FixedMath
         public static FixVector2 Min(FixVector2 a, FixVector2 b)
         {
             FixVector2 result;
-            Min(ref a, ref b, out result);
+            Min(in a, in b, out result);
             return result;
         }
 
@@ -262,7 +267,7 @@ namespace FixedMath
         /// <param name="a">First input vector to compare values from.</param>
         /// <param name="b">Second input vector to compare values from.</param>
         /// <param name="max">Vector containing the greater values of each vector.</param>
-        public static void Max(ref FixVector2 a, ref FixVector2 b, out FixVector2 max)
+        public static void Max(in FixVector2 a, in FixVector2 b, out FixVector2 max)
         {
             max.x = a.x > b.x ? a.x : b.x;
             max.y = a.y > b.y ? a.y : b.y;
@@ -277,7 +282,7 @@ namespace FixedMath
         public static FixVector2 Max(FixVector2 a, FixVector2 b)
         {
             FixVector2 result;
-            Max(ref a, ref b, out result);
+            Max(in a, in b, out result);
             return result;
         }
 
@@ -327,7 +332,7 @@ namespace FixedMath
         public static FixVector2 operator *(FixVector2 a, FixVector2 b)
         {
             FixVector2 result;
-            Multiply(ref a, ref b, out result);
+            Multiply(in a, in b, out result);
             return result;
         }
 

@@ -22,10 +22,10 @@ namespace FixedMath.Geomtry
         /// </summary>
         /// <param name="position">A point on the plane.</param>
         /// <param name="normal">The normal of the plane.</param>
-        public Plane(ref FixVector3 position, ref FixVector3 normal)
+        public Plane(in FixVector3 position, in FixVector3 normal)
         {
             Fix64 d;
-            FixVector3.Dot(ref position, ref normal, out d);
+            FixVector3.Dot(in position, in normal, out d);
             D = -d;
             Normal = normal;
         }
@@ -37,7 +37,7 @@ namespace FixedMath.Geomtry
         /// <param name="position">A point on the plane.</param>
         /// <param name="normal">The normal of the plane.</param>
         public Plane(FixVector3 position, FixVector3 normal)
-            : this(ref position, ref normal)
+            : this(in position, in normal)
         {
 
         }
@@ -49,7 +49,7 @@ namespace FixedMath.Geomtry
         /// <param name="normal">Normal of the plane.</param>
         /// <param name="d">Negative distance to the plane from the origin along the normal.</param>
         public Plane(FixVector3 normal, Fix64 d)
-            : this(ref normal, d)
+            : this(in normal, d)
         {
         }
 
@@ -58,7 +58,7 @@ namespace FixedMath.Geomtry
         /// </summary>
         /// <param name="normal">Normal of the plane.</param>
         /// <param name="d">Negative distance to the plane from the origin along the normal.</param>
-        public Plane(ref FixVector3 normal, Fix64 d)
+        public Plane(in FixVector3 normal, Fix64 d)
         {
             this.Normal = normal;
             this.D = d;
@@ -69,7 +69,7 @@ namespace FixedMath.Geomtry
         /// </summary>
         /// <param name="v">Position to compute the dot product of.</param>
         /// <param name="dot">Dot product.</param>
-        public void DotCoordinate(ref FixVector3 v, out Fix64 dot)
+        public void DotCoordinate(in FixVector3 v, out Fix64 dot)
         {
             dot = Normal.x * v.x + Normal.y * v.y + Normal.z * v.z + D;
         }

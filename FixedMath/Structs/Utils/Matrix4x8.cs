@@ -151,7 +151,7 @@ namespace FixedMath
             }
         }
 
-        public static bool Invert(ref FixMatrix4x4 m, out FixMatrix4x4 r)
+        public static bool Invert(in FixMatrix4x4 m, out FixMatrix4x4 r)
         {
             Matrix4x8 M;
 

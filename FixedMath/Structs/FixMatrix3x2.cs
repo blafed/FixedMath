@@ -62,7 +62,7 @@
         /// <param name="a">First matrix to add.</param>
         /// <param name="b">Second matrix to add.</param>
         /// <param name="result">Sum of the two matrices.</param>
-        public static void Add(ref FixMatrix3x2 a, ref FixMatrix3x2 b, out FixMatrix3x2 result)
+        public static void Add(in FixMatrix3x2 a, in FixMatrix3x2 b, out FixMatrix3x2 result)
         {
             Fix64 m11 = a.m11 + b.m11;
             Fix64 m12 = a.m12 + b.m12;
@@ -89,7 +89,7 @@
         /// <param name="a">First matrix to multiply.</param>
         /// <param name="b">Second matrix to multiply.</param>
         /// <param name="result">Product of the multiplication.</param>
-        public static void Multiply(ref FixMatrix3x3 a, ref FixMatrix3x2 b, out FixMatrix3x2 result)
+        public static void Multiply(in FixMatrix3x3 a, in FixMatrix3x2 b, out FixMatrix3x2 result)
         {
             Fix64 resultM11 = a.m11 * b.m11 + a.m12 * b.m21 + a.m13 * b.m31;
             Fix64 resultM12 = a.m11 * b.m12 + a.m12 * b.m22 + a.m13 * b.m32;
@@ -116,7 +116,7 @@
         /// <param name="a">First matrix to multiply.</param>
         /// <param name="b">Second matrix to multiply.</param>
         /// <param name="result">Product of the multiplication.</param>
-        public static void Multiply(ref FixMatrix4x4 a, ref FixMatrix3x2 b, out FixMatrix3x2 result)
+        public static void Multiply(in FixMatrix4x4 a, in FixMatrix3x2 b, out FixMatrix3x2 result)
         {
             Fix64 resultM11 = a.m11 * b.m11 + a.m12 * b.m21 + a.m13 * b.m31;
             Fix64 resultM12 = a.m11 * b.m12 + a.m12 * b.m22 + a.m13 * b.m32;
@@ -142,7 +142,7 @@
         /// </summary>
         /// <param name="matrix">Matrix to negate.</param>
         /// <param name="result">Negated matrix.</param>
-        public static void Negate(ref FixMatrix3x2 matrix, out FixMatrix3x2 result)
+        public static void Negate(in FixMatrix3x2 matrix, out FixMatrix3x2 result)
         {
             Fix64 m11 = -matrix.m11;
             Fix64 m12 = -matrix.m12;
@@ -169,7 +169,7 @@
         /// <param name="a">First matrix to subtract.</param>
         /// <param name="b">Second matrix to subtract.</param>
         /// <param name="result">Difference of the two matrices.</param>
-        public static void Subtract(ref FixMatrix3x2 a, ref FixMatrix3x2 b, out FixMatrix3x2 result)
+        public static void Subtract(in FixMatrix3x2 a, in FixMatrix3x2 b, out FixMatrix3x2 result)
         {
             Fix64 m11 = a.m11 - b.m11;
             Fix64 m12 = a.m12 - b.m12;
@@ -196,7 +196,7 @@
         /// <param name="v">Vector2 to transform.  Considered to be a column vector for purposes of multiplication.</param>
         /// <param name="matrix">Matrix to use as the transformation.</param>
         /// <param name="result">Column vector product of the transformation.</param>
-        public static void Transform(ref FixVector2 v, ref FixMatrix3x2 matrix, out FixVector3 result)
+        public static void Transform(in FixVector2 v, in FixMatrix3x2 matrix, out FixVector3 result)
         {
 #if !WINDOWS
             result = new FixVector3();
@@ -212,7 +212,7 @@
         /// <param name="v">Vector2 to transform.  Considered to be a row vector for purposes of multiplication.</param>
         /// <param name="matrix">Matrix to use as the transformation.</param>
         /// <param name="result">Row vector product of the transformation.</param>
-        public static void Transform(ref FixVector3 v, ref FixMatrix3x2 matrix, out FixVector2 result)
+        public static void Transform(in FixVector3 v, in FixMatrix3x2 matrix, out FixVector2 result)
         {
 #if !WINDOWS
             result = new FixVector2();
@@ -227,7 +227,7 @@
         /// </summary>
         /// <param name="matrix">Matrix to transpose.</param>
         /// <param name="result">Transposed matrix.</param>
-        public static void Transpose(ref FixMatrix3x2 matrix, out FixMatrix2x3 result)
+        public static void Transpose(in FixMatrix3x2 matrix, out FixMatrix2x3 result)
         {
             result.m11 = matrix.m11;
             result.m12 = matrix.m21;

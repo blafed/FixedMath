@@ -55,7 +55,7 @@ namespace FixedMath.Geomtry
             get
             {
                 FixMatrix4x4 toReturn;
-                FixMatrix4x4.CreateFromQuaternion(ref Orientation, out toReturn);
+                FixMatrix4x4.CreateFromQuaternion(in Orientation, out toReturn);
                 return toReturn;
             }
         }
@@ -67,7 +67,7 @@ namespace FixedMath.Geomtry
             get
             {
                 FixMatrix4x4 toReturn;
-                FixMatrix4x4.CreateFromQuaternion(ref Orientation, out toReturn);
+                FixMatrix4x4.CreateFromQuaternion(in Orientation, out toReturn);
                 toReturn.Translation = Position;
                 return toReturn;
             }
@@ -92,11 +92,11 @@ namespace FixedMath.Geomtry
         /// </summary>
         /// <param name="transform">Transform to invert.</param>
         /// <param name="inverse">Inverse of the transform.</param>
-        public static void Invert(ref RigidTransform transform, out RigidTransform inverse)
+        public static void Invert(in RigidTransform transform, out RigidTransform inverse)
         {
-            FixQuaternion.Conjugate(ref transform.Orientation, out inverse.Orientation);
-            FixQuaternion.Transform(ref transform.Position, ref inverse.Orientation, out inverse.Position);
-            FixVector3.Negate(ref inverse.Position, out inverse.Position);
+            FixQuaternion.Conjugate(in transform.Orientation, out inverse.Orientation);
+            FixQuaternion.Transform(in transform.Position, in inverse.Orientation, out inverse.Position);
+            FixVector3.Negate(in inverse.Position, out inverse.Position);
         }
 
         ///<summary>
@@ -105,12 +105,12 @@ namespace FixedMath.Geomtry
         ///<param name="a">The first rigid transform.</param>
         ///<param name="b">The second rigid transform.</param>
         ///<param name="combined">Concatenated rigid transform.</param>
-        public static void Multiply(ref RigidTransform a, ref RigidTransform b, out RigidTransform combined)
+        public static void Multiply(in RigidTransform a, in RigidTransform b, out RigidTransform combined)
         {
             FixVector3 intermediate;
-            FixQuaternion.Transform(ref a.Position, ref b.Orientation, out intermediate);
-            FixVector3.Add(ref intermediate, ref b.Position, out combined.Position);
-            FixQuaternion.Concatenate(ref a.Orientation, ref b.Orientation, out combined.Orientation);
+            FixQuaternion.Transform(in a.Position, in b.Orientation, out intermediate);
+            FixVector3.Add(in intermediate, in b.Position, out combined.Position);
+            FixQuaternion.Concatenate(in a.Orientation, in b.Orientation, out combined.Orientation);
 
         }
 
@@ -120,10 +120,10 @@ namespace FixedMath.Geomtry
         ///<param name="a">The first rigid transform.</param>
         ///<param name="b">The second rigid transform whose inverse will be concatenated to the first.</param>
         ///<param name="combinedTransform">Combined rigid transform.</param>
-        public static void MultiplyByInverse(ref RigidTransform a, ref RigidTransform b, out RigidTransform combinedTransform)
+        public static void MultiplyByInverse(in RigidTransform a, in RigidTransform b, out RigidTransform combinedTransform)
         {
-            Invert(ref b, out combinedTransform);
-            Multiply(ref a, ref combinedTransform, out combinedTransform);
+            Invert(in b, out combinedTransform);
+            Multiply(in a, in combinedTransform, out combinedTransform);
         }
 
         ///<summary>
@@ -132,11 +132,11 @@ namespace FixedMath.Geomtry
         ///<param name="position">Position to transform.</param>
         ///<param name="transform">Transform to apply.</param>
         ///<param name="result">Transformed position.</param>
-        public static void Transform(ref FixVector3 position, ref RigidTransform transform, out FixVector3 result)
+        public static void Transform(in FixVector3 position, in RigidTransform transform, out FixVector3 result)
         {
             FixVector3 intermediate;
-            FixQuaternion.Transform(ref position, ref transform.Orientation, out intermediate);
-            FixVector3.Add(ref intermediate, ref transform.Position, out result);
+            FixQuaternion.Transform(in position, in transform.Orientation, out intermediate);
+            FixVector3.Add(in intermediate, in transform.Position, out result);
         }
 
 
@@ -146,13 +146,13 @@ namespace FixedMath.Geomtry
         ///<param name="position">Position to transform.</param>
         ///<param name="transform">Transform to invert and apply.</param>
         ///<param name="result">Transformed position.</param>
-        public static void TransformByInverse(ref FixVector3 position, ref RigidTransform transform, out FixVector3 result)
+        public static void TransformByInverse(in FixVector3 position, in RigidTransform transform, out FixVector3 result)
         {
             FixQuaternion orientation;
             FixVector3 intermediate;
-            FixVector3.Subtract(ref position, ref transform.Position, out intermediate);
-            FixQuaternion.Conjugate(ref transform.Orientation, out orientation);
-            FixQuaternion.Transform(ref intermediate, ref orientation, out result);
+            FixVector3.Subtract(in position, in transform.Position, out intermediate);
+            FixQuaternion.Conjugate(in transform.Orientation, out orientation);
+            FixQuaternion.Transform(in intermediate, in orientation, out result);
         }
 
 

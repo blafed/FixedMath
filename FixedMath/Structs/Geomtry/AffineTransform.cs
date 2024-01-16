@@ -18,7 +18,7 @@
         /// Constructs a new affine transform.
         ///</summary>
         ///<param name="translation">Translation to use in the transform.</param>
-        public AffineTransform(ref FixVector3 translation)
+        public AffineTransform(in FixVector3 translation)
         {
             LinearTransform = FixMatrix3x3.Identity;
             Translation = translation;
@@ -29,7 +29,7 @@
         ///</summary>
         ///<param name="translation">Translation to use in the transform.</param>
         public AffineTransform(FixVector3 translation)
-            : this(ref translation)
+            : this(in translation)
         {
         }
 
@@ -38,9 +38,9 @@
         ///</summary>
         ///<param name="orientation">Orientation to use as the linear transform.</param>
         ///<param name="translation">Translation to use in the transform.</param>
-        public AffineTransform(ref FixQuaternion orientation, ref FixVector3 translation)
+        public AffineTransform(in FixQuaternion orientation, in FixVector3 translation)
         {
-            FixMatrix3x3.CreateFromQuaternion(ref orientation, out LinearTransform);
+            FixMatrix3x3.CreateFromQuaternion(in orientation, out LinearTransform);
             Translation = translation;
         }
 
@@ -50,7 +50,7 @@
         ///<param name="orientation">Orientation to use as the linear transform.</param>
         ///<param name="translation">Translation to use in the transform.</param>
         public AffineTransform(FixQuaternion orientation, FixVector3 translation)
-            : this(ref orientation, ref translation)
+            : this(in orientation, in translation)
         {
         }
 
@@ -60,13 +60,13 @@
         ///<param name="scaling">Scaling to apply in the linear transform.</param>
         ///<param name="orientation">Orientation to apply in the linear transform.</param>
         ///<param name="translation">Translation to apply.</param>
-        public AffineTransform(ref FixVector3 scaling, ref FixQuaternion orientation, ref FixVector3 translation)
+        public AffineTransform(in FixVector3 scaling, in FixQuaternion orientation, in FixVector3 translation)
         {
             //Create an SRT transform.
-            FixMatrix3x3.CreateScale(ref scaling, out LinearTransform);
+            FixMatrix3x3.CreateScale(in scaling, out LinearTransform);
             FixMatrix3x3 rotation;
-            FixMatrix3x3.CreateFromQuaternion(ref orientation, out rotation);
-            FixMatrix3x3.Multiply(ref LinearTransform, ref rotation, out LinearTransform);
+            FixMatrix3x3.CreateFromQuaternion(in orientation, out rotation);
+            FixMatrix3x3.Multiply(in LinearTransform, in rotation, out LinearTransform);
             Translation = translation;
         }
 
@@ -77,7 +77,7 @@
         ///<param name="orientation">Orientation to apply in the linear transform.</param>
         ///<param name="translation">Translation to apply.</param>
         public AffineTransform(FixVector3 scaling, FixQuaternion orientation, FixVector3 translation)
-            : this(ref scaling, ref orientation, ref translation)
+            : this(in scaling, in orientation, in translation)
         {
         }
 
@@ -86,7 +86,7 @@
         ///</summary>
         ///<param name="linearTransform">The linear transform component.</param>
         ///<param name="translation">Translation component of the transform.</param>
-        public AffineTransform(ref FixMatrix3x3 linearTransform, ref FixVector3 translation)
+        public AffineTransform(in FixMatrix3x3 linearTransform, in FixVector3 translation)
         {
             LinearTransform = linearTransform;
             Translation = translation;
@@ -99,7 +99,7 @@
         ///<param name="linearTransform">The linear transform component.</param>
         ///<param name="translation">Translation component of the transform.</param>
         public AffineTransform(FixMatrix3x3 linearTransform, FixVector3 translation)
-            : this(ref linearTransform, ref translation)
+            : this(in linearTransform, in translation)
         {
         }
 
@@ -113,13 +113,13 @@
             get
             {
                 FixMatrix4x4 toReturn;
-                FixMatrix3x3.ToMatrix4X4(ref LinearTransform, out toReturn);
+                FixMatrix3x3.ToMatrix4X4(in LinearTransform, out toReturn);
                 toReturn.Translation = Translation;
                 return toReturn;
             }
             set
             {
-                FixMatrix3x3.CreateFromMatrix(ref value, out LinearTransform);
+                FixMatrix3x3.CreateFromMatrix(in value, out LinearTransform);
                 Translation = value.Translation;
             }
         }
@@ -143,10 +143,10 @@
         ///<param name="position">Position to transform.</param>
         ///<param name="transform">Transform to apply.</param>
         ///<param name="transformed">Transformed position.</param>
-        public static void Transform(ref FixVector3 position, ref AffineTransform transform, out FixVector3 transformed)
+        public static void Transform(in FixVector3 position, in AffineTransform transform, out FixVector3 transformed)
         {
-            FixMatrix3x3.Transform(ref position, ref transform.LinearTransform, out transformed);
-            FixVector3.Add(ref transformed, ref transform.Translation, out transformed);
+            FixMatrix3x3.Transform(in position, in transform.LinearTransform, out transformed);
+            FixVector3.Add(in transformed, in transform.Translation, out transformed);
         }
 
         ///<summary>
@@ -155,12 +155,12 @@
         ///<param name="position">Position to transform.</param>
         ///<param name="transform">Transform to invert and apply.</param>
         ///<param name="transformed">Transformed position.</param>
-        public static void TransformInverse(ref FixVector3 position, ref AffineTransform transform, out FixVector3 transformed)
+        public static void TransformInverse(in FixVector3 position, in AffineTransform transform, out FixVector3 transformed)
         {
-            FixVector3.Subtract(ref position, ref transform.Translation, out transformed);
+            FixVector3.Subtract(in position, in transform.Translation, out transformed);
             FixMatrix3x3 inverse;
-            FixMatrix3x3.Invert(ref transform.LinearTransform, out inverse);
-            FixMatrix3x3.TransformTranspose(ref transformed, ref inverse, out transformed);
+            FixMatrix3x3.Invert(in transform.LinearTransform, out inverse);
+            FixMatrix3x3.TransformTranspose(in transformed, in inverse, out transformed);
         }
 
         ///<summary>
@@ -168,11 +168,11 @@
         ///</summary>
         ///<param name="transform">Transform to invert.</param>
         /// <param name="inverse">Inverse of the transform.</param>
-        public static void Invert(ref AffineTransform transform, out AffineTransform inverse)
+        public static void Invert(in AffineTransform transform, out AffineTransform inverse)
         {
-            FixMatrix3x3.Invert(ref transform.LinearTransform, out inverse.LinearTransform);
-            FixMatrix3x3.Transform(ref transform.Translation, ref inverse.LinearTransform, out inverse.Translation);
-            FixVector3.Negate(ref inverse.Translation, out inverse.Translation);
+            FixMatrix3x3.Invert(in transform.LinearTransform, out inverse.LinearTransform);
+            FixMatrix3x3.Transform(in transform.Translation, in inverse.LinearTransform, out inverse.Translation);
+            FixVector3.Negate(in inverse.Translation, out inverse.Translation);
         }
 
         /// <summary>
@@ -181,13 +181,13 @@
         /// <param name="a">First transform.</param>
         /// <param name="b">Second transform.</param>
         /// <param name="transform">Combined transform.</param>
-        public static void Multiply(ref AffineTransform a, ref AffineTransform b, out AffineTransform transform)
+        public static void Multiply(in AffineTransform a, in AffineTransform b, out AffineTransform transform)
         {
             FixMatrix3x3 linearTransform;//Have to use temporary variable just in case a or b reference is transform.
-            FixMatrix3x3.Multiply(ref a.LinearTransform, ref b.LinearTransform, out linearTransform);
+            FixMatrix3x3.Multiply(in a.LinearTransform, in b.LinearTransform, out linearTransform);
             FixVector3 translation;
-            FixMatrix3x3.Transform(ref a.Translation, ref b.LinearTransform, out translation);
-            FixVector3.Add(ref translation, ref b.Translation, out transform.Translation);
+            FixMatrix3x3.Transform(in a.Translation, in b.LinearTransform, out translation);
+            FixVector3.Add(in translation, in b.Translation, out transform.Translation);
             transform.LinearTransform = linearTransform;
         }
 
@@ -197,14 +197,14 @@
         ///<param name="a">Rigid transform.</param>
         ///<param name="b">Affine transform.</param>
         ///<param name="transform">Combined transform.</param>
-        public static void Multiply(ref RigidTransform a, ref AffineTransform b, out AffineTransform transform)
+        public static void Multiply(in RigidTransform a, in AffineTransform b, out AffineTransform transform)
         {
             FixMatrix3x3 linearTransform;//Have to use temporary variable just in case b reference is transform.
-            FixMatrix3x3.CreateFromQuaternion(ref a.Orientation, out linearTransform);
-            FixMatrix3x3.Multiply(ref linearTransform, ref b.LinearTransform, out linearTransform);
+            FixMatrix3x3.CreateFromQuaternion(in a.Orientation, out linearTransform);
+            FixMatrix3x3.Multiply(in linearTransform, in b.LinearTransform, out linearTransform);
             FixVector3 translation;
-            FixMatrix3x3.Transform(ref a.Position, ref b.LinearTransform, out translation);
-            FixVector3.Add(ref translation, ref b.Translation, out transform.Translation);
+            FixMatrix3x3.Transform(in a.Position, in b.LinearTransform, out translation);
+            FixVector3.Add(in translation, in b.Translation, out transform.Translation);
             transform.LinearTransform = linearTransform;
         }
 
@@ -218,7 +218,7 @@
         public static FixVector3 Transform(FixVector3 position, AffineTransform affineTransform)
         {
             FixVector3 toReturn;
-            Transform(ref position, ref affineTransform, out toReturn);
+            Transform(in position, in affineTransform, out toReturn);
             return toReturn;
         }
 
@@ -227,10 +227,10 @@
         /// </summary>
         /// <param name="rigid">Rigid transform to base the affine transform on.</param>
         /// <param name="affine">Affine transform created from the rigid transform.</param>
-        public static void CreateFromRigidTransform(ref RigidTransform rigid, out AffineTransform affine)
+        public static void CreateFromRigidTransform(in RigidTransform rigid, out AffineTransform affine)
         {
             affine.Translation = rigid.Position;
-            FixMatrix3x3.CreateFromQuaternion(ref rigid.Orientation, out affine.LinearTransform);
+            FixMatrix3x3.CreateFromQuaternion(in rigid.Orientation, out affine.LinearTransform);
         }
 
         /// <summary>
@@ -242,7 +242,7 @@
         {
             AffineTransform toReturn;
             toReturn.Translation = rigid.Position;
-            FixMatrix3x3.CreateFromQuaternion(ref rigid.Orientation, out toReturn.LinearTransform);
+            FixMatrix3x3.CreateFromQuaternion(in rigid.Orientation, out toReturn.LinearTransform);
             return toReturn;
         }
 

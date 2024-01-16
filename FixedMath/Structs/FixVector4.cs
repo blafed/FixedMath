@@ -179,7 +179,7 @@ namespace FixedMath
         /// <param name="a">First vector in the product.</param>
         /// <param name="b">Second vector in the product.</param>
         /// <param name="product">Resulting dot product.</param>
-        public static void Dot(ref FixVector4 a, ref FixVector4 b, out Fix64 product)
+        public static void Dot(in FixVector4 a, in FixVector4 b, out Fix64 product)
         {
             product = a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
         }
@@ -189,7 +189,7 @@ namespace FixedMath
         /// <param name="a">First vector to add.</param>
         /// <param name="b">Second vector to add.</param>
         /// <param name="sum">Sum of the two vectors.</param>
-        public static void Add(ref FixVector4 a, ref FixVector4 b, out FixVector4 sum)
+        public static void Add(in FixVector4 a, in FixVector4 b, out FixVector4 sum)
         {
             sum.x = a.x + b.x;
             sum.y = a.y + b.y;
@@ -202,7 +202,7 @@ namespace FixedMath
         /// <param name="a">Vector to subtract from.</param>
         /// <param name="b">Vector to subtract from the first vector.</param>
         /// <param name="difference">Result of the subtraction.</param>
-        public static void Subtract(ref FixVector4 a, ref FixVector4 b, out FixVector4 difference)
+        public static void Subtract(in FixVector4 a, in FixVector4 b, out FixVector4 difference)
         {
             difference.x = a.x - b.x;
             difference.y = a.y - b.y;
@@ -215,7 +215,7 @@ namespace FixedMath
         /// <param name="v">Vector to scale.</param>
         /// <param name="scale">Amount to scale.</param>
         /// <param name="result">Scaled vector.</param>
-        public static void Multiply(ref FixVector4 v, Fix64 scale, out FixVector4 result)
+        public static void Multiply(in FixVector4 v, Fix64 scale, out FixVector4 result)
         {
             result.x = v.x * scale;
             result.y = v.y * scale;
@@ -230,7 +230,7 @@ namespace FixedMath
         /// <param name="a">First vector to multiply.</param>
         /// <param name="b">Second vector to multiply.</param>
         /// <param name="result">Result of the componentwise multiplication.</param>
-        public static void Multiply(ref FixVector4 a, ref FixVector4 b, out FixVector4 result)
+        public static void Multiply(in FixVector4 a, in FixVector4 b, out FixVector4 result)
         {
             result.x = a.x * b.x;
             result.y = a.y * b.y;
@@ -245,7 +245,7 @@ namespace FixedMath
         /// <param name="v">Vector to divide.</param>
         /// <param name="divisor">Value to divide the vector's components.</param>
         /// <param name="result">Result of the division.</param>
-        public static void Divide(ref FixVector4 v, Fix64 divisor, out FixVector4 result)
+        public static void Divide(in FixVector4 v, Fix64 divisor, out FixVector4 result)
         {
             Fix64 inverse = F64.C1 / divisor;
             result.x = v.x * inverse;
@@ -294,7 +294,7 @@ namespace FixedMath
         public static FixVector4 operator *(FixVector4 a, FixVector4 b)
         {
             FixVector4 result;
-            Multiply(ref a, ref b, out result);
+            Multiply(in a, in b, out result);
             return result;
         }
 
@@ -427,7 +427,7 @@ namespace FixedMath
         /// <param name="a">First vector.</param>
         /// <param name="b">Second vector.</param>
         /// <param name="distanceSquared">Squared distance between the two vectors.</param>
-        public static void DistanceSquared(ref FixVector4 a, ref FixVector4 b, out Fix64 distanceSquared)
+        public static void DistanceSquared(in FixVector4 a, in FixVector4 b, out Fix64 distanceSquared)
         {
             Fix64 x = a.x - b.x;
             Fix64 y = a.y - b.y;
@@ -442,7 +442,7 @@ namespace FixedMath
         /// <param name="a">First vector.</param>
         /// <param name="b">Second vector.</param>
         /// <param name="distance">Distance between the two vectors.</param>
-        public static void Distance(ref FixVector4 a, ref FixVector4 b, out Fix64 distance)
+        public static void Distance(in FixVector4 a, in FixVector4 b, out Fix64 distance)
         {
             Fix64 x = a.x - b.x;
             Fix64 y = a.y - b.y;
@@ -459,7 +459,7 @@ namespace FixedMath
         public static Fix64 Distance(FixVector4 a, FixVector4 b)
         {
             Fix64 toReturn;
-            Distance(ref a, ref b, out toReturn);
+            Distance(in a, in b, out toReturn);
             return toReturn;
         }
 
@@ -514,7 +514,7 @@ namespace FixedMath
         public static FixVector4 Normalize(FixVector4 v)
         {
             FixVector4 toReturn;
-            FixVector4.Normalize(ref v, out toReturn);
+            FixVector4.Normalize(in v, out toReturn);
             return toReturn;
         }
 
@@ -523,7 +523,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="v">Vector to normalize.</param>
         /// <param name="result">Normalized vector.</param>
-        public static void Normalize(ref FixVector4 v, out FixVector4 result)
+        public static void Normalize(in FixVector4 v, out FixVector4 result)
         {
             Fix64 inverse = F64.C1 / Fix64.Sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
             result.x = v.x * inverse;
@@ -537,7 +537,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="v">Vector to negate.</param>
         /// <param name="negated">Negated vector.</param>
-        public static void Negate(ref FixVector4 v, out FixVector4 negated)
+        public static void Negate(in FixVector4 v, out FixVector4 negated)
         {
             negated.x = -v.x;
             negated.y = -v.y;
@@ -551,7 +551,7 @@ namespace FixedMath
         /// </summary>
         /// <param name="v">Vector to take the absolute value of.</param>
         /// <param name="result">Vector with nonnegative elements.</param>
-        public static void Abs(ref FixVector4 v, out FixVector4 result)
+        public static void Abs(in FixVector4 v, out FixVector4 result)
         {
             if (v.x < F64.C0)
                 result.x = -v.x;
@@ -579,7 +579,7 @@ namespace FixedMath
         public static FixVector4 Abs(FixVector4 v)
         {
             FixVector4 result;
-            Abs(ref v, out result);
+            Abs(in v, out result);
             return result;
         }
 
@@ -589,7 +589,7 @@ namespace FixedMath
         /// <param name="a">First input vector to compare values from.</param>
         /// <param name="b">Second input vector to compare values from.</param>
         /// <param name="min">Vector containing the lesser values of each vector.</param>
-        public static void Min(ref FixVector4 a, ref FixVector4 b, out FixVector4 min)
+        public static void Min(in FixVector4 a, in FixVector4 b, out FixVector4 min)
         {
             min.x = a.x < b.x ? a.x : b.x;
             min.y = a.y < b.y ? a.y : b.y;
@@ -606,7 +606,7 @@ namespace FixedMath
         public static FixVector4 Min(FixVector4 a, FixVector4 b)
         {
             FixVector4 result;
-            Min(ref a, ref b, out result);
+            Min(in a, in b, out result);
             return result;
         }
 
@@ -617,7 +617,7 @@ namespace FixedMath
         /// <param name="a">First input vector to compare values from.</param>
         /// <param name="b">Second input vector to compare values from.</param>
         /// <param name="max">Vector containing the greater values of each vector.</param>
-        public static void Max(ref FixVector4 a, ref FixVector4 b, out FixVector4 max)
+        public static void Max(in FixVector4 a, in FixVector4 b, out FixVector4 max)
         {
             max.x = a.x > b.x ? a.x : b.x;
             max.y = a.y > b.y ? a.y : b.y;
@@ -634,7 +634,7 @@ namespace FixedMath
         public static FixVector4 Max(FixVector4 a, FixVector4 b)
         {
             FixVector4 result;
-            Max(ref a, ref b, out result);
+            Max(in a, in b, out result);
             return result;
         }
 
@@ -648,7 +648,7 @@ namespace FixedMath
         public static FixVector4 Lerp(FixVector4 start, FixVector4 end, Fix64 interpolationAmount)
         {
             FixVector4 toReturn;
-            Lerp(ref start, ref end, interpolationAmount, out toReturn);
+            Lerp(in start, in end, interpolationAmount, out toReturn);
             return toReturn;
         }
         /// <summary>
@@ -658,7 +658,7 @@ namespace FixedMath
         /// <param name="end">Ending location of the interpolation.</param>
         /// <param name="interpolationAmount">Amount of the end location to use.</param>
         /// <param name="result">Interpolated intermediate state.</param>
-        public static void Lerp(ref FixVector4 start, ref FixVector4 end, Fix64 interpolationAmount, out FixVector4 result)
+        public static void Lerp(in FixVector4 start, in FixVector4 end, Fix64 interpolationAmount, out FixVector4 result)
         {
             Fix64 startAmount = F64.C1 - interpolationAmount;
             result.x = start.x * startAmount + end.x * interpolationAmount;
@@ -676,7 +676,7 @@ namespace FixedMath
         /// <param name="tangent2">Tangent associated with the second position.</param>
         /// <param name="interpolationAmount">Amount of the second point to use.</param>
         /// <param name="result">Interpolated intermediate state.</param>
-        public static void Hermite(ref FixVector4 value1, ref FixVector4 tangent1, ref FixVector4 value2, ref FixVector4 tangent2, Fix64 interpolationAmount, out FixVector4 result)
+        public static void Hermite(in FixVector4 value1, in FixVector4 tangent1, in FixVector4 value2, in FixVector4 tangent2, Fix64 interpolationAmount, out FixVector4 result)
         {
             Fix64 weightSquared = interpolationAmount * interpolationAmount;
             Fix64 weightCubed = interpolationAmount * weightSquared;
@@ -701,7 +701,7 @@ namespace FixedMath
         public static FixVector4 Hermite(FixVector4 value1, FixVector4 tangent1, FixVector4 value2, FixVector4 tangent2, Fix64 interpolationAmount)
         {
             FixVector4 toReturn;
-            Hermite(ref value1, ref tangent1, ref value2, ref tangent2, interpolationAmount, out toReturn);
+            Hermite(in value1, in tangent1, in value2, in tangent2, interpolationAmount, out toReturn);
             return toReturn;
         }
     }
