@@ -2,7 +2,14 @@
 
 - Targetting Dotnet standard 2.0
 - Changed file names and namespaces
-- (experimental) Vector2, Vector3, Quaterion and math utils
+- Vector2, Vector3, Vector4, Matrix2x2, Matrix2x3, Matrix3x2, Matrix3x3, Matrix4x4, Quaternion
+
+# Credits
+
+The structs are taken from:
+
+- https://github.com/sam-vdp/bepuphysics1int
+- https://github.com/bepu/bepuphysics1
 
 # Original
 
